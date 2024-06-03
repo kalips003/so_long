@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:34:49 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/13 18:03:09 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:17:31 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	find_str(char *str, char *str_pattern)
 }
 
 //////////////////////////////////////////////////////
-//  #   FIND SUBSTRING, RETURN POSI, -1 IF NOT FOUND
+//  #   FIND EXACT STRING return 1
+// return 0 if not
 int	same_str(char *str, char *str_pattern)
 {
 	int	lenght;
@@ -47,6 +48,6 @@ int	same_str(char *str, char *str_pattern)
 	lenght = len(str);
 	lenght2 = len(str_pattern);
 	if (lenght == lenght2 && !find_str(str, str_pattern))
-		return (0);
-	return (-1);
+		return (1);
+	return (0);
 }

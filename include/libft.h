@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:06:26 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/31 15:46:00 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:24:23 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@
 // # 	GET NEXT LINE									///
 # define BUFFER_SIZE 32
 
-typedef struct s_list {
+typedef struct s_gnl {
 	char			buff[BUFFER_SIZE];
-	struct s_list	*next;
-}	t_list;
+	struct s_gnl	*next;
+}	t_gnl;
 
 char		*gnl(int fd);
-t_list		*ini_node(t_list *first_list, char (*g_temp)[BUFFER_SIZE], int fd);
+t_gnl		*ini_node(t_gnl *first_list, char (*g_temp)[BUFFER_SIZE], int fd);
 void		clean_buff(char *buff, int sw);
-void		free_all(t_list **first_list);
-void		f_copy_rest(t_list *last_list, char (*g_temp)[BUFFER_SIZE], int fd);
-char		*f_rtrn_2(t_list *first_list, char *rtrn, int size);
-char		*f_rtrn_1(t_list *first_list, int fd, char (*g_temp)[BUFFER_SIZE]);
-int			is_there_n(t_list *node);
-int			rtrn_size(t_list *first_list, int fd, char (*g_temp)[BUFFER_SIZE]);
+void		free_all(t_gnl **first_list);
+void		f_copy_rest(t_gnl *last_list, char (*g_temp)[BUFFER_SIZE], int fd);
+char		*f_rtrn_2(t_gnl *first_list, char *rtrn, int size);
+char		*f_rtrn_1(t_gnl *first_list, int fd, char (*g_temp)[BUFFER_SIZE]);
+int			is_there_n(t_gnl *node);
+int			rtrn_size(t_gnl *first_list, int fd, char (*g_temp)[BUFFER_SIZE]);
 
 ////////////////////////////////////////////////////////////
 // # 	LIBFT											///
@@ -58,6 +58,7 @@ int			tab_size(char **tab);
 //
 int			atoi_v(const char *str);
 int			ft_atoi(char *str, int *error);
+int			ft_atoi_v2(char *str, int *i, int *error);
 //
 char		*ft_memset(void *s, char c, int size);
 void		*mem(char c, int size);
@@ -70,8 +71,8 @@ int			max_all(int how_many, ...);
 //
 void		*expand(void *ptr, int size, int add);
 char		**expand_tab(char **tab, char *new_line);
-void		free_tab(char **tab);
-void		free_s(void **ptr);
+void		*free_tab(char **tab);
+void		*free_s(void *ptr);
 //
 int			find_str(char *str, char *str_pattern);
 int			same_str(char *str, char *str_pattern);

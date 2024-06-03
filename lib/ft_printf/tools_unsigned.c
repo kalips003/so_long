@@ -55,24 +55,24 @@ int	f_format_num_un(t_flags *f, unsigned long num, int size_num)
 
 	prefix = 0;
 	if (num == 0 && f->space)
-		prefix += write(1, " ", 1);
+		prefix += write(f->fd, " ", 1);
 	if (num == 0 && f->plus)
-		prefix += write(1, "+", 1);
+		prefix += write(f->fd, "+", 1);
 	if (num)
-		prefix += write(1, "0x", 2);
+		prefix += write(f->fd, "0x", 2);
 	i = 0;
 	if (f->point)
 		while (i < f->preci - size_num)
-			i += write(1, "0", 1);
+			i += write(f->fd, "0", 1);
 	else if (f->zero)
 		while (i < f->width - size_num - prefix)
-			i += write(1, "0", 1);
+			i += write(f->fd, "0", 1);
 	return (i + prefix);
 }
 
 ////////////////////////////////////////////////////////////
 //	#	WRITE NUM IN CORRESPONDING BASE, NO SIGN
-int	ft_putnbr_base_un(unsigned long nbr, char *base)
+int	ft_putnbr_base_un(int fd, unsigned long nbr, char *base)
 {
 	int			size;
 	int			rtrn;
@@ -80,7 +80,7 @@ int	ft_putnbr_base_un(unsigned long nbr, char *base)
 	rtrn = 0;
 	size = ft_strlen(base);
 	if (nbr >= (unsigned long)size)
-		rtrn += ft_putnbr_base(nbr / size, base);
-	write(1, &base[nbr % size], 1);
+		rtrn += ft_putnbr_base(fd, nbr / size, base);
+	write(fd, &base[nbr % size], 1);
 	return (rtrn + 1);
 }

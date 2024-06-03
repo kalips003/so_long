@@ -13,7 +13,7 @@ a: libft mlx $(NAME)
 
 b: libft mlx $(NAME)
 	clear
-	valgrind ./so_long map/map_no_collect.ber
+	valgrind ./so_long map/map_bad_path.ber
 
 v: libft mlx $(NAME)
 	clear
@@ -61,13 +61,13 @@ mlx:
 # │                  	 	       PROJECT                   	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-$(NAME): mlx libft $(OBJ)
+$(NAME): mlx libft $(OBJ) main.c
 	@clear
 	@if ! $(CC) $(FLAGS) $(OBJ) main.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a -lX11 -lXext -o $(NAME) -lm; then \
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
-	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(GREEN1), $(call pad_word, 10, $(NAME)), $(call pad_word, 12, "Compiled~")); \
+	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(GREEN1), $(call pad_word, 10, $(NAME)), $(call pad_word, 12, "Compiled~"));
 
 
 src/obj/%.o: src/%.c
@@ -83,7 +83,28 @@ src/obj/%.o: src/%.c
 # │                  	 	       BONUS	                   	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-bonus:
+SRC_B = $(wildcard src_bonus/*.c)
+OBJ_B = $(patsubst src_bonus/%.c, src_bonus/obj/%.o, $(SRC_B))
+
+OBJ_FOLDER_B = src_bonus/obj
+
+bonus: mlx libft $(OBJ_B) main_bonus.c
+	@clear
+	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a -lX11 -lXext -o $(NAME_BONUS) -lm; then \
+		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
+		exit 1; \
+	fi
+	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
+
+
+src_bonus/obj/%.o: src_bonus/%.c
+	@if [ ! -e $(OBJ_FOLDER_B) ]; then\
+		mkdir -p $(OBJ_FOLDER_B);\
+	fi
+	@if ! $(CC) -c $(FLAGS) -I$(HEADER_FOLDER) $< -o $@; then \
+		$(call print_cat_error, $(RED), $(RED_L)); \
+		exit 1; \
+	fi
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	       OTHERS	                   	         │

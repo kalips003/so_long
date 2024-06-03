@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////
 ///////////////////// %[# +-0][*0-9].[*0-9][scpiduxX%*bofeE]
 //	#	INI STRUCT
-void	f_ini_struct(t_flags *f)
+void	f_ini_struct(t_flags *f, int fd)
 {
 	f->minus = 0;
 	f->zero = 0;
@@ -32,6 +32,7 @@ void	f_ini_struct(t_flags *f)
 	f->tmp_a = 0;
 	f->num_b = 0;
 	f->rtrn = NULL;
+	f->fd = fd;
 }
 
 ////////////////////////////////////////////////////////////
