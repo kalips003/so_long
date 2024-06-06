@@ -18,26 +18,19 @@
 > resize all sprites, + up direction (64 px)
 
 
-
-animation exit, closed if not all collec
-tweak anim time
-
 bulbizare create grass behind him, grass is 0 or '*'
 
 
+
+make github > ask input for comment
+git commit -m "$(date) + print memory "
+
+
 lib > comment line of norm size\
-
-home set up idok black screem with ctrl Lock
-
 random cat color makefile
 
-// Method 2: Use a compound literal (since C99)
-// draw_line(data, (int[]){some_variable + 123, 59}, int b[2], int color);
-
 * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-//, void (*del)(void *),
-// int my_function(int num, ...);
+// MACRO
 // #define funct(ap, type)    (*(type *)((ap += sizeof(type)) - sizeof(type)))
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
