@@ -3,8 +3,15 @@
 static void f_print_memory(t_data2 *data)
 {
     put(CLS"%#*S", offsetof(t_data2, walk_count), data);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
-    put(BLINK"%#*S", sizeof(t_data2) - offsetof(t_data2, num_ball), &data->walk_count);
+    put(BLINK"%.8d"R_BLINK, &data->walk_count);
+    // put(BLINK"%#*S"R_BLINK, sizeof(t_data2) - offsetof(t_data2, num_ball), &data->walk_count);
     put("\n%#*S", sizeof(int[4]) * data->num_pika, &data->pika[0]);
+    // put(CLS"%#*.*S", sizeof(t_data2), sizeof(t_img), data);
+}
+
+static void f_print_memory_v2(t_data2 *data)
+{
+    put(CLS"\n%#S", &data->pika[0]);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
@@ -13,6 +20,8 @@ int ft_loop(t_data2 *data)
     char *message;
     
     f_print_memory(data);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+    if (data->time_freeze)
+        return (0);
     data->time_frame = (data->time_frame + 1) % TIME_F;
     check_what_your_walking_on(data);
     if (data->player[3] < 0)

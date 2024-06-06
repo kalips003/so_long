@@ -34,7 +34,7 @@ void is_map_ok_v2(t_data2 *data, char *path)
         exit_all_v2(data);
 // valid path?
     if (valid_path_v2(data))
-        (put("bad pathing\n"), exit_all_v2(data));
+        (put("bad pathing\n%.3t\n", data->map), exit_all_v2(data));
 }
 
 ///////////////////////////////////////////////////////////////////////////////]

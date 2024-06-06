@@ -181,12 +181,12 @@ typedef struct s_data2
 	int		map_y;
 	// of map
 
+	int		walk_count;
 	int		num_ball;
 	int		num_collected;
 	int		num_holding;
 	int		num_pika;
 	int		num_pika_caught;
-	int		walk_count;
 
 	int		player[4];
 	int		exit[4];// exit 4 used of event time?
@@ -198,6 +198,7 @@ typedef struct s_data2
 	int 	is_all_collected;
 	int 	boy_or_girl;
 	int 	running;
+	int 	time_freeze;
 	int 	starter;
 	int 	stamina;
 
