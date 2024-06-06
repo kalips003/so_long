@@ -12,12 +12,13 @@
 
 #include "so_long.h"
 
-/***************************************************************
+///////////////////////////////////////////////////////////////////////////////]
+/*******************************************************************************
 	fill map with gnl, check if rectangle
 	return 1 on error, with map free
 	fill map->map_x, map->map_y
-****************************************************************/
-int	fill_map(t_data2 *data, int fd_map)
+*******************************************************************************/
+int	fill_map_v2(t_data2 *data, int fd_map)
 {
 	data->map = expand_tab(NULL, gnl(fd_map));
 	if (!data->map || !data->map[0])
@@ -35,25 +36,27 @@ int	fill_map(t_data2 *data, int fd_map)
 	return (0);
 }
 
-/***************************************************************
+/*******************************************************************************
 	fill num_ball, num_exit, num_start
 	return 1 on error, with map not free
-****************************************************************/
+*******************************************************************************/
 static void	copy_posi(int *ptr, int x, int y)
 {
 	ptr[0] = x * SPRITE_SIZE;
 	ptr[1] = y * SPRITE_SIZE;
 	ptr[2]++;
+	ptr[3] = -1;
 }
 
 static void	ft_posi_pika(t_data2 *data, int x, int y)
 {
-	data->pika = (int(*)[3])expand(data->pika, data->num_pika * sizeof(int[3]), sizeof(int[3]));
+	data->pika = (int( *)[4])expand(data->pika, data->num_pika * sizeof(int[4]), sizeof(int[4]));
 	if (!data->pika)
-		(put("error expension\n"), exit_all(data));
+		(put("error expension\n"), exit_all_v2(data));
 	data->pika[data->num_pika][0] = x * SPRITE_SIZE;
 	data->pika[data->num_pika][1] = y * SPRITE_SIZE;
 	data->pika[data->num_pika][2] = 3;
+	data->pika[data->num_pika][3] = -1;
 	data->num_pika++;
 }
 
@@ -79,8 +82,8 @@ static int	small_check(t_data2 *data)
 	return (0);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-int	count_check(t_data2 *data)
+///////////////////////////////////////////////////////////////////////////////]
+int	count_check_v2(t_data2 *data)
 {
 	int	x;
 	int	y;

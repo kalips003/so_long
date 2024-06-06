@@ -3,6 +3,9 @@
 #include "../include/libft.h"
 #include "../include/so_long.h"
 
+/*******************************************************************************
+*******************************************************************************/
+// <!> - - - - - - - - - - - </!>
 ///////////////////////////////////////////////////////////////////////////////]
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 ░█████╗░  ███████╗░█████╗░██╗██████╗░███████╗
@@ -19,16 +22,24 @@
 animation exit, closed if not all collec
 tweak anim time
 
+bulbizare create grass behind him, grass is 0 or '*'
 
 
+lib > comment line of norm size\
 
-lib > comment line of norm size
+home set up idok black screem with ctrl Lock
+
+random cat color makefile
+
+// Method 2: Use a compound literal (since C99)
+// draw_line(data, (int[]){some_variable + 123, 59}, int b[2], int color);
+
 * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 //, void (*del)(void *),
 // int my_function(int num, ...);
 // #define funct(ap, type)    (*(type *)((ap += sizeof(type)) - sizeof(type)))
-
+///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
     char *string = str("heello\n");
@@ -37,6 +48,15 @@ int	main(int ac, char **av, char **env)
     free_s(string);
     return 0;
 }
+///////////////////////////////////////////////////////////////////////////////]
+void    f_()
+{
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+does somethign
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+}
+///////////////////////////////////////////////////////////////////////////////]
 
 // while (((condition1) & bit) || ((condition2) & ~bit))
 

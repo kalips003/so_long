@@ -23,7 +23,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
+// # include <sys/wait.h>
 # include <time.h>
 
 # include "ft_printf.h"

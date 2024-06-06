@@ -1,80 +1,63 @@
 # include "so_long.h"
 
-/***************************************************************
-    create map, free it in all cases
-    do all the tests, exit in case of any error
-****************************************************************/
-void is_map_ok(t_data *data, char *path)
-{
-    int fd_map;
+///////////////////////////////////////////////////////////////////////////////]
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+░█████╗░  ███████╗░█████╗░██╗██████╗░███████╗
+██╔══██╗  ██╔════╝██╔══██╗██║██╔══██╗██╔════╝
+███████║  █████╗░░███████║██║██████╔╝█████╗░░
+██╔══██║  ██╔══╝░░██╔══██║██║██╔══██╗██╔══╝░░
+██║░░██║  ██║░░░░░██║░░██║██║██║░░██║███████╗
+╚═╝░░╚═╝  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝╚══════╝
 
-    ft_memset(data, 0, sizeof(t_data));
-// map path end in ".ber"
-    if (find_str(path, ".ber") != len(path) - 4)
-        (put("bad argument\n"), exit(1));
-// create map struct
-    fd_map = open(path, O_RDONLY);
-    if (fd_map == -1)
-        (perror("open"), exit(1));
-// fill map
-    if (fill_map(data, fd_map) || count_check(data))
-        exit_all(data);
-// valid path?
-    if (valid_path(data))
-        (put("bad pathing\n"), exit_all(data));
+
+
+bulbizare create grass behind him, grass is 0 or '*'
+
+
+
+use empty sprites to create elec sprites rendered when player time < 0
+
+///////////////////////////////////////////////////////////////////////////////]
+// Method 2: Use a compound literal (since C99)
+// draw_line(data, (int[]){some_variable + 123, 59}, int b[2], int color);
+
+lib > comment line of norm size\
+random cat color makefile
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+static void boy_or_girl(t_data2 *data)
+{
+    char *answer;
+
+    put(COLOR_3R_0G_0B"Are you a boy or a girl?\n\t: "RESET);
+    answer = gnl(0);
+    if (find_str(answer, "boy") > 0)
+        data->boy_or_girl = 0;
+    else if (find_str(answer, "girl") > 0)
+        data->boy_or_girl = 1;
+    else
+        data->boy_or_girl = 2;
+    free_s(answer);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
 int main(int ac, char **av)
 {
-	t_data  data;
+	t_data2  data;
 
     if (ac != 2)
         return (put("bad arguments\n"), 1);
-    is_map_ok(&data, av[1]);
+    is_map_ok_v2(&data, av[1]);
+    boy_or_girl(&data);
 ////////////////////////////////////////
 	data.mlx = mlx_init();
     if (!data.mlx)
-        exit_all(&data);
-    ini_texture(&data);
+        exit_all_v2(&data);
+    ini_sprites(&data);
 ////////////////////////////////////////
-    mlx_loop_hook(data.mlx, &render, &data);
+    mlx_loop_hook(data.mlx, &ft_loop, &data);
     mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &data);
     mlx_hook(data.win, KeyRelease, KeyReleaseMask, &key_release, &data);
-    mlx_hook(data.win, 17, 0, &exit_all, &data);
+    mlx_hook(data.win, 17, 0, &exit_all_v2, &data);
 	mlx_loop(data.mlx);
 ////////////////////////////////////////
-    exit_all(&data);
+    exit_all_v2(&data);
 }
-
-/*
-
-UP      (0) W = 0x -1y
-RIGHT   (1) D = 1x 0y
-DOWN    (2) S = 0x 1y
-LEFT    (3) A = -1x 0y
-
-UP      [0, -1] >+1 [1, 0] >*2y [1, 0] > 1
-LEFT    [-1, 0] >+1 [0, 1] >*2y [0, 2] > 2
-RIGHT   [1, 0] >+1 [2, 1] >*2y [2, 2] > 4
-DOWN    [0, 1] >+1 [1, 2] >*2y [1, 4] > 5
-
-
-
-A       B
-0 1 0 2 0
-
-
-pika 4 chance to move
-4 x n chance to turn
-    n can be modulo the pika number, to have fast ones and slow ones
-
-? chance to attack
-
-
-
-
-
-
-
-*/

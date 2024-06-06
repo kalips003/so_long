@@ -12,6 +12,36 @@
 
 #include "so_long.h"
 
+///////////////////////////////////////////////////////////////////////////////]
+/*******************************************************************************
+    create map, free it in all cases
+    do all the tests, exit in case of any error
+*******************************************************************************/
+void is_map_ok_v2(t_data2 *data, char *path)
+{
+    int fd_map;
+
+    ft_memset(data, 0, sizeof(t_data));
+// map path end in ".ber"
+    if (find_str(path, ".ber") != len(path) - 4)
+        (put("bad argument\n"), exit(1));
+// create map struct
+    fd_map = open(path, O_RDONLY);
+    if (fd_map == -1)
+        (perror("open"), exit(1));
+// fill map
+    if (fill_map_v2(data, fd_map) || count_check_v2(data))
+        exit_all_v2(data);
+// valid path?
+    if (valid_path_v2(data))
+        (put("bad pathing\n"), exit_all_v2(data));
+}
+
+///////////////////////////////////////////////////////////////////////////////]
+/*******************************************************************************
+		create copy of map for path finding, free it in all cases
+		if no path, return 1, struct not free
+*******************************************************************************/
 /***************************************************************
 	check if current '*' is exit (return 1)
 	check 4 directions (return 0)
@@ -58,11 +88,8 @@ static int	find_next_to_explore(t_data2 *data, char **map_path)
 	return (0);
 }
 
-/***************************************************************
-	create copy of map for path finding, free it in all cases
-	if no path, return 1, struct not free
-****************************************************************/
-int	valid_path(t_data2 *data)
+///////////////////////////////////////////////////////////////////////////////]
+int	valid_path_v2(t_data2 *data)
 {
 	char	**map_path;
 	int		y;
@@ -75,7 +102,7 @@ int	valid_path(t_data2 *data)
 	{
 		map_path[y] = str("%1s", data->map[y]);
 		if (!map_path[y])
-			return (put("error malloc 3\n"), free_tab(map_path), exit_all(data),
+			return (put("error malloc 3\n"), free_tab(map_path), exit_all_v2(data),
 				1);
 	}
 	map_path[y] = NULL;
@@ -88,54 +115,3 @@ int	valid_path(t_data2 *data)
 	return (free_tab(map_path), 1);
 }
 
-
-/***************************************************************
-	check path for player
-****************************************************************/
-int check_path_player(t_data2 *data, int dx, int dy)
-{
-    int x;
-    int y;
-    int i;
-
-    x = data->player[0] / SPRITE_SIZE + dx;
-    y = data->player[1] / SPRITE_SIZE + dy;
-    if (data->map[y][x] == '1')
-        return (0);
-    if (data->map[y][x] == 'C')
-    {
-        data->map[y][x] = '0';
-        data->num_collected++;
-    }
-    else if (data->map[y][x] == 'E')
-    {
-        put("You finished with %d moves, and got %d/%d pokeballs!\n", data->walk_count, data->num_collected, data->num_ball);
-        exit_all(data);
-    }
-    i = -1;
-    while (++i < data->num_pika)
-        if (data->pika[i][0] == x && data->pika[i][1] == y)
-            (put("YOU DIED\n"), exit_all(data));
-    return (1);
-}
-
-/***************************************************************
-	check path for pika n'i, with input [0,1,2,3]
-****************************************************************/
-int check_path_pika(t_data2 *data, int i, int random)
-{
-    t_coor  path;
-    int     j;
-
-    path.x = data->pika[i][0] + (int)cos(random * PI / 2);
-    path.y = data->pika[i][1] + (int)sin(random * PI / 2);
-    if (data->map[path.y / SPRITE_SIZE][path.x / SPRITE_SIZE] == '1')
-        return (0);
-    j = -1;
-    while (++j < data->num_pika)
-        if (path.x == data->pika[j][0] && path.y == data->pika[j][1])
-            return (0);
-    if (path.x == data->player[0] && path.y == data->player[1])
-        (put("YOU DIED\n"), exit_all(data));
-    return (1);
-}
