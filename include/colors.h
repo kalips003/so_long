@@ -14,12 +14,12 @@
 # define COLORS_H
 
 # define CLEAR "\e[2J\e[H"
+# define CLS "\e[2J\e[H"
 # define REVERSE "\e[7m"
 # define BLINK "\e[5m"
 # define R_BLINK "\e[25m"
 
 # define RESET "\e[0m"
-# define CLS "\e[0m"
 # define END "\e[0m\n"
 
 # define BLACK "\033[0;30m"

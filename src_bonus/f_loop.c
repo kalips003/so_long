@@ -5,6 +5,8 @@ int ft_loop(t_data2 *data)
 {
     char *message;
     
+    put(CLS"%#*S", sizeof(t_data2), data);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+    put("\n%#*S", sizeof(int[4]) * data->num_pika, &data->pika[0]);
     data->time_frame = (data->time_frame + 1) % TIME_F;
     check_what_your_walking_on(data);
     if (data->player[3] < 0)
@@ -13,7 +15,7 @@ int ft_loop(t_data2 *data)
         f_is_dying(data);
         mlx_put_image_to_window(data->mlx, data->win, data->buffer.img, 0, 0);
         return (0);
-    }
+    } 
     check_ball_throw_path(data);
     f_move_player_v2(data);
     ft_move_enemy(data);
@@ -52,15 +54,15 @@ void put_background_to_buffer(t_data2 *data)
         while (++x < data->map_x)
         {
             if (data->map[y][x] == '1')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_wall);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_wall);// <!> - - - - - - - - - - - - - - - - - </?>
             else if (data->map[y][x] == '0' || data->map[y][x] == 'P' || data->map[y][x] == 'z')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ground[0]);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ground[0]);
             else if (data->map[y][x] == '*')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ground[1]);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ground[1]);
             else if (data->map[y][x] == 'C' || data->map[y][x] == 'c')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ball[(data->map[y][x] == 'c')]);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ball[(data->map[y][x] == 'c')]);
             else if (data->map[y][x] == 'E')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_exit[0 + data->is_all_collected]);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_exit[0 + data->is_all_collected]);
         }
     }
     ft_stamina(data);
