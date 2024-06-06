@@ -1,28 +1,16 @@
 #include "so_long.h"
 
-static void f_print_memory(t_data2 *data)
-{
-    put(CLS"%#*S", offsetof(t_data2, walk_count), data);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
-    put(BLINK"%.8d"R_BLINK, &data->walk_count);
-    // put(BLINK"%#*S"R_BLINK, sizeof(t_data2) - offsetof(t_data2, num_ball), &data->walk_count);
-    put("\n%#*S", sizeof(int[4]) * data->num_pika, &data->pika[0]);
-    // put(CLS"%#*.*S", sizeof(t_data2), sizeof(t_img), data);
-}
-
-static void f_print_memory_v2(t_data2 *data)
-{
-    put(CLS"\n%#S", &data->pika[0]);
-}
-
 ///////////////////////////////////////////////////////////////////////////////]
 int ft_loop(t_data2 *data)
 {
     char *message;
-    
-    f_print_memory(data);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
+
     if (data->time_freeze)
         return (0);
+    // if (!(data->time_frame % 5))
+    //     f_print_memory(data);// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
     data->time_frame = (data->time_frame + 1) % TIME_F;
+    put("%d ", data->time_frame);
     check_what_your_walking_on(data);
     if (data->player[3] < 0)
     {
@@ -30,7 +18,7 @@ int ft_loop(t_data2 *data)
         f_is_dying(data);
         mlx_put_image_to_window(data->mlx, data->win, data->buffer.img, 0, 0);
         return (0);
-    } 
+    }
     check_ball_throw_path(data);
     f_move_player_v2(data);
     ft_move_enemy(data);
@@ -69,15 +57,15 @@ void put_background_to_buffer(t_data2 *data)
         while (++x < data->map_x)
         {
             if (data->map[y][x] == '1')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_wall);// <!> - - - - - - - - - - - - - - - - - </?>
+                f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_wall);// <!> - - - - - - - - - - - - - - - - - </?>
             else if (data->map[y][x] == '0' || data->map[y][x] == 'P' || data->map[y][x] == 'z')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ground[0]);
+                f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ground[0]);
             else if (data->map[y][x] == '*')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ground[1]);
+                f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ground[1]);
             else if (data->map[y][x] == 'C' || data->map[y][x] == 'c')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_ball[(data->map[y][x] == 'c')]);
+                f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ball[(data->map[y][x] == 'c')]);
             else if (data->map[y][x] == 'E')
-                f_put_sprite_to_buffer(data, &(int){x * SPRITE_SIZE, y * SPRITE_SIZE}, data->i_exit[0 + data->is_all_collected]);
+                f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_exit[0 + data->is_all_collected]);
         }
     }
     ft_stamina(data);
@@ -93,9 +81,9 @@ void put_foreground_to_buffer(t_data2 *data)
     while (++i < data->num_pika)
     {
         if (data->pika[i][3] == -1)
-            f_put_sprite_to_buffer_v2(data, &data->pika[i], data->i_pika[data->pika[i][2]], random_yellow_v2);
+            f_put_sprite_to_buffer_v2(data, &data->pika[i][0], data->i_pika[data->pika[i][2]], random_yellow_v2);
         else
-            f_put_sprite_to_buffer_v2(data, &data->pika[i], data->i_pika[data->pika[i][2]], random_white);
+            f_put_sprite_to_buffer_v2(data, &data->pika[i][0], data->i_pika[data->pika[i][2]], random_white);
     }
     if (data->ball_throw.time)
         f_put_event_ball_to_buffer_v2(data);

@@ -18,14 +18,14 @@
     player == 0;
     pika <= 0;
 ****************************************************************/
-int check_path_player_v2(t_data2 *data, int n0123, int *npc[4], int current_pika)
+int check_path_player_v2(t_data2 *data, int n0123, int npc[4], int current_pika)
 {
     int x;
     int y;
     int i;
 
-    x = *npc[0] / SPRITE_SIZE + (int)cos(n0123 * PI / 2);
-    y = *npc[1] / SPRITE_SIZE + (int)sin(n0123 * PI / 2);
+    x = npc[0] / SPRITE_SIZE + (int)cos(n0123 * PI / 2);
+    y = npc[1] / SPRITE_SIZE + (int)sin(n0123 * PI / 2);
     if (data->map[y][x] == '1')
         return (0);
     i = -1;
@@ -41,7 +41,7 @@ int check_path_player_v2(t_data2 *data, int n0123, int *npc[4], int current_pika
 
 ///////////////////////////////////////////////////////////////////////////////]
 /***************************************************************
-	in the loop, check round(x / SPRITE) == 
+	in the loop, check round(x / SPRITE) ==
 ****************************************************************/
 void    check_what_your_walking_on(t_data2 *data)
 {
@@ -81,7 +81,7 @@ void check_ball_throw_path(t_data2 *data)
     int x;
     int y;
     int i;
-    
+
     if (data->ball_throw.time <= 0)
         return ;
     x = round((data->ball_throw.x - OFFSET_BALL_THR) / SPRITE_SIZE);

@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:35:59 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/13 18:58:56 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/06 17:01:56 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int	ft_string_hexa(va_list args, t_flags *f)
 	char	*str;
 	int		i;
 
-	i = -1;
 	str = va_arg(args, char *);
 	if (!str)
 		return (put(BLINK REVERSE "NULL" RESET) - 12);
-	while (str[++i] || i < f->width)
+	i = -1;
+	while (++i < f->width || (!f->width && str[i]))
 	{
-		put("\033[38;5;0;48;5;%um", ((unsigned)str[i] + 128 * (f->plus)) % 256);
+		put("\033[38;5;0;48;5;%um", ((unsigned char)str[i] + 128 * (f->plus)) % 256);
 		if (f->preci && i % f->preci == 0)
 			put("\n");
 		if (f->hash)

@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/02 18:20:27 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/06 14:55:09 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ini_texture(t_data *data)
 	int	i;
 
 	ini_anim(data);
-	data->img_ground = mlx_xpm_file_to_image(data->mlx, "img/txt_floor.xpm",
+	data->img_ground = mlx_xpm_file_to_image(data->mlx, "img/txt_grass.xpm",
 			&data->wid, &data->hei);
 	data->img_wall = mlx_xpm_file_to_image(data->mlx, "img/txt_wall.xpm",
 			&data->wid, &data->hei);

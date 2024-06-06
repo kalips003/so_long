@@ -30,9 +30,9 @@ static void boy_or_girl(t_data2 *data)
 
     put(COLOR_3R_0G_0B"Are you a boy or a girl?\n\t: "RESET);
     answer = gnl(0);
-    if (find_str(answer, "boy") > 0)
+    if (find_str(answer, "boy") >= 0)
         data->boy_or_girl = 0;
-    else if (find_str(answer, "girl") > 0)
+    else if (find_str(answer, "girl") >= 0)
         data->boy_or_girl = 1;
     else
         data->boy_or_girl = 2;
@@ -52,9 +52,13 @@ int main(int ac, char **av)
     if (!data.mlx)
         exit_all_v2(&data);
     ini_sprites(&data);
+    //<?> - - -- - - - - </?>
+    // put("%2t", data.map);
+    // f_print_memory(&data);
+    put(COLOR_2R_3G_3B"--------------------------->player[3] = %d\n"RESET, data.player[3]);
 ////////////////////////////////////////
     mlx_loop_hook(data.mlx, &ft_loop, &data);
-    mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &data);
+    mlx_hook(data.win, KeyPress, KeyPressMask, &key_press_v2, &data);
     mlx_hook(data.win, KeyRelease, KeyReleaseMask, &key_release, &data);
     mlx_hook(data.win, 17, 0, &exit_all_v2, &data);
 	mlx_loop(data.mlx);
