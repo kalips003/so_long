@@ -211,7 +211,7 @@ VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 
 # GITHUB!
 # ↑さ↓ぎょう  を  ↓ほ↑ぞん
 git:
-	@$(call random_shmol_cat_blink, 作業を保存してるかな.., いいね いいねえー , $(CLS), );
+	@$(call random_shmol_cat_blink, 作業を保存してるかな.., いいね、いいねえー , $(CLS), );
 	@current_date=$$(date); \
 	git add .; \
 	git commit -m "$$current_date"; \
