@@ -14,7 +14,7 @@ void put_black_background(t_data2 *data)
         i = -1;
         while (++i < data->buffer.sz_x)
         {
-			buffer_index = j * data->buffer.line_length + i * (data->buffer.bits_per_pixel / 8);
+			buffer_index = j * data->buffer.ll + i * (data->buffer.bpp / 8);
 			*(int *)(data->buffer.addr + buffer_index) = 0x00FFFFFF;
         }
     }
@@ -64,11 +64,11 @@ void	f_put_sprite_to_buffer(t_data2 *data, int x, int y, t_img img)
 		j = -1;
 		while (++j < img.sz_y)
 		{
-			pixel_index = (j * img.line_length + i * (img.bits_per_pixel / 8));
+			pixel_index = (j * img.ll + i * (img.bpp / 8));
 			pixel_color = *(unsigned int *)(img.addr + pixel_index);
 			if (pixel_color == 0xFF000000)
 				continue ;
-			buffer_index = (y + j) * data->buffer.line_length + (x + i) * (data->buffer.bits_per_pixel / 8);
+			buffer_index = (y + j) * data->buffer.ll + (x + i) * (data->buffer.bpp / 8);
 			*((unsigned int *)(data->buffer.addr + buffer_index)) = pixel_color;
 		}
 	}
@@ -93,13 +93,13 @@ void	f_put_sprite_to_buffer_v2(t_data2 *data, int xy[3], t_img img, int (* color
 		j = -1;
 		while (++j < img.sz_y)
 		{
-			pixel_index = (j * img.line_length + i * (img.bits_per_pixel / 8));
+			pixel_index = (j * img.ll + i * (img.bpp / 8));
 			pixel_color = *(int *)(img.addr + pixel_index);
             if (xy[3] < 0)
                 pixel_color = color();
 			if (pixel_color == 0xFF000000)
 				continue ;
-			buffer_index = (xy[1] + j) * data->buffer.line_length + (xy[0] + i) * (data->buffer.bits_per_pixel / 8);
+			buffer_index = (xy[1] + j) * data->buffer.ll + (xy[0] + i) * (data->buffer.bpp / 8);
 			*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 		}
 	}
@@ -121,16 +121,16 @@ void	f_put_player_to_buffer_v2(t_data2 *data, int rotation, int (* color)(void))
 		while (++j < SPRITE_SIZE)
 		{
             if (rotation == 1)
-                x = ((SPRITE_SIZE - 1 - i) + (data->player[2] % 4) * SPRITE_SIZE) * (data->i_player.bits_per_pixel / 8);
+                x = ((SPRITE_SIZE - 1 - i) + (data->player[2] % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
             else
-                x = (i + (data->player[2] % 4) * SPRITE_SIZE) * (data->i_player.bits_per_pixel / 8);
-			y = (j + (data->player[2] / 4) * SPRITE_SIZE) * data->i_player.line_length;
+                x = (i + (data->player[2] % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
+			y = (j + (data->player[2] / 4) * SPRITE_SIZE) * data->i_player.ll;
 			unsigned int pixel_color = *(int *)(data->i_player.addr + x + y);
             if (data->player[3] < 0)
                 pixel_color = color();
 			if (pixel_color != 0xFF000000)
 			{
-				int buffer_index = (data->player[1] + j) * data->buffer.line_length + (data->player[0] + i) * (data->buffer.bits_per_pixel / 8);
+				int buffer_index = (data->player[1] + j) * data->buffer.ll + (data->player[0] + i) * (data->buffer.bpp / 8);
 				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 			}
 		}
@@ -152,14 +152,14 @@ void	f_put_event_ball_to_buffer_v2(t_data2 *data)
 		j = -1;
 		while (++j < BALL_SIZE)
 		{
-            x = i * (data->i_ball_throw.bits_per_pixel / 8);
-			y = (j + (data->ball_throw.frame) * BALL_SIZE) * data->i_ball_throw.line_length;
+            x = i * (data->i_ball_throw.bpp / 8);
+			y = (j + (data->ball_throw.frame) * BALL_SIZE) * data->i_ball_throw.ll;
 			unsigned int pixel_color = *(int *)(data->i_ball_throw.addr + x + y);
             if (data->ball_throw.time < 0)
                 pixel_color = 0x00FFFFFF;
 			if (pixel_color != 0xFF000000)
 			{
-				int buffer_index = (data->ball_throw.y + j) * data->buffer.line_length + (data->ball_throw.x + i) * (data->buffer.bits_per_pixel / 8);
+				int buffer_index = (data->ball_throw.y + j) * data->buffer.ll + (data->ball_throw.x + i) * (data->buffer.bpp / 8);
 				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 			}
 		}
@@ -175,7 +175,7 @@ void	f_put_event_ball_to_buffer_v2(t_data2 *data)
 // 	int		x;
 // 	int		y;
 
-// 	img.addr = mlx_get_data_addr(data->i_player.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+// 	img.addr = mlx_get_data_addr(data->i_player.img, &img.bpp, &img.ll, &img.endian);
 // 	frame = frame % 16;
 // 	x = -1;
 // 	while (++x < data->wid)
@@ -185,16 +185,16 @@ void	f_put_event_ball_to_buffer_v2(t_data2 *data)
 // 		{
 //             int new_x;
 //             if (rotation == 1)
-//                 new_x = ((data->wid - 1 - x) + (frame % 4) * data->wid) * (img.bits_per_pixel / 8);
+//                 new_x = ((data->wid - 1 - x) + (frame % 4) * data->wid) * (img.bpp / 8);
 //             else
-//                 new_x = (x + (frame % 4) * data->wid) * (img.bits_per_pixel / 8);
-//             new_x = (x + (frame % 4) * data->wid) * (img.bits_per_pixel / 8);
-// 			int new_y = (y + (frame / 4) * data->hei) * img.line_length;
+//                 new_x = (x + (frame % 4) * data->wid) * (img.bpp / 8);
+//             new_x = (x + (frame % 4) * data->wid) * (img.bpp / 8);
+// 			int new_y = (y + (frame / 4) * data->hei) * img.ll;
 // 			int pixel_index = new_x + new_y;
 // 			int pixel_color = *(int *)(img.addr + pixel_index);
 // 			if (pixel_color != 0xFF000000)
 // 			{
-// 				int buffer_index = (xy.y + y) * data->buffer.line_length + (xy.x + x) * (data->buffer.bits_per_pixel / 8);
+// 				int buffer_index = (xy.y + y) * data->buffer.ll + (xy.x + x) * (data->buffer.bpp / 8);
 // 				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 // 			}
 // 		}
@@ -214,12 +214,12 @@ void	f_put_event_ball_to_buffer_v2(t_data2 *data)
 // 		j = -1;
 // 		while (++j < BALL_SIZE)
 // 		{
-//             x = i * (data->i_ball_throw.bits_per_pixel / 8);
-// 			y = (j + (data->ball_throw.frame) * BALL_SIZE) * data->i_ball_throw.line_length;
+//             x = i * (data->i_ball_throw.bpp / 8);
+// 			y = (j + (data->ball_throw.frame) * BALL_SIZE) * data->i_ball_throw.ll;
 // 			int pixel_color = *(int *)(data->i_ball_throw.addr + x + y);
 // 			if (pixel_color != 0xFF000000)
 // 			{
-// 				int buffer_index = (data->ball_throw.y + j) * data->buffer.line_length + (data->ball_throw.x + i) * (data->buffer.bits_per_pixel / 8);
+// 				int buffer_index = (data->ball_throw.y + j) * data->buffer.ll + (data->ball_throw.x + i) * (data->buffer.bpp / 8);
 // 				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 // 			}
 // 		}

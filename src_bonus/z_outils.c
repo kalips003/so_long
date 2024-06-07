@@ -103,9 +103,23 @@ void f_print_memory(t_data2 *data)
 
 void f_print_memory_v2(t_data2 *data)
 {
-    int size;
+	int	size;
 
 	size = data->buffer.sz_x * data->buffer.sz_y;
 	put("\nsz_x = %d, sz_y = %d\n", data->buffer.sz_x, data->buffer.sz_y);
 	put("\nmap = \n%+#*S\n", 10, data->buffer.addr);
+}
+
+
+static void	put_map(char *txt, char **map)
+{
+	
+	if (!map)
+		return ;
+	put("%s", txt);
+	while (*map)
+	{
+		put("\t%S\n", *map);
+		map++;
+	}
 }

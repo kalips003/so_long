@@ -9,7 +9,7 @@ void	put_pixel_buffer(t_data2 *data, int x, int y, int color)
 
     if (x < 0 || y < 0 || x >= data->buffer.sz_x || y >= data->buffer.sz_y)
         return ;
-    offset = (y * data->buffer.line_length + x * (data->buffer.bits_per_pixel / 8));
+    offset = (y * data->buffer.ll + x * (data->buffer.bpp / 8));
 	dst = data->buffer.addr + offset;
 	*(unsigned int*)dst = color;
 }

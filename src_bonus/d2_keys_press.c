@@ -41,7 +41,6 @@ int	key_press_v2(int keysym, t_data2 *data)
 		data->running = 1;
 	if (keysym == XK_e)
 		data->time_freeze = 1;
-    put(COLOR_2R_3G_3B"---------------->hello, player time = %d\n"RESET, data->player[3]);
 	if (data->player[3])
 		return (0);
     put(COLOR_1R_3G_5B"--------------------------->hello again!\n"RESET);
