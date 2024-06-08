@@ -1,106 +1,62 @@
 # include "so_long.h"
 
-///////////////////////////////////////////////////////////////////////////////]
-//      clean the bottom
-void put_black_background(t_data2 *data)
-{
-    int i;
-    int j;
-    int buffer_index;
+typedef struct s_sprite {
+	int				i;
+	int				j;
+	int				pixel_index;
+	unsigned int	pixel_color;
+	int				buffer_index;
+}	t_sprite;
 
-    j = data->map_y * SPRITE_SIZE - 1;
-    while (++j < data->buffer.sz_y)
-    {
-        i = -1;
-        while (++i < data->buffer.sz_x)
-        {
-			buffer_index = j * data->buffer.ll + i * (data->buffer.bpp / 8);
-			*(int *)(data->buffer.addr + buffer_index) = 0x00FFFFFF;
-        }
-    }
-}
-
-//      put retrieved balls and caught pika on bottom
-void put_balls_foreground(t_data2 *data)
-{
-    int i;
-    int x;
-	int y;
-
-    y = data->map_y * SPRITE_SIZE + BALL_START_Y;
-    i = -1;
-    while (++i < data->num_holding)
-    {
-        x = data->map_x * SPRITE_SIZE - BALL_START_X * (i + 1);
-        f_put_sprite_to_buffer(data, x, y, data->i_big_ball[0]);
-    }
-    i = -1;
-    while (++i < data->num_pika_caught)
-    {
-        x = PIKA_START_X + BALL_START_X * i;
-        f_put_sprite_to_buffer(data, x, y, data->i_big_ball[1]);
-    }
-}
 ///////////////////////////////////////////////////////////////////////////////]
 // 		put sprite at coordonate xy, avec transparence, not white if negative
 // 			used for bottom inventory
 void	f_put_sprite_to_buffer(t_data2 *data, int x, int y, t_img img)
 {
-	int		i;
-	int		j;
-    int pixel_index;
-    unsigned int pixel_color;
-    int buffer_index;
+	t_sprite	s;
 
-    if (x < 0 || y < 0)
-		return ;
-	if (x + img.sz_x - 1 >= data->buffer.sz_x)
-		put("--->err x too large: %d\n", x + img.sz_x - 1);
-	else if (y + img.sz_y - 1 >= data->buffer.sz_y)
-		put("--->err y too large: %d\n", y + img.sz_y - 1);// <!> - - - - - - - - - - - - - - - - - - - - - - - </!>
-    i = -1;
-	while (++i < img.sz_x)
+	if (x < 0 || y < 0 || x + img.sz_x >= data->buffer.sz_x || y + img.sz_y >= data->buffer.sz_y)
+		return ((void)put(ERR"------> out of bounds\n"));
+	s.i = -1;
+	while (++s.i < img.sz_x)
 	{
-		j = -1;
-		while (++j < img.sz_y)
+		s.j = -1;
+		while (++s.j < img.sz_y)
 		{
-			pixel_index = (j * img.ll + i * (img.bpp / 8));
-			pixel_color = *(unsigned int *)(img.addr + pixel_index);
-			if (pixel_color == 0xFF000000)
+			s.pixel_index = (s.j * img.ll + s.i * (img.bpp / 8));
+			s.pixel_color = *(int *)(img.addr + s.pixel_index);
+			if (s.pixel_color == 0xFF000000)
 				continue ;
-			buffer_index = (y + j) * data->buffer.ll + (x + i) * (data->buffer.bpp / 8);
-			*((unsigned int *)(data->buffer.addr + buffer_index)) = pixel_color;
+			s.buffer_index = (y + s.j) * data->buffer.ll + (x + s.i) * (data->buffer.bpp / 8);
+			*((unsigned int *)(data->buffer.addr + s.buffer_index)) = s.pixel_color;
 		}
 	}
 }
 
+
 // 		put sprite at coordonate xy, avec transparence, white if negative
 // 		used for pika, if x or y is negative, skipped
 // 		color is passed as function argument
-void	f_put_sprite_to_buffer_v2(t_data2 *data, int xy[3], t_img img, int (* color)(void))
+void	f_put_sprite_to_buffer_v2(t_data2 *data, t_npc npc, t_img img, int (* color)(void))
 {
-	int		i;
-	int		j;
-    int pixel_index;
-    unsigned int pixel_color;
-    int buffer_index;
+	t_sprite	s;
 
-    if (xy[0] < 0 || xy[1] < 0)
-        return ;
-    i = -1;
-	while (++i < img.sz_x)
+	if (npc.x < 0 || npc.y < 0 || npc.x + img.sz_x >= data->buffer.sz_x || npc.y + img.sz_y >= data->buffer.sz_y)
+		return ((void)put(ERR"------> out of bounds\n"));
+	s.i = -1;
+	while (++s.i < img.sz_x)
 	{
-		j = -1;
-		while (++j < img.sz_y)
+		s.j = -1;
+		while (++s.j < img.sz_y)
 		{
-			pixel_index = (j * img.ll + i * (img.bpp / 8));
-			pixel_color = *(int *)(img.addr + pixel_index);
-            if (xy[3] < 0)
-                pixel_color = color();
-			if (pixel_color == 0xFF000000)
+			s.pixel_index = (s.j * img.ll + s.i * (img.bpp / 8));
+			s.pixel_color = *(int *)(img.addr + s.pixel_index);
+			if (s.pixel_color == 0xFF000000)
 				continue ;
-			buffer_index = (xy[1] + j) * data->buffer.ll + (xy[0] + i) * (data->buffer.bpp / 8);
-			*(int *)(data->buffer.addr + buffer_index) = pixel_color;
+			if (npc.time < 0)
+				s.pixel_color = color();
+			s.buffer_index = (npc.y + s.j) * data->buffer.ll + (npc.x + s.i) * (data->buffer.bpp / 8);
+			*(unsigned int *)(data->buffer.addr + s.buffer_index) = s.pixel_color;
 		}
 	}
 }
@@ -121,16 +77,16 @@ void	f_put_player_to_buffer_v2(t_data2 *data, int rotation, int (* color)(void))
 		while (++j < SPRITE_SIZE)
 		{
             if (rotation == 1)
-                x = ((SPRITE_SIZE - 1 - i) + (data->player[2] % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
+                x = ((SPRITE_SIZE - 1 - i) + (data->player.f % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
             else
-                x = (i + (data->player[2] % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
-			y = (j + (data->player[2] / 4) * SPRITE_SIZE) * data->i_player.ll;
+                x = (i + (data->player.f % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
+			y = (j + (data->player.f / 4) * SPRITE_SIZE) * data->i_player.ll;
 			unsigned int pixel_color = *(int *)(data->i_player.addr + x + y);
-            if (data->player[3] < 0)
+            if (data->player.time < 0)
                 pixel_color = color();
 			if (pixel_color != 0xFF000000)
 			{
-				int buffer_index = (data->player[1] + j) * data->buffer.ll + (data->player[0] + i) * (data->buffer.bpp / 8);
+				int buffer_index = (data->player.y + j) * data->buffer.ll + (data->player.x + i) * (data->buffer.bpp / 8);
 				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 			}
 		}
@@ -152,14 +108,14 @@ void	f_put_event_ball_to_buffer_v2(t_data2 *data)
 		j = -1;
 		while (++j < BALL_SIZE)
 		{
-            x = i * (data->i_ball_throw.bpp / 8);
-			y = (j + (data->ball_throw.frame) * BALL_SIZE) * data->i_ball_throw.ll;
-			unsigned int pixel_color = *(int *)(data->i_ball_throw.addr + x + y);
-            if (data->ball_throw.time < 0)
+            x = i * (data->i_throw.bpp / 8);
+			y = (j + (data->throw.ball.f) * BALL_SIZE) * data->i_throw.ll;
+			unsigned int pixel_color = *(int *)(data->i_throw.addr + x + y);
+            if (data->throw.ball.time < 0)
                 pixel_color = 0x00FFFFFF;
 			if (pixel_color != 0xFF000000)
 			{
-				int buffer_index = (data->ball_throw.y + j) * data->buffer.ll + (data->ball_throw.x + i) * (data->buffer.bpp / 8);
+				int buffer_index = (data->throw.ball.y + j) * data->buffer.ll + (data->throw.ball.x + i) * (data->buffer.bpp / 8);
 				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 			}
 		}
@@ -214,12 +170,12 @@ void	f_put_event_ball_to_buffer_v2(t_data2 *data)
 // 		j = -1;
 // 		while (++j < BALL_SIZE)
 // 		{
-//             x = i * (data->i_ball_throw.bpp / 8);
-// 			y = (j + (data->ball_throw.frame) * BALL_SIZE) * data->i_ball_throw.ll;
-// 			int pixel_color = *(int *)(data->i_ball_throw.addr + x + y);
+//             x = i * (data->i_throw.bpp / 8);
+// 			y = (j + (data->throw.frame) * BALL_SIZE) * data->i_throw.ll;
+// 			int pixel_color = *(int *)(data->i_throw.addr + x + y);
 // 			if (pixel_color != 0xFF000000)
 // 			{
-// 				int buffer_index = (data->ball_throw.y + j) * data->buffer.ll + (data->ball_throw.x + i) * (data->buffer.bpp / 8);
+// 				int buffer_index = (data->throw.y + j) * data->buffer.ll + (data->throw.x + i) * (data->buffer.bpp / 8);
 // 				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
 // 			}
 // 		}

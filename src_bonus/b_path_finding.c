@@ -48,17 +48,17 @@ void is_map_ok_v2(t_data2 *data, char *path)
 ****************************************************************/
 static int	check_cardinal(t_data2 *data, char **map)
 {
-	if (data->ptr[0] == data->exit[0] / SPRITE_SIZE && data->ptr[1] == data->exit[1] / SPRITE_SIZE)
+	if (data->exit[3] == data->exit[0] / SPRITE_SIZE && data->exit[4] == data->exit[1] / SPRITE_SIZE)
 		return (1);
-	map[data->ptr[1]][data->ptr[0]] = '1';
-	if (map[data->ptr[1] + 1][data->ptr[0]] != '1')
-		map[data->ptr[1] + 1][data->ptr[0]] = '*';
-	if (map[data->ptr[1]][data->ptr[0] + 1] != '1')
-		map[data->ptr[1]][data->ptr[0] + 1] = '*';
-	if (map[data->ptr[1] - 1][data->ptr[0]] != '1')
-		map[data->ptr[1] - 1][data->ptr[0]] = '*';
-	if (map[data->ptr[1]][data->ptr[0] - 1] != '1')
-		map[data->ptr[1]][data->ptr[0] - 1] = '*';
+	map[data->exit[4]][data->exit[3]] = '1';
+	if (map[data->exit[4] + 1][data->exit[3]] != '1')
+		map[data->exit[4] + 1][data->exit[3]] = '*';
+	if (map[data->exit[4]][data->exit[3] + 1] != '1')
+		map[data->exit[4]][data->exit[3] + 1] = '*';
+	if (map[data->exit[4] - 1][data->exit[3]] != '1')
+		map[data->exit[4] - 1][data->exit[3]] = '*';
+	if (map[data->exit[4]][data->exit[3] - 1] != '1')
+		map[data->exit[4]][data->exit[3] - 1] = '*';
 	return (0);
 }
 
@@ -79,8 +79,8 @@ static int	find_next_to_explore(t_data2 *data, char **map_path)
 		{
 			if (map_path[y][x] == '*')
 			{
-				data->ptr[0] = x;
-				data->ptr[1] = y;
+				data->exit[3] = x;
+				data->exit[4] = y;
 				return (1);
 			}
 		}
@@ -105,7 +105,7 @@ int	valid_path_v2(t_data2 *data)
 			return (put("error malloc (3)\n"), free_tab(map_path), exit_all_v2(data), 1);
 	}
 	map_path[y] = NULL;
-	map_path[data->player[1] / SPRITE_SIZE][data->player[0] / SPRITE_SIZE] = '*';
+	map_path[data->player.y / SPRITE_SIZE][data->player.x / SPRITE_SIZE] = '*';
 	while (find_next_to_explore(data, map_path))
 	{
 		if (check_cardinal(data, map_path))

@@ -15,6 +15,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <math.h>
 # include <signal.h>
 # include <stdarg.h>
 # include <stddef.h>
@@ -23,7 +24,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
+// # include <sys/wait.h>
 # include <time.h>
 
 # include "ft_printf.h"

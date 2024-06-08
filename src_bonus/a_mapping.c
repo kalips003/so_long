@@ -45,18 +45,21 @@ static void	copy_posi(int *ptr, int x, int y)
 	ptr[0] = x * SPRITE_SIZE;
 	ptr[1] = y * SPRITE_SIZE;
 	ptr[2]++;
-	ptr[3] = 0;
+	// ptr[3] = 0;
 }
 
 static void	ft_posi_pika(t_data2 *data, int x, int y)
 {
-	data->pika = (int( *)[4])expand(data->pika, data->num_pika * sizeof(int[4]), sizeof(int[4]));
+	// data->pika = (int( *)[4])expand(data->pika, data->num_pika * sizeof(int[4]), sizeof(int[4]));
+	data->pika = (t_npc *)expand(data->pika, data->num_pika * sizeof(t_npc), sizeof(t_npc));
 	if (!data->pika)
 		(put("error expension\n"), exit_all_v2(data));
-	data->pika[data->num_pika][0] = x * SPRITE_SIZE;
-	data->pika[data->num_pika][1] = y * SPRITE_SIZE;
-	data->pika[data->num_pika][2] = 3;
-	data->pika[data->num_pika][3] = 0;
+	data->pika[data->num_pika].x = x * SPRITE_SIZE;
+	data->pika[data->num_pika].y = y * SPRITE_SIZE;
+	data->pika[data->num_pika].f = 3;
+	// data->pika[data->num_pika].time = 0;// <!> - - - - - - - - - - - </!>
+	// data->pika[data->num_pika].dx = 0;
+	// data->pika[data->num_pika].dy = 0;
 	data->num_pika++;
 }
 
@@ -65,7 +68,7 @@ static int	small_check(t_data2 *data)
 	int	y;
 	int	x;
 
-	if (data->player[2] != 1)
+	if (data->player.f != 1)
 		return (put("none or too many player\n%.3t\n", data->map), 1);
 	if (data->exit[2] != 1)
 		return (put("none or too many exit\n%.3t\n", data->map), 1);
@@ -101,7 +104,7 @@ int	count_check_v2(t_data2 *data)
 			else if (data->map[y][x] == 'E')
 				copy_posi(data->exit, x, y);
 			else if (data->map[y][x] == 'P')
-				copy_posi(data->player, x, y);
+				copy_posi(&data->player.x, x, y);
 			else if (data->map[y][x] == 'z')
 				ft_posi_pika(data, x, y);
 		}

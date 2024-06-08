@@ -170,8 +170,13 @@ src_bonus/obj/%.o: src_bonus/%.c
 # ╰──────────────────────────────────────────────────────────────────────╯
 
 test:	libft
-	@cc ./lib/test.c ./lib/libft.a -o ./lib/a.out
-	@$(call random_cat, $(call pad_word, 10, "Making"), $(call pad_word, 12, "Science"), $(CLS), $(RESET));
+	@rm -f ./lib/a.out
+	-@cc ./lib/test.c ./lib/libft.a -o ./lib/a.out -lm
+	@if [ ! -e ./lib/libft.a ]; then\
+		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "The⠀Cake"), $(call pad_word, 12, "Is⠀A⠀Lie..")); \
+		exit 3; \
+	fi
+	@$(call random_cat, $(call pad_word, 12, "Making"), $(call pad_word, 14, "Science"), $(CLS), $(RESET));
 	@lib/a.out
 
 test2:	mlx libft $(OBJ_B) include/so_long.h

@@ -1,11 +1,11 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
+// # include <X11/X.h>
+// # include <X11/keysym.h>
 # include <math.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
+// # include <sys/wait.h>
 
 # include "libft.h"
 
@@ -116,8 +116,8 @@ void    anim_pika(t_data *data, int i);
 		[Z] OUTILS
 ********************************/
 // static void	exit_img(t_data *data)
-int    exit_all(t_data *data);
-int    exit_all_2(t_data *data, char *string);
+int		exit_all(t_data *data);
+int		exit_all_2(t_data *data, char *string);
 void	put_map(char *txt, char **map);
 ///////////////////////////////////////////////////////////////////////////////]
 //
@@ -148,7 +148,7 @@ void	put_map(char *txt, char **map);
 # define TIME_BALL 1
 # define TIME_ATK 1
 # define THROW_RANGE 5
-# define OFFSET_BALL_THR 24
+# define OFFSET_BALL_THR 22
 # define PIKA_MOVE_CHANCE 5000
 # define ATTACK_CHANCE 1
 # define PIKA_TURN_CHANCE 8
@@ -176,13 +176,25 @@ typedef struct	s_circle {
 	int 	(*color)(void);
 }			t_circle;
 
+typedef struct	s_npc {
+	int     x;
+	int     y;
+	int     f;
+	int     time;
+	int     dx;
+	int     dy;
+}			t_npc;
+
 typedef struct s_event1
 {
-	int x;
-	int	y;
-	int	frame;
-	int	time;
-	int	n0123;
+	t_npc	ball;
+	// int x;
+	// int	y;
+	// int dx;
+	// int	dy;
+	// int	frame;
+	// int	time;
+	// int	n0123;
 	int	pika_caught;
 }	t_event1;
 
@@ -206,7 +218,7 @@ typedef struct s_data2
 	t_img	i_wall;
 	t_img	i_ball[2];
 	t_img	i_big_ball[2];
-	t_img	i_ball_throw;
+	t_img	i_throw;
 	t_img	i_exit[2];
 //
 	void	*mlx;
@@ -225,12 +237,15 @@ typedef struct s_data2
 	int		num_pika;
 	int		num_pika_caught;
 
-	int		player[4];
-	int		exit[4];// exit 4 used of event time?
+	t_npc	player;
+	// int		player[4];
+	// int		player[5];	x,y,dx,dy,f
+	int		exit[5];// exit[2]for is_all_collec [3,4] for ptr
 	int		ptr[2];
-	int		(*pika)[4];
+	// int		(*pika)[4];
+	t_npc		*pika;
 
-	int		time_frame;
+	int		time;
 
 	int 	is_all_collected;
 	int 	boy_or_girl;
@@ -239,7 +254,7 @@ typedef struct s_data2
 	int 	starter;
 	int 	stamina;
 
-	t_event1	ball_throw;
+	t_event1	throw;
 	t_attack	attack;
 	// throw_ball_event
 }	t_data2;
@@ -272,21 +287,25 @@ void    move_ball(t_data2 *data);
 int		key_press_v2(int keysym, t_data2 *data);
 int		key_release(int keysym, t_data2 *data);
 //	  E
-int 	check_path_player_v2(t_data2 *data, int n0123, int npc[4], int current_pika);
-void    check_what_your_walking_on(t_data2 *data);
-void 	check_ball_throw_path(t_data2 *data);
+int		check_path_player_v3(t_data2 *data, t_npc npc, int current_pika);
+void	check_what_your_walking_on(t_data2 *data);
+void 	check_throw_path(t_data2 *data);
 //	  F
 int 	ft_loop(t_data2 *data);
 	// static void ft_stamina(t_data2 *data)
 void 	put_background_to_buffer(t_data2 *data);
 void 	put_foreground_to_buffer(t_data2 *data);
 //	  F2
-void	put_black_background(t_data2 *data);
-void	put_balls_foreground(t_data2 *data);
 void	f_put_sprite_to_buffer(t_data2 *data, int x, int y, t_img img);
-void	f_put_sprite_to_buffer_v2(t_data2 *data, int xy[3], t_img img, int (* color)(void));
+void	f_put_sprite_to_buffer_v2(t_data2 *data, t_npc npc, t_img img, int (* color)(void));
 void	f_put_player_to_buffer_v2(t_data2 *data, int rotation, int (* color)(void));
 void	f_put_event_ball_to_buffer_v2(t_data2 *data);
+//	  F3
+	// static void	put_black_background(t_data2 *data);
+void	put_background_to_buffer(t_data2 *data);
+	// static void 	ft_stamina(t_data2 *data);
+	// static void	put_balls_foreground(t_data2 *data);
+void	background(t_data2 *data);
 //	  G
 void	put_pixel_buffer(t_data2 *data, int x, int y, int color);
 int 	random_white(void);
@@ -305,18 +324,16 @@ void 	helper_v360(t_data2 *data, t_circle *circle, int x, int y);
 void 	draw_circle(t_data2 *data, t_circle circle);
 void 	draw_circle_v2(t_data2 *data, t_circle circle, void helper(t_data2 *, t_circle *, int , int));
 void 	draw_square_random_yellow(t_data2 *data, int x, int y, int len_side);
-void 	draw_stamina(t_data2 *data);
 //	  I
 	// static int  helper_78(t_data2 *data);
-	// static void find_pika_for_attak(t_data2 *data);
-	// static int 	is_player_touched(int atk_start_xy[2], int atk_end_xy[2], int player_xy[2]);
-void    check_random_attak(t_data2 *data);
-void    render_attack(t_data2 *data);
+void	find_pika_for_attak(t_data2 *data);
+int		is_player_touched(int atk_start_xy[2], int atk_end_xy[2], int player_xy[2]);
+void	render_attack(t_data2 *data);
 //	  Z
 	// static void destroy_img_v3(t_data2 *d)
 	// static void destroy_img_v4(t_data2 *d)
 int		exit_all_v2(t_data2 *data);
-void    f_is_dying(t_data2 *data);
+int		f_is_dying(t_data2 *data);
 void 	f_print_memory_v2(t_data2 *data);
 void 	f_print_memory(t_data2 *data);
 ///////////////////////////////////////////////////////////////////////////////]
@@ -324,7 +341,7 @@ void 	f_print_memory(t_data2 *data);
 
 
 
-# define MSG_DEAD "\033[38;5;147m\
+# define MSG_DEAD "\e[5m\033[38;5;147m\
 /t██╗░░░██╗░█████╗░██╗░░░██╗  ██████╗░██╗███████╗██████╗░\n\
 /t╚██╗░██╔╝██╔══██╗██║░░░██║  ██╔══██╗██║██╔════╝██╔══██╗\n\
 /t░╚████╔╝░██║░░██║██║░░░██║  ██║░░██║██║█████╗░░██║░░██║\n\
@@ -332,7 +349,7 @@ void 	f_print_memory(t_data2 *data);
 /t░░░██║░░░╚█████╔╝╚██████╔╝  ██████╔╝██║███████╗██████╔╝\n\
 /t░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░╚═╝╚══════╝╚═════╝░\e[0m\n"
 
-# define MSG_WIN "\033[38;5;77m\
+# define MSG_WIN "\e[5m\033[38;5;77m\
 \t██╗░░░██╗░█████╗░██╗░░░██╗  ░██╗░░░░░░░██╗██╗███╗░░██╗  ██╗\n\
 \t╚██╗░██╔╝██╔══██╗██║░░░██║  ░██║░░██╗░░██║██║████╗░██║  ██║\n\
 \t░╚████╔╝░██║░░██║██║░░░██║  ░╚██╗████╗██╔╝██║██╔██╗██║  ██║\n\
