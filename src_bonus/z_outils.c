@@ -115,13 +115,13 @@ void f_print_memory_v2(t_data2 *data)
 
 static void	put_map(char *txt, char **map)
 {
-	
+
 	if (!map)
 		return ;
 	put("%s", txt);
 	while (*map)
 	{
-		put("\t%S\n", *map);
+		put("\t%S", *map);
 		map++;
 	}
 }

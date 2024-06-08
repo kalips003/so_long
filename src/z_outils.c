@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/02 18:17:03 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/08 06:30:12 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ int	exit_all_2(t_data *data, char *string)
 
 void	put_map(char *txt, char **map)
 {
-	
+
 	if (!map)
 		return ;
 	put("%s", txt);
 	while (*map)
 	{
-		put("\t%S\n", *map);
+		put("\t%S", *map);
 		map++;
 	}
 }
