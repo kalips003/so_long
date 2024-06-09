@@ -67,9 +67,9 @@ int main(int ac, char **av)
     boy_or_girl(&data);
 ////////////////////////////////////////
 	data.mlx = mlx_init();
-    if (!data.mlx)
-        exit_all_v2(&data);
-    ini_sprites(&data);
+	if (!data.mlx)
+		(put("--->MLX fait de la merde\n"), exit_all_v2(&data));
+	ini_sprites(&data);
 ////////////////////////////////////////
     mlx_loop_hook(data.mlx, &ft_loop_v2, &data);
     mlx_hook(data.win, KeyPress, KeyPressMask, &key_press_v2, &data);

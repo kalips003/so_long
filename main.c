@@ -10,7 +10,9 @@ int	main(int ac, char **av)
 	is_map_ok(&data, av[1]);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		exit_all(&data);
+		(put("--->MLX fait de la merde\n"), exit_all(&data));
+	else
+		put("--->MLX OK\n");
 	ini_texture(&data);
 	mlx_loop_hook(data.mlx, &render, &data);
 	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &data);

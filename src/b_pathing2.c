@@ -16,7 +16,7 @@
 /*******************************************************************************
 	check path for player
 ******************************************************************************/
-void static	f_exit(t_data *data)
+static void	f_exit(t_data *data)
 {
 	data->walk_count++;
 	put(COLOR_5R_0G_5B "You moved "COLOR_1R_4G_1B"%d"COLOR_5R_0G_5B \
