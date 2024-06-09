@@ -1,4 +1,4 @@
-# include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 static void	f_save_time_player(t_data2 *data, int dx, int dy, int frame)
@@ -25,7 +25,7 @@ static void	f_save_time_ball(t_data2 *data)
 {
 	if (data->throw.ball.time != 0 || !data->num_holding)
 		return ;
-	if (check_path_player_v2(data, data->player.f / 4, &data->player.x, -1) == 0)
+	if (check_path_player_v3(data, data->player, -1) == 0)
 		return ;
 	data->throw.ball.time = SPRITE_SIZE * THROW_RANGE;
 	data->throw.ball.f = 0;
@@ -40,7 +40,6 @@ static void	f_save_time_ball(t_data2 *data)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         if player has a time, doesnt register any input
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 # define XK_Escape 0
 # define XK_Control_L 0
 # define XK_e 0
@@ -53,6 +52,7 @@ static void	f_save_time_ball(t_data2 *data)
 # define XK_Up 0
 # define XK_w 0
 # define XK_space 0
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 int	key_press_v2(int keysym, t_data2 *data)
 {

@@ -1,4 +1,4 @@
-# include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 //      use v64 for empty circle
@@ -21,13 +21,13 @@ void helper_v360(t_data2 *data, t_circle *circle, int x, int y)
     int i;
 
     i = -x -1;
-    while (++i <= x) 
+    while (++i <= x)
     {
         put_pixel_buffer(data, circle->center_x + i, circle->center_y + y, circle->color());
         put_pixel_buffer(data, circle->center_x + i, circle->center_y - y, circle->color());
     }
     i = -y -1;
-    while (++i <= y) 
+    while (++i <= y)
     {
         put_pixel_buffer(data, circle->center_x + i, circle->center_y + x, circle->color());
         put_pixel_buffer(data, circle->center_x + i, circle->center_y - x, circle->color());

@@ -6,11 +6,11 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/06 19:34:36 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/09 19:28:09 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
@@ -27,8 +27,7 @@ int	fill_map_v2(t_data2 *data, int fd_map)
 	while (data->map[data->map_y])
 	{
 		if (len_m(data->map[data->map_y], "\n") != data->map_x)
-			return (put("not a rectangle\n%.3t\n", data->map), free_tab(data->map),
-				close(fd_map), 1);
+			return (put("not a rectangle\n%.3t\n", data->map), free_tab(data->map), close(fd_map), 1);
 		data->map_y++;
 		data->map = expand_tab(data->map, gnl(fd_map));
 	}

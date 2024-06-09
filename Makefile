@@ -12,18 +12,23 @@ all: $(NAME)
 # ╰──────────────────────────────────────────────────────────────────────╯
 
 # big map, 3 pika
+MAPG = good_map.ber
+# big map, 3 pika
 MAP1 = map1.ber
 # small square, no pika
 MAP2 = map2.ber
 # medium square, lots of pika
 MAP3 = map3.ber
-# big map, 3 pika
-MAP4 = good_map.ber
+# small square, 1 pika
+MAP4 = map4.ber
 
 a: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-./$(NAME_BONUS) map/$(MAP1)
-	@echo $(RESET);
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP4)
+
+b: libft mlx $(NAME_BONUS)
+	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP4)
 
 v: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
@@ -31,7 +36,7 @@ v: libft mlx $(NAME_BONUS)
 	@echo $(RESET);
 
 # ---------------------------------------------------------------------- >
-BAD_MAPS = map_no_collec.ber map_no_player.ber \
+BAD_MAPS = map_bad_not_rect1.ber map_no_collec.ber map_no_player.ber \
 			map_no_exit.ber map_many_exit.ber \
 			map_many_player.ber map_bad_wall.ber \
 			map_bad_enclosed_e.ber map_bad_enclosed_c.ber \
@@ -39,35 +44,34 @@ BAD_MAPS = map_no_collec.ber map_no_player.ber \
 
 # map=$$($(eval echo $$arg));
 m: libft mlx $(NAME)
-
 	@for map in $(BAD_MAPS); do \
-		$(call random_shmol_cat, teshting lots of bad miaps:, $$map shouldt run..., $(CLS), ); \
-		$(VALGRIND) ./$(NAME) map/map_bad/$$map; \
-		echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
-		read -p "" key; \
+	$(call random_shmol_cat, teshting lots of bad miaps:, $$map shouldt run..., $(CLS), ); \
+	$(VALGRIND) ./$(NAME) map/map_bad/$$map; \
+	echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	read -p "" key; \
 	done
 #
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
 	-$(VALGRIND) ./$(NAME) map/map_multiplayer.be
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
-	read -p "" key;
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key;
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
 	-$(VALGRIND) ./$(NAME) map/mapzzzzz.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
-	read -p "" key;
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
 #
 	@$(call random_shmol_cat, teshing too much args, "$(MAP1) abc", $(CLS), );
 	-$(VALGRIND) ./$(NAME) map/$(MAP1) map/$(MAP2)
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
-	read -p "" key;
-# ----------------------------------------------------------------> HEREHERE
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
+#
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
 	@echo "$(RED)"
 	echo > ./map/map_blank.ber
 	@echo "$(COLOR_5R_0G_5B)"
 	-$(VALGRIND) ./$(NAME) map/map_blank.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
-	read -p "" key;
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
 #
 	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), teshing with a sprite file renamed!!!, , $(CLS), );
 	@echo "$(RED)"
@@ -76,18 +80,18 @@ m: libft mlx $(NAME)
 	-$(VALGRIND) ./$(NAME) map/$(MAP3)
 	@echo "$(RED)"
 	mv ./img/player/player_007.xpm ./img/player/player_0.xpm
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
-	read -p "" key;
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
 #
-	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
-	read -p "" key;
-	$(VALGRIND) ./$(NAME) map/$(MAP3)
+	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
+	-$(VALGRIND) ./$(NAME) map/$(MAP3)
 
 m2: libft mlx $(NAME)
-	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
-	read -p "" key;
+	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "\'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
 	$(VALGRIND) ./$(NAME) map/$(MAP3)
 
 # ╭──────────────────────────────────────────────────────────────────────╮

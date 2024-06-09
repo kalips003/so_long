@@ -1,4 +1,4 @@
-# include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
@@ -12,8 +12,8 @@ static int helper_texture(t_data2 *data, char *path, t_img *img, int sw)
 	img->img = mlx_xpm_file_to_image(data->mlx, path, &img->sz_x, &img->sz_y);
 	if (!img->img)
 	{
-		put("err n*%d\n", (int)(((unsigned long)img - (unsigned long)data) / sizeof(t_img)));
-		perror(COLOR_2R_2G_3B"cant open file"RESET);
+		put("sprite n*%d\n", (int)(((unsigned long)img - (unsigned long)data) / sizeof(t_img)));
+		perror(COLOR_2R_2G_3B"cant open file");
 		if (!sw)
 			exit_all_v2(data);
 		else
@@ -31,7 +31,6 @@ static void ini_anim_v3(t_data2 *data)
 	int j;
 
 	path_p = str("img/player_b/player_%d.xpm", data->boy_or_girl);
-	put("%s\n", path_p);
 	j = helper_texture(data, path_p, &data->i_player, 1);
 	free_s(path_p);
 	if (!j)
@@ -63,7 +62,7 @@ void ini_sprites(t_data2 *data)
 	helper_texture(data, "img/txt_collect2.xpm", &data->i_ball[1], 0);
 	helper_texture(data, "img/big_ball.xpm", &data->i_big_ball[0], 0);
 	helper_texture(data, "img/big_ball_pika.xpm", &data->i_big_ball[1], 0);
-	helper_texture(data, "img/throw.xpm", &data->i_throw, 0);
+	helper_texture(data, "img/ball_throw.xpm", &data->i_throw, 0);
 	helper_texture(data, "img/txt_exit.xpm", &data->i_exit[1], 0);
 	helper_texture(data, "img/txt_exit2.xpm", &data->i_exit[0], 0);
 	helper_texture(data, "img/numbers.xpm", &data->i_numbers, 0);

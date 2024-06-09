@@ -1,17 +1,22 @@
-# include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 // draw img at xyfe[0], xyfe[1]
 // if color != NULL, non transparent pixel will be color
 // xyfe[2] = frame number to render
 // xyfe[3] = frame encoding x
-void draw_frame(t_data2 *data, t_img img, int xyfe[4], int (* color)(void)) 
+void draw_frame(t_data2 *data, t_img img, int xyfe[4], int (* color)(void))
 {
 	t_frame frame;
 
 	frame.sz = img.sz_x / xyfe[3];
-	if (xyfe[0] < 0 || xyfe[1] < 0 || xyfe[0] + frame.sz >= data->buffer.sz_x || xyfe[1] + frame.sz >= data->buffer.sz_y)
-		return ((void)put(ERR"------> out of bounds\n"));
+	if (xyfe[0] < 0 || xyfe[1] < 0)
+		return ((void)put(ERR"------> out of bounds (1)\n"));
+	if (xyfe[0] + frame.sz >= data->buffer.sz_x || xyfe[1] + frame.sz >= data->buffer.sz_y)
+	{
+		put("sprite n*%d\n", (int)(((unsigned long)(&img) - (unsigned long)data) / sizeof(t_img)));
+		return ((void)put(ERR"------> out of bounds (2)\n"));
+	}
 	frame.frame_start_x = (xyfe[2] % xyfe[3]) * frame.sz;
 	frame.frame_start_y = (xyfe[2] / xyfe[3]) * frame.sz;
 	frame.i = -1;
@@ -40,8 +45,8 @@ void	f_put_sprite_to_buffer(t_data2 *data, int x, int y, t_img img)
 {
 	t_sprite	s;
 
-	if (x < 0 || y < 0 || x + img.sz_x >= data->buffer.sz_x || y + img.sz_y >= data->buffer.sz_y)
-		return ((void)put(ERR"------> out of bounds\n"));
+	if (x < 0 || y < 0)
+		return ((void)put(ERR"------> out of bounds 2\n"));
 	s.i = -1;
 	while (++s.i < img.sz_x)
 	{
@@ -67,7 +72,7 @@ void	f_put_sprite_to_buffer_v2(t_data2 *data, t_npc npc, t_img img, int (* color
 	t_sprite	s;
 
 	if (npc.x < 0 || npc.y < 0 || npc.x + img.sz_x >= data->buffer.sz_x || npc.y + img.sz_y >= data->buffer.sz_y)
-		return ((void)put(ERR"------> out of bounds\n"));
+		return ((void)put(ERR"------> out of bounds 3\n"));
 	s.i = -1;
 	while (++s.i < img.sz_x)
 	{
@@ -149,17 +154,17 @@ void	f_put_event_ball_to_buffer_v3(t_data2 *data)
 {
 	int i = data->time % 12;
 	if (data->throw.ball.time > 0)
-		draw_frame(data, data->i_throw, (int){data->throw.ball.x, data->throw.ball.y, i, 1}, NULL);
+		draw_frame(data, data->i_throw, (int[4]){data->throw.ball.x, data->throw.ball.y, i, 1}, NULL);
 	else if (data->throw.ball.time < 0)
-		draw_frame(data, data->i_throw, (int){data->throw.ball.x, data->throw.ball.y, i, 1}, random_white);
+		draw_frame(data, data->i_throw, (int[4]){data->throw.ball.x, data->throw.ball.y, i, 1}, random_white);
 }
 
 void	f_put_player_to_buffer_v4(t_data2 *data)
 {
 	if (data->player.time >= 0)
-		draw_frame(data, data->i_player, (int){data->player.x, data->player.y, data->player.f, 4}, NULL);
+		draw_frame(data, data->i_player, (int[4]){data->player.x, data->player.y, data->player.f, 4}, NULL);
 	else
-		draw_frame(data, data->i_player, (int){data->player.x, data->player.y, data->player.f, 4}, random_yellow_v2);
+		draw_frame(data, data->i_player, (int[4]){data->player.x, data->player.y, data->player.f, 4}, random_yellow_v2);
 }
 
 void ft_draw_score(t_data2 *data)
@@ -176,11 +181,11 @@ void ft_draw_score(t_data2 *data)
 	start_y_posi = data->buffer.sz_y + START_Y_SCORE;
 	while (score > 9)
 	{
-		draw_frame(data, data->i_numbers, (int){i, start_y_posi, score % 10, 1}, color);
+		draw_frame(data, data->i_numbers, (int[4]){i, start_y_posi, score % 10, 1}, color);
 		i += DECIMAL_SCORE;
 		score /= 10;
 	}
-	draw_frame(data, data->i_numbers, (int){i, start_y_posi, score % 10, 1}, color);
+	draw_frame(data, data->i_numbers, (int[4]){i, start_y_posi, score % 10, 1}, color);
 }
 // <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
 // 		ARCHIVES

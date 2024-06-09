@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/02 17:52:45 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/09 18:51:35 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,20 @@ int	fill_map(t_data *data, int fd_map)
 {
 	data->map = expand_tab(NULL, gnl(fd_map));
 	if (!data->map || !data->map[0])
-		return (put("some error occured (1)\n"), free_tab(data->map),
-			close(fd_map), 1);
+	{
+		put(ERRM"some error occured (1)\n");
+		data->map = free_tab(data->map);
+		return (close(fd_map), 1);
+	}
 	data->map_x = len_m(data->map[0], "\n");
 	while (data->map[data->map_y])
 	{
 		if (len_m(data->map[data->map_y], "\n") != data->map_x)
-			return (put_map(ERR"not a rectangle\n", data->map), free_tab(data->map),
-				close(fd_map), 1);
+		{
+			put_map(ERR"not a rectangle\n", data->map);
+			data->map = free_tab(data->map);
+			return (close(fd_map), 1);
+		}
 		data->map_y++;
 		data->map = expand_tab(data->map, gnl(fd_map));
 	}
