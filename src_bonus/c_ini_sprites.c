@@ -66,6 +66,7 @@ void ini_sprites(t_data2 *data)
 	helper_texture(data, "img/throw.xpm", &data->i_throw, 0);
 	helper_texture(data, "img/txt_exit.xpm", &data->i_exit[1], 0);
 	helper_texture(data, "img/txt_exit2.xpm", &data->i_exit[0], 0);
+	helper_texture(data, "img/numbers.xpm", &data->i_numbers, 0);
 	data->buffer.sz_x = SPRITE_SIZE * data->map_x;
 	data->buffer.sz_y = SPRITE_SIZE * data->map_y + BLACK_BOT;
 	data->win = mlx_new_window(data->mlx, data->buffer.sz_x, data->buffer.sz_y, "Welcome to PikaLand");

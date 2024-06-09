@@ -93,24 +93,22 @@ void	render_attack(t_data2 *data)
 	t_attack	atk;
 
 	atk = data->attack;
-	if (!data->attack.time)
-		return ;
 	if (data->time == -1)
 		atk.time = ATTAK_TIME;
-	if (atk.time < 0)
-	{
-		atk.circlend.radius = -data->attack.time / 4;
-		atk.circle.radius = -(CHANNELING_TIME - data->attack.time) / 4;
-		return (draw_circle(data, atk.circle), draw_circle(data, atk.circlend));
-	}
-	else
-		draw_line_v4(data, &atk.circle.center_x, &atk.circlend.center_x, random_yellow_v2);
 	if (data->time == 1)
 	{
 		data->pika[atk.pika_attaking].time = 0;
 		data->map[(int)round((double)atk.circlend.center_y / SPRITE_SIZE - 0.5)]\
 				[(int)round((double)atk.circlend.center_x / SPRITE_SIZE - 0.5)] = '*';
 	}
-	// if (!(data->time % TIME_ATK))
+	if (atk.time < 0)
+	{
+		atk.circlend.radius = -data->attack.time / 4;
+		atk.circle.radius = -(CHANNELING_TIME - data->attack.time) / 4;
+		draw_circle(data, atk.circle);
+		draw_circle(data, atk.circlend);
+	}
+	else
+		draw_line_v4(data, &atk.circle.center_x, &atk.circlend.center_x, random_yellow_v2);
 	atk.time += 1 - 2 * (atk.time > 0);
 }

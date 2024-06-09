@@ -25,24 +25,20 @@ int ft_loop_v2(t_data2 *data)
 	if (data->attack.time > 0)
 		if (is_player_touched(&data->attack.circle.center_x, &data->attack.circlend.center_x, &data->player.x))
 			data->player.time = -1;
-	else if (!data->attack.time && data->num_pika && (rand() % (ATTACK_CHANCE + 1)))
+	else if (!data->attack.time && data->num_pika && !(rand() % (ATTACK_CHANCE + 1)))
 		find_pika_for_attak(data);
 	f_move_player_v2(data);
 	ft_move_enemy(data);
 	background(data);
-    put_foreground_to_buffer(data);
-    if (data->throw.ball.time)
-        move_ball(data);
-    if (data->attack.time)
-        render_attack(data);
+	put_foreground_to_buffer(data);
 
 
-    mlx_put_image_to_window(data->mlx, data->win, data->buffer.img, 0, 0);
-    message = str("Current TIME: %d steps", data->walk_count);
-    mlx_string_put(data->mlx, data->win, 50, data->buffer.sz_y + 50, 0x00FF0000, message);
-    free_s(message);
+	mlx_put_image_to_window(data->mlx, data->win, data->buffer.img, 0, 0);
+	message = str("Current TIME: %d steps", data->walk_count);
+	mlx_string_put(data->mlx, data->win, 50, data->buffer.sz_y + 50, 0x00FF0000, message);
+	free_s(message);
 	// draw score
-    return (0);
+	return (0);
 // <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
 
 	int frameTime = getCurrentTime() - startTime;
@@ -92,17 +88,29 @@ int ft_loop(t_data2 *data)
 ///////////////////////////////////////////////////////////////////////////////]
 void put_foreground_to_buffer(t_data2 *data)
 {
-    int i;
+	int i;
 
-    f_put_player_to_buffer_v2(data, 0, random_yellow);
-    i = -1;
-    while (++i < data->num_pika)
-    {
-        if (data->pika[i].time == -1)
-            f_put_sprite_to_buffer_v2(data, &data->pika[i].x, data->i_pika[data->pika[i].f], random_yellow_v2);
-        else
-            f_put_sprite_to_buffer_v2(data, &data->pika[i].x, data->i_pika[data->pika[i].f], random_white);
-    }
-    if (data->throw.ball.time)
-        f_put_event_ball_to_buffer_v2(data);
+	f_put_player_to_buffer_v4(data);
+	i = -1;
+	while (++i < data->num_pika)
+	{
+		if (data->pika[i].time == -1)
+			draw_frame(data, data->i_pika[i], (int[4]){data->pika[i].x, data->pika[i].y, 0, 1}, random_white);
+		else
+			draw_frame(data, data->i_pika[i], (int[4]){data->pika[i].x, data->pika[i].y, 0, 1}, NULL);
+	}
+	if (data->throw.ball.time)
+		f_put_event_ball_to_buffer_v3(data);
+	if (data->throw.ball.time)
+		move_ball(data);
+	if (data->attack.time)
+		render_attack(data);
+	ft_draw_score(data);
+}
+
+void	ft_draw_score(t_data2 *data)
+{
+	// load frames
+	// free frame img/numbers.xpm
+
 }

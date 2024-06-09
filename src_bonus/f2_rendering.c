@@ -1,12 +1,37 @@
 # include "so_long.h"
 
-typedef struct s_sprite {
-	int				i;
-	int				j;
-	int				pixel_index;
-	unsigned int	pixel_color;
-	int				buffer_index;
-}	t_sprite;
+///////////////////////////////////////////////////////////////////////////////]
+// draw img at xyfe[0], xyfe[1]
+// if color != NULL, non transparent pixel will be color
+// xyfe[2] = frame number to render
+// xyfe[3] = frame encoding x
+void draw_frame(t_data2 *data, t_img img, int xyfe[4], int (* color)(void)) 
+{
+	t_frame frame;
+
+	frame.sz = img.sz_x / xyfe[3];
+	if (xyfe[0] < 0 || xyfe[1] < 0 || xyfe[0] + frame.sz >= data->buffer.sz_x || xyfe[1] + frame.sz >= data->buffer.sz_y)
+		return ((void)put(ERR"------> out of bounds\n"));
+	frame.frame_start_x = (xyfe[2] % xyfe[3]) * frame.sz;
+	frame.frame_start_y = (xyfe[2] / xyfe[3]) * frame.sz;
+	frame.i = -1;
+    while (++frame.i < frame.sz) {
+		frame.j = -1;
+		while (++frame.j < frame.sz) {
+			frame.src_x = frame.frame_start_x + frame.i;
+			frame.src_y = frame.frame_start_y + frame.j;
+			frame.pixel_index = (frame.src_y * img.ll + frame.src_x * (img.bpp / 8));
+			frame.pixel_color = *(int *)(img.addr + frame.pixel_index);
+			if (frame.pixel_color == 0xFF000000)
+				continue ;
+			if (color)
+				frame.pixel_color = color();
+			frame.buffer_index = (xyfe[1] + frame.j) * data->buffer.ll + (xyfe[0] + frame.i) * (data->buffer.bpp / 8);
+			*(unsigned int *)(data->buffer.addr + frame.buffer_index) = frame.pixel_color;
+		}
+	}
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////]
 // 		put sprite at coordonate xy, avec transparence, not white if negative
@@ -60,35 +85,33 @@ void	f_put_sprite_to_buffer_v2(t_data2 *data, t_npc npc, t_img img, int (* color
 		}
 	}
 }
+
 ///////////////////////////////////////////////////////////////////////////////]
 // 		put sprite player, avec transparence, white if negative
 // 			white if negative
 void	f_put_player_to_buffer_v2(t_data2 *data, int rotation, int (* color)(void))
 {
-	int		i;
-	int		j;
-    int     x;
-    int     y;
+	t_sprite	img_player;
 
-	i = -1;
-	while (++i < SPRITE_SIZE)
+	img_player.i = -1;
+	while (++img_player.i < SPRITE_SIZE)
 	{
-		j = -1;
-		while (++j < SPRITE_SIZE)
+		img_player.j = -1;
+		while (++img_player.j < SPRITE_SIZE)
 		{
             if (rotation == 1)
-                x = ((SPRITE_SIZE - 1 - i) + (data->player.f % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
+                img_player.f_x = ((SPRITE_SIZE - 1 - img_player.i) + (data->player.f % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
             else
-                x = (i + (data->player.f % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
-			y = (j + (data->player.f / 4) * SPRITE_SIZE) * data->i_player.ll;
-			unsigned int pixel_color = *(int *)(data->i_player.addr + x + y);
+                img_player.f_x = (img_player.i + (data->player.f % 4) * SPRITE_SIZE) * (data->i_player.bpp / 8);
+			img_player.f_y = (img_player.j + (data->player.f / 4) * SPRITE_SIZE) * data->i_player.ll;
+			img_player.pixel_color = *(int *)(data->i_player.addr + img_player.f_x + img_player.f_y);
+			if (img_player.pixel_color == 0xFF000000)
+				continue ;
             if (data->player.time < 0)
-                pixel_color = color();
-			if (pixel_color != 0xFF000000)
-			{
-				int buffer_index = (data->player.y + j) * data->buffer.ll + (data->player.x + i) * (data->buffer.bpp / 8);
-				*(int *)(data->buffer.addr + buffer_index) = pixel_color;
-			}
+                img_player.pixel_color = color();
+			img_player.buffer_index = (data->player.y + img_player.j) * data->buffer.ll + (data->player.x + img_player.i) * (data->buffer.bpp / 8);
+			*(int *)(data->buffer.addr + img_player.buffer_index) = img_player.pixel_color;
+
 		}
 	}
 }
@@ -120,6 +143,44 @@ void	f_put_event_ball_to_buffer_v2(t_data2 *data)
 			}
 		}
 	}
+}
+
+void	f_put_event_ball_to_buffer_v3(t_data2 *data)
+{
+	int i = data->time % 12;
+	if (data->throw.ball.time > 0)
+		draw_frame(data, data->i_throw, (int){data->throw.ball.x, data->throw.ball.y, i, 1}, NULL);
+	else if (data->throw.ball.time < 0)
+		draw_frame(data, data->i_throw, (int){data->throw.ball.x, data->throw.ball.y, i, 1}, random_white);
+}
+
+void	f_put_player_to_buffer_v4(t_data2 *data)
+{
+	if (data->player.time >= 0)
+		draw_frame(data, data->i_player, (int){data->player.x, data->player.y, data->player.f, 4}, NULL);
+	else
+		draw_frame(data, data->i_player, (int){data->player.x, data->player.y, data->player.f, 4}, random_yellow_v2);
+}
+
+void ft_draw_score(t_data2 *data)
+{
+	int score = data->walk_count;
+	int i;
+	int start_y_posi;
+	int (* color)(void);
+
+	color = NULL;
+	if (data->player.time < 0)
+		color = random_yellow_v2;
+	i = START_X_SCORE;
+	start_y_posi = data->buffer.sz_y + START_Y_SCORE;
+	while (score > 9)
+	{
+		draw_frame(data, data->i_numbers, (int){i, start_y_posi, score % 10, 1}, color);
+		i += DECIMAL_SCORE;
+		score /= 10;
+	}
+	draw_frame(data, data->i_numbers, (int){i, start_y_posi, score % 10, 1}, color);
 }
 // <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
 // 		ARCHIVES
