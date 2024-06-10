@@ -1,11 +1,11 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
+// # include <X11/X.h>
+// # include <X11/keysym.h>
 # include <math.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
+// # include <sys/wait.h>
 
 # include "libft.h"
 
@@ -270,7 +270,7 @@ int		f_is_dying(t_data2 *data);
 void 	f_print_memory_v2(t_data2 *data);
 void 	f_print_memory(t_data2 *data);
 ///////////////////////////////////////////////////////////////////////////////]
-
+// static void	ft_put_tile(t_data2 *data, int x, int y, t_img img);
 
 
 

@@ -50,8 +50,8 @@ int	main(int ac, char **av, char **env)
 	int i = -1;
 	while (++i < 4)
 	{
-		a = (int)cos((double)i / 2 * PI);
-		b = (int)sin((double)i / 2 * PI);
+		a = (int)cos(i / 2 * PI);
+		b = (int)sin(i / 2 * PI);
 		printf("%d: cos= %.1d, sin = %.1d\n", i, a, b);
 	}
 	printf("--->%d", (int)round(0.49));
