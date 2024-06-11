@@ -1,11 +1,11 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
+// # include <X11/X.h>
+// # include <X11/keysym.h>
 # include <math.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
+// # include <sys/wait.h>
 
 # include "libft.h"
 
@@ -33,7 +33,6 @@ typedef struct s_coor
 
 typedef struct s_valid_path
 {
-
 	char	**map;
 	int		how_many;
 	int		x;

@@ -1,5 +1,5 @@
 #include "../include/libft.h"
-// #include "../include/so_long.h"
+#include "../include/so_long_bonus.h"
 
 /*******************************************************************************
 *******************************************************************************/
@@ -27,35 +27,78 @@
 // MACRO
 // #define funct(ap, type)    (*(type *)((ap += sizeof(type)) - sizeof(type)))
 # define PI 3.14159265358979323846
+
+void is_map_ok_v2(t_data2 *data, char *path)
+{
+	int fd_map;
+
+	ft_memset(data, 0, sizeof(t_data2));
+// map path end in ".ber"
+	if (find_str(path, ".ber") != len(path) - 4)
+		(put(ERRM"map name should end with \'.ber\'\n"), exit(1));
+// create map struct
+	fd_map = open(path, O_RDONLY);
+	if (fd_map == -1)
+		(perror(ERRM"open"), exit(1));
+// fill map
+	if (fill_map_v2(data, fd_map) || count_check_v2(data))
+		exit_all_v2(data);
+// valid path?
+	if (valid_path_v2(data))
+		exit_all_v2(data);
+}
+
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
-	int	fd = open("map/map3.ber", O_RDONLY);
-	if (fd == -1)
-		return (put("error fd\n"));
-	char *line = NULL;
-	while ((line = gnl(fd)) != NULL)
-	{
-		put("%S"RESET, line);
-		free_s(line);
-	}
-	close(fd);
-	put("we want:\n\
-		→ 0: cos=1, sin =0\n\
-		↓ 1: cos=0, sin =1\n\
-		← 2: cos=-1, sin =0\n\
-		↑ 3: cos=0, sin =-1\n");
-	int a;
-	int b;
-	int i = -1;
-	while (++i < 4)
-	{
-		a = (int)cos(i / 2 * PI);
-		b = (int)sin(i / 2 * PI);
-		printf("%d: cos= %.1d, sin = %.1d\n", i, a, b);
-	}
-	printf("--->%d", (int)round(0.49));
-    return (0);
+	t_data2  data;
+
+	if (ac != 2)
+		return (put(ERRM"need one map_argument\n"), 1);
+	is_map_ok_v2(&data, av[1]);
+	ft_break(1, "before exit", &data);
+	exit_all_v2(&data);
+
+
+
+
+
+
+
+
+
+	// int	fd = open("map/map3.ber", O_RDONLY);
+	// if (fd == -1)
+	// 	return (put("error fd\n"));
+	// char *line = NULL;
+	// while ((line = gnl(fd)) != NULL)
+	// {
+	// 	put("%S"RESET, line);
+	// 	free_s(line);
+	// }
+	// close(fd);
+	// put("we want:\n\
+	// 	→ 0: cos=1, sin =0\n\
+	// 	↓ 1: cos=0, sin =1\n\
+	// 	← 2: cos=-1, sin =0\n\
+	// 	↑ 3: cos=0, sin =-1\n");
+	// int a;
+	// int b;
+	// int i = -1;
+	// while (++i < 4)
+	// {
+	// 	b = (int)sin(i * PI / 2);
+	// 	a = (int)cos(i * PI / 2);
+	// 	printf("%d: cos= %.1d, sin = %.1d\n", i, a, b);
+	// }
+	// printf("--->%d\n\n\n\n", (int)round(0.49));
+	// char *string = str("asdf%dalosdif", 123);
+	// put("=%s=\n",  string);
+	// free(string);
+	// put(BLINK"->BREAK POINT:\n");
+	// free_s(gnl(0));
+	// put(CLS"=hello  again=\n");
+	return (0);
 }
 ///////////////////////////////////////////////////////////////////////////////]
 void    f_()
