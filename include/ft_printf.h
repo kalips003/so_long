@@ -59,7 +59,7 @@ void	f_error_check(t_flags *flags);
 void	f_fill_struct(const char *str, t_flags *f, va_list args);
 ////////////////////////////////////////////////////////////
 //	#	TOOLS
-int		ft_strlen(char *s);
+int		ft_strlen666(char *s);
 int		atoi_print(const char *str, int *preci_width, t_flags *f, va_list args);
 int		size_num_base(long long num, int base);
 int		size_float(double nbr, t_flags *flags);

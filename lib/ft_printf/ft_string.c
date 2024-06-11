@@ -29,9 +29,9 @@ char	*join(char *begin, char *append, int bit, int size)
 
 	if (begin && !append && ((bit >> 1) & 1))
 		return (begin);
-	i = ft_strlen(append);
+	i = ft_strlen666(append);
 	size = i * (i <= size || !size) + size * (i > size && size);
-	str = (char *)malloc(ft_strlen(begin) + size + 1);
+	str = (char *)malloc(ft_strlen666(begin) + size + 1);
 	if (str)
 	{
 		ptr = 0;

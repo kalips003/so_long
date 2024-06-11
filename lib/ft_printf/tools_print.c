@@ -30,7 +30,7 @@ int	wii_print(char c)
 		return (-2);
 	if (i < 15)
 		return (-3);
-	if (i < ft_strlen(char_set))
+	if (i < ft_strlen666(char_set))
 		return (i - 14);
 	return (0);
 }
@@ -43,7 +43,7 @@ int	ft_putnbr_base(int fd, long long nbr, char *base)
 	int			rtrn;
 
 	rtrn = 0;
-	size = ft_strlen(base);
+	size = ft_strlen666(base);
 	if (size < 2)
 		return (-1);
 	if (nbr < 0)

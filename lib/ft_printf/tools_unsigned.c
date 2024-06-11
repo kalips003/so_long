@@ -78,7 +78,7 @@ int	ft_putnbr_base_un(int fd, unsigned long nbr, char *base)
 	int			rtrn;
 
 	rtrn = 0;
-	size = ft_strlen(base);
+	size = ft_strlen666(base);
 	if (nbr >= (unsigned long)size)
 		rtrn += ft_putnbr_base(fd, nbr / size, base);
 	write(fd, &base[nbr % size], 1);
