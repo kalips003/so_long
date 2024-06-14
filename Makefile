@@ -198,7 +198,7 @@ src_bonus/obj/%.o: src_bonus/%.c
 test:	libft
 	@rm -f ./lib/a.out
 	-@cc ./lib/test.c ./lib/libft.a -o ./lib/a.out -lm
-	@if [ ! -e ./lib/libft.a ]; then\
+	@if [ ! -e ./lib/a.out ]; then\
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "The⠀Cake"), $(call pad_word, 12, "Is⠀A⠀Lie..")); \
 		exit 3; \
 	fi
