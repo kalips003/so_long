@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:38:31 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/03 17:26:30 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/11 18:27:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 # include "colors.h"
 
 ////////////////////////////////////////////////////////////
@@ -49,7 +50,8 @@ typedef char	*(*t_str)(va_list, t_flags *);
 //	#	PRINTF
 int		put(const char *str, ...);
 // int		f_1(const char *str, int *i, va_list args);
-int	print_fd(int fd, const char *str, ...);
+int		print_fd(int fd, const char *str, ...);
+void	ft_print_cat(int num,  char *string2, int cls);
 ////////////////////////////////////////////////////////////
 //	#	STRUCT
 // static 1
@@ -83,6 +85,7 @@ int		size_format_num_un(unsigned long num, t_flags *f, int num_size);
 int		size_num_base_un(unsigned long num, int base);
 int		f_format_num_un(t_flags *f, unsigned long num, int size_num);
 int		ft_putnbr_base_un(int fd, unsigned long nbr, char *base);
+void	*free_333(void *ptr);
 ////////////////////////////////////////////////////////////
 //	#	PRINT FLAG
 int		ft_string(va_list args, t_flags *flags);

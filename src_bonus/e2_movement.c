@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   e2_movement.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/11 16:54:43 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/11 17:07:42 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-void	f_move_player_v2(t_data2 *data);
-void	ft_move_enemy(t_data2 *data);
-void	move_ball(t_data2 *data);
-static void    move_pika_v2(t_data2 *data, int i);
+void		f_move_player_v2(t_data2 *data);
+void		ft_move_enemy(t_data2 *data);
+void		move_ball(t_data2 *data);
+static void	move_pika_v2(t_data2 *data, int i);
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
@@ -14,7 +26,7 @@ static void    move_pika_v2(t_data2 *data, int i);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         move player in a [0,1,0,2,0] fashion
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void    f_move_player_v2(t_data2 *data)
+void	f_move_player_v2(t_data2 *data)
 {
 	if (!data->player.time)
 		return ;
@@ -37,7 +49,7 @@ void    f_move_player_v2(t_data2 *data)
         move all enemy. if time == 0, random what happen next
         its also the ft_save_time of the enemies
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void    ft_move_enemy(t_data2 *data)
+void	ft_move_enemy(t_data2 *data)
 {
 	int	i;
 	int	random;
@@ -100,11 +112,11 @@ void	move_ball(t_data2 *data)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static void	move_pika_v2(t_data2 *data, int i)
 {
-    // if (data->time % (TIME_PIKA + i))
-    //     return ;
-    data->pika[i].time--;
-    data->pika[i].x += data->pika[i].dx;
-    data->pika[i].y += data->pika[i].dy;
-    if (!(data->pika[i].time % (16 + i)))
-        data->pika[i].f ^= 1;
+	// if (data->time % (TIME_PIKA + i))
+	//     return ;
+	data->pika[i].time--;
+	data->pika[i].x += data->pika[i].dx;
+	data->pika[i].y += data->pika[i].dy;
+	if (!(data->pika[i].time % (16 + i)))
+		data->pika[i].f ^= 1;
 }

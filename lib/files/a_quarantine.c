@@ -51,3 +51,4 @@ int		**pt_numtab(char *num_tab)
 {
 	return ((int **)num_tab);
 }
+

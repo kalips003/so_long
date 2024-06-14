@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_e+.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:35:59 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/06 17:01:56 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/11 19:23:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_string_hexa(va_list args, t_flags *f)
 	while (++i < f->width || (!f->width && str[i]))
 	{
 		if (f->preci && i % f->preci == 0)
-			put(RESET"=\n=");
+			put(RESET"\n");
 		put("\033[38;5;0;48;5;%um", ((unsigned char)str[i] + 128 * (f->plus)) % 256);
 		if (f->hash)
 			f->size += put("%.*x", 2 - f->minus, (unsigned char)str[i]);

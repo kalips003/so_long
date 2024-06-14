@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   c_ini_sprites.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
+/*   Updated: 2024/06/11 16:55:12 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-void ini_sprites(t_data2 *data);
-static int helper_texture(t_data2 *data, char *path, t_img *img, int sw);
-static void ini_anim_v3(t_data2 *data);
-static void ini_img(t_data2 *data);
+void		ini_sprites(t_data2 *data);
+static int	helper_texture(t_data2 *data, char *path, t_img *img, int sw);
+static void	ini_anim_v3(t_data2 *data);
+static void	ini_img(t_data2 *data);
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
@@ -12,7 +24,7 @@ static void ini_img(t_data2 *data);
 		if any pb, exit all by itself
 *******************************************************************************/
 ///////////////////////////////////////////////////////////////////////////////]
-void ini_sprites(t_data2 *data)
+void	ini_sprites(t_data2 *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
@@ -21,11 +33,14 @@ void ini_sprites(t_data2 *data)
 	ini_img(data);
 	data->buffer.sz_x = SPRITE_SIZE * data->map_x;
 	data->buffer.sz_y = SPRITE_SIZE * data->map_y + BLACK_BOT;
-	data->win = mlx_new_window(data->mlx, data->buffer.sz_x, data->buffer.sz_y, "Welcome to PikaLand");
-	data->buffer.img = mlx_new_image(data->mlx, data->buffer.sz_x, data->buffer.sz_y);
+	data->win = mlx_new_window(data->mlx, data->buffer.sz_x, \
+			data->buffer.sz_y, "Welcome to PikaLand");
+	data->buffer.img = mlx_new_image(data->mlx, data->buffer.sz_x, \
+			data->buffer.sz_y);
 	if (!data->win || !data->buffer.img)
 		(put(RED"Problem initalisazing mlx (2)\n"), exit_all_v2(data));
-	data->buffer.addr = mlx_get_data_addr(data->buffer.img, &data->buffer.bpp, &data->buffer.ll, &data->buffer.endian);
+	data->buffer.addr = mlx_get_data_addr(data->buffer.img, &data->buffer.bpp, \
+			&data->buffer.ll, &data->buffer.endian);
 	data->player.f = 4;
 	data->exit[2] = 0;
 }
@@ -36,10 +51,10 @@ void ini_sprites(t_data2 *data)
 		STARTER
 		BURNED_GRASS_TILE
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-static void ini_anim_v3(t_data2 *data)
+static void	ini_anim_v3(t_data2 *data)
 {
-	char *path_p;
-	int j;
+	char	*path_p;
+	int		j;
 
 	path_p = str("img/player_b/player_%d.xpm", data->boy_or_girl);
 	j = helper_texture(data, path_p, &data->i_player, 1);
@@ -63,13 +78,15 @@ static void ini_anim_v3(t_data2 *data)
 		bit = 0 exit all
 		bit = 1 return 0
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-static int helper_texture(t_data2 *data, char *path, t_img *img, int sw)
+static int	helper_texture(t_data2 *data, char *path, t_img *img, int sw)
 {
 	if (path)
-		img->img = mlx_xpm_file_to_image(data->mlx, path, &img->sz_x, &img->sz_y);
+		img->img = mlx_xpm_file_to_image(data->mlx, path, &img->sz_x, \
+					&img->sz_y);
 	if (!img->img)
 	{
-		put("sprite n*%d\n", (int)(((unsigned long)img - (unsigned long)data) / sizeof(t_img)));
+		put("sprite n*%d\n", (int)(((unsigned long)img - (unsigned long)data) \
+					/ sizeof(t_img)));
 		perror(COLOR_2R_2G_3B"cant open file");
 		if (!sw)
 			exit_all_v2(data);
@@ -80,10 +97,10 @@ static int helper_texture(t_data2 *data, char *path, t_img *img, int sw)
 	return (1);
 }
 
-static void ini_img(t_data2 *data)
+static void	ini_img(t_data2 *data)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*path;
 
 	i = -1;

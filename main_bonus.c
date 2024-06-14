@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/11 16:54:03 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/11 20:45:15 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
@@ -54,7 +66,9 @@ static void	boy_or_girl(t_data2 *data);
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static void what_starter(t_data2 *data)
 {
+	
 	data->starter = (int)(rand() % 4);
+
 	// random(0,1,2,3) = data->starter;
 	// data->function_color_ememy = ??;
 }
@@ -116,7 +130,7 @@ int main(int ac, char **av)
 	is_map_ok_v2(&data, av[1]);
 	boy_or_girl(&data);
 	what_starter(&data);
-////////////////////////////////////////
+	ft_break(3, "main: before ini sprites", &data);
 	ini_sprites(&data);
 ////////////////////////////////////////
 	ft_background(&data, 1);
