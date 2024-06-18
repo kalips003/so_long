@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/18 03:05:42 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/18 13:10:29 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,13 @@
 # define THROW_RANGE 3
 # define OFFSET_BALL_THR 22
 # define PIKA_MOVE_CHANCE 128
-# define ATTACK_CHANCE 180
+# define ATTACK_CHANCE 100
+// # define ATTACK_CHANCE 180
 # define PIKA_TURN_CHANCE 8
 # define ATTAK_TIME 100
+# define ATTAK_TIME_2 64
 # define CHANNELING_TIME -200
-# define MAX_ENDURANCE 1000
+# define MAX_ENDURANCE 500
 # define TIME_TO_DIE -128
 # define PLAYER_SPEED 2
 
@@ -138,22 +140,11 @@ typedef struct s_event2
 {
     t_circle circle;
     t_circle circlend;
+	int dx;
+	int dy;
 	int	time;
-
 	int	pika_attaking;
 }	t_attack;
-
-typedef struct s_event3
-{
-    int x_start;
-    int y_start;
-    int x_end;
-    int y_end;
-    t_npc	atk;
-	int	time;
-
-	int	pika_attaking;
-}	t_attack2;
 
 ///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_data2
