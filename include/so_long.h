@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/11 16:55:44 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/16 13:04:17 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
-// # include <X11/X.h>
-// # include <X11/keysym.h>
-# include <math.h>
-# include <sys/stat.h>
-// # include <sys/wait.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
 # include "libft.h"
 

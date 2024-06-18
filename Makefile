@@ -2,8 +2,8 @@ NAME = so_long
 NAME_BONUS = so_long_bonus
 
 CC = cc
-FLAGS = -Wextra -Wall -Werror -g -fPIE
-FLAGS = -Wextra -Wall -Werror -g -fPIE
+# FLAGS = -Wextra -Wall -Werror -g -fPIE
+FLAGS = -Wextra -Wall -g -fPIE
 # CFLAGS = -Wall -Werror -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
 # FLAGS = -g -fPIE
 
@@ -17,24 +17,26 @@ all: $(NAME)
 MAPG = good_map.ber
 # big map, 3 pika
 MAP1 = map1.ber
-# small square, no pika
+# big square, no pika
 MAP2 = map2.ber
 # medium square, lots of pika
 MAP3 = map3.ber
 # small square, 1 pika
 MAP4 = map4.ber
+# only balls
+MAP5 = map5.ber
 
-a: libft mlx $(NAME_BONUS)
+a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP4)
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP1)
 
 b: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP4)
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP2)
 
 c: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-./$(NAME_BONUS) map/$(MAP4)
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP5)
 
 v: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
@@ -73,7 +75,7 @@ m: libft mlx $(NAME)
 #
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
 	@echo "$(RED)"
-	echo > ./map/map_blank.ber
+	touch ./map/map_blank.ber
 	@echo "$(COLOR_5R_0G_5B)"
 	-$(VALGRIND) ./$(NAME) map/map_blank.ber
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
@@ -178,10 +180,18 @@ bonus: mlx libft $(OBJ_B) main_bonus.c include/so_long.h
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
-	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
+	$(call print_cat, , $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
+
+# bonus: mlx libft $(OBJ_B) main_bonus.c include/so_long.h
+# 	@clear
+# 	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a $(FLAGS_TEST) -lX11 -lXext -o $(NAME_BONUS) -lm; then \
+# 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
+# 		exit 1; \
+# 	fi
+# 	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
 
 
-src_bonus/obj/%.o: src_bonus/%.c
+src_bonus/obj/%.o: src_bonus/%.c include/so_long_bonus.h
 	@clear
 	@if [ ! -e $(OBJ_FOLDER_B) ]; then\
 		mkdir -p $(OBJ_FOLDER_B);\

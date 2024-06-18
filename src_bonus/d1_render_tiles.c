@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   d1_render_tiles.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/11 16:59:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/18 02:06:53 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	put_small_background_to_buffer(t_data2 *data)
 	h_555(data, data->player);
 	i = -1;
 	while (++i < data->num_pika)
-		h_555(data, data->pika[i]);
+		if (data->pika[i].x >= 0)
+			h_555(data, data->pika[i]);
 	if (data->throw.ball.time)
 		h_555(data, data->throw.ball);
 }
@@ -75,10 +76,15 @@ void	put_small_background_to_buffer(t_data2 *data)
 // 														HELPER - put one sprite
 static	void	h_444(t_data2 *data, int x, int y)
 {
+	if (x < 0 || y < 0)
+	{
+		put("trying to draw around cara goes out of bounds\n");
+		return ;
+	}
 	if (data->map[y][x] == '1')
 		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_wall);
 	else if (data->map[y][x] == '0' || data->map[y][x] == 'P' || \
-		data->map[y][x] == 'z')
+		data->map[y][x] == 'z' || data->map[y][x] == 'Z')
 		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ground[0]);
 	else if (data->map[y][x] == '*')
 		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ground[1]);
@@ -96,8 +102,8 @@ static	void	h_555(t_data2 *data, t_npc	npc)
 	int	x;
 	int	y;
 
-	x = (int)round(npc.x / SPRITE_SIZE);
-	y = (int)round(npc.y / SPRITE_SIZE);
+	x = (int)round((double)npc.x / SPRITE_SIZE);
+	y = (int)round((double)npc.y / SPRITE_SIZE);
 	h_444(data, x, y);
 	h_444(data, x + 1, y);
 	h_444(data, x - 1, y);

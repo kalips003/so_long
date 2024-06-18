@@ -1,7 +1,7 @@
 /* XPM */
 static char * enemy_3_xpm[] = {
 "128 256 12 1",
-" 	c #95CB74",
+" 	c None",
 ".	c #204860",
 "+	c #3888B8",
 "@	c #58B8F0",

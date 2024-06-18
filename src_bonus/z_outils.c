@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   z_outils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:53:11 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/11 19:20:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/17 02:25:15 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
 int	exit_all_v2(t_data2 *data);
+void	print_data(t_data2 *data);
 void	ft_break(int n, char *string, t_data2 *data);
 static void destroy_img_v4(t_data2 *d);
+// static void destroy_img_v3(t_data2 *d);
+
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
@@ -24,11 +27,7 @@ int	exit_all_v2(t_data2 *data)
 {
 	free_tab(data->map);
 	if (data->pika)
-	{
-		// put("PIKA=\n[%*S]\n", sizeof(t_npc), data->pika);
-		// put("------->\n");
 		free_s(data->pika);
-	}
 	destroy_img_v4(data);
 	if (data->mlx)
 	{
@@ -53,8 +52,7 @@ int	exit_all_v2(t_data2 *data)
 	free_s(string1);
 	free_s(string2);
 *******************************************************************************/
-// ft_break("TEST ( 1 )", "DATA struct");
-void	ft_break(int n, char *string, t_data2 *data)
+void	print_data(t_data2 *data)
 {
 // 	PRINT DATA STRUCT & PIKA & MAP
 	put(CLS"\tDATA\n[%#+*S", offsetof(t_data2, time), data);
@@ -64,7 +62,12 @@ void	ft_break(int n, char *string, t_data2 *data)
 	put("%#+*S]", sizeof(t_data2) - offsetof(t_data2, num_ball), &data->num_ball);
 	put("\n\tPIKA\n[%#+*.24S]\n", sizeof(t_npc) * data->num_pika, data->pika);
 	put("\tMAP\n%.1t\n", data->map);
+}
 
+// ft_break("TEST ( 1 )", "DATA struct");
+void	ft_break(int n, char *string, t_data2 *data)
+{
+	put(CLS"\tDATA\n[%#+*S", offsetof(t_data2, time), data);
 	ft_print_cat(n, string, 0);
 }
 
@@ -79,7 +82,7 @@ static void destroy_img_v4(t_data2 *d)
 
 	curseur = &d->buffer;
 	i = -1;
-	while (++i <= 21)
+	while (++i <= 22)
 	{
 		if (curseur->img)
 			mlx_destroy_image(d->mlx, curseur->img);
@@ -91,36 +94,38 @@ static void destroy_img_v4(t_data2 *d)
 // static void destroy_img_v3(t_data2 *d)
 // {
 // 	int	i;
-// 
+
+// 	if (d->buffer.img)
+// 		mlx_destroy_image(d->mlx, d->buffer.img);
+// 	if (d->i_player.img)
+// 		mlx_destroy_image(d->mlx, d->i_player.img);
+// 	if (d->i_pika.img)
+// 		mlx_destroy_image(d->mlx, d->i_pika.img);
 // 	if (d->i_ground[0].img)
 // 		mlx_destroy_image(d->mlx, d->i_ground[0].img);
 // 	if (d->i_ground[1].img)
 // 		mlx_destroy_image(d->mlx, d->i_ground[1].img);
 // 	if (d->i_wall.img)
 // 		mlx_destroy_image(d->mlx, d->i_wall.img);
-// 	if (d->i_exit[0].img)
-// 		mlx_destroy_image(d->mlx, d->i_exit[0].img);
-// 	if (d->i_exit[1].img)
-// 		mlx_destroy_image(d->mlx, d->i_exit[1].img);
 // 	if (d->i_ball[0].img)
 // 		mlx_destroy_image(d->mlx, d->i_ball[0].img);
 // 	if (d->i_ball[1].img)
 // 		mlx_destroy_image(d->mlx, d->i_ball[1].img);
-// 	if (d->buffer.img)
-// 		mlx_destroy_image(d->mlx, d->buffer.img);
-// 	if (d->i_player.img)
-// 		mlx_destroy_image(d->mlx, d->i_player.img);
 // 	if (d->i_big_ball[0].img)
 // 		mlx_destroy_image(d->mlx, d->i_big_ball[0].img);
 // 	if (d->i_big_ball[1].img)
 // 		mlx_destroy_image(d->mlx, d->i_big_ball[1].img);
 // 	if (d->i_throw.img)
 // 		mlx_destroy_image(d->mlx, d->i_throw.img);
-// 	if (d->i_numbers.img)
-// 		mlx_destroy_image(d->mlx, d->i_numbers.img);
+// 	if (d->i_exit[0].img)
+// 		mlx_destroy_image(d->mlx, d->i_exit[0].img);
+// 	if (d->i_exit[1].img)
+// 		mlx_destroy_image(d->mlx, d->i_exit[1].img);
 // 	i = -1;
-// 	while (++i < 8)
-// 		if (d->i_pika[i].img)
-// 			mlx_destroy_image(d->mlx, d->i_pika[i].img);
+// 	while (++i < 10)
+// 	{
+// 		if (d->i_numbers[i].img)
+// 			mlx_destroy_image(d->mlx, d->i_numbers[i].img);
+// 	}
 // }
 ///////////////////////////////////////////////////////////////////////////////]

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c_ini_sprites.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/11 16:55:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/18 00:30:02 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,10 @@ static void	ini_anim_v3(t_data2 *data)
 static int	helper_texture(t_data2 *data, char *path, t_img *img, int sw)
 {
 	if (path)
-		img->img = mlx_xpm_file_to_image(data->mlx, path, &img->sz_x, \
-					&img->sz_y);
+		img->img = mlx_xpm_file_to_image(data->mlx, path, &img->sz_x, &img->sz_y);
 	if (!img->img)
 	{
-		put("sprite n*%d\n", (int)(((unsigned long)img - (unsigned long)data) \
-					/ sizeof(t_img)));
+		put("sprite n*%d\n", (int)(((unsigned long)img - (unsigned long)data) / sizeof(t_img)));
 		perror(COLOR_2R_2G_3B"cant open file");
 		if (!sw)
 			exit_all_v2(data);
@@ -107,10 +105,10 @@ static void	ini_img(t_data2 *data)
 	while (++i < 10)
 	{
 		path = str("img/num/%d.xpm", i);
-		j = helper_texture(data, path, &data->i_numbers[1], 1);
-		free_s(path);
+		j = helper_texture(data, path, &data->i_numbers[i], 1);
+		path = free_s(path);
 		if (!j)
-			(put(ERR1"cant open grass sprite\n"), exit_all_v2(data));
+			(put(ERR1"cant open number sprite\n"), exit_all_v2(data));
 	}
 	helper_texture(data, "img/txt_grass.xpm", &data->i_ground[0], 0);
 	helper_texture(data, "img/txt_wall.xpm", &data->i_wall, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_keys_press.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:45 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/11 16:54:46 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/17 20:04:15 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,10 @@ static void	f_save_time_ball(t_data2 *data);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         if player has a time, doesnt register any input
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-# define XK_Escape 0
-# define XK_Control_L 0
-# define XK_e 0
-# define XK_Right 0
-# define XK_d 0
-# define XK_Down 0
-# define XK_s 0
-# define XK_Left 0
-# define XK_a 0
-# define XK_Up 0
-# define XK_w 0
-# define XK_space 0
-
 int	key_press(int keysym, t_data2 *data)
 {
 	if (keysym == XK_Escape)
 			exit_all_v2(data);
-	if (keysym == XK_e)
-		data->time_freeze = 1;
-	if (keysym == XK_Control_L)
-		data->running = 1;
 	if (data->player.time)
 		return (0);
 	if (keysym == XK_d || keysym == XK_Right)
@@ -59,12 +42,12 @@ int	key_press(int keysym, t_data2 *data)
 
 int	key_release(int keysym, t_data2 *data)
 {
-	if (keysym == XK_Control_L)
-        data->running = 0;
+	if (keysym == XK_Control_L && !data->player.time)
+		data->running ^= 1;
 	if (keysym == XK_e)
-        data->time_freeze = 0;
+		print_data(data);
 	if (keysym == XK_space)//  small anim for throwing
-        data->running = 0;
+		data->running = 0;
 	return (0);
 }
 

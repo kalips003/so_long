@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/11 18:33:53 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/18 03:05:42 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
-// # include <X11/X.h>
-// # include <X11/keysym.h>
-# include <math.h>
-# include <sys/stat.h>
-// # include <sys/wait.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
 # include "libft.h"
 
@@ -44,7 +41,8 @@
 # define BLACK_BOT 80
 # define BOT_STAMINA -10
 # define BALL_START_X 72
-# define PIKA_START_X 72
+# define OFFSET_BALL 30
+# define PIKA_START_X 150
 # define BALL_START_Y 8
 
 # define SLOWING 8
@@ -52,20 +50,21 @@
 # define TIME_PIKA 1
 # define TIME_BALL 1
 # define TIME_ATK 1
-# define THROW_RANGE 5
+# define THROW_RANGE 3
 # define OFFSET_BALL_THR 22
-# define PIKA_MOVE_CHANCE 16
-# define ATTACK_CHANCE 1
+# define PIKA_MOVE_CHANCE 128
+# define ATTACK_CHANCE 180
 # define PIKA_TURN_CHANCE 8
 # define ATTAK_TIME 100
-# define CHANNELING_TIME -80
+# define CHANNELING_TIME -200
 # define MAX_ENDURANCE 1000
-# define TIME_TO_DIE -500
+# define TIME_TO_DIE -128
+# define PLAYER_SPEED 2
 
-
-# define START_X_SCORE 75
+# define START_X_SCORE 80
+# define END_X_BB 132
 # define START_Y_SCORE -75
-# define DECIMAL_SCORE -14
+# define DECIMAL_SCORE -40
 
 #define FRAME_DURATION_MILLISECONDS 17
 
@@ -144,6 +143,18 @@ typedef struct s_event2
 	int	pika_attaking;
 }	t_attack;
 
+typedef struct s_event3
+{
+    int x_start;
+    int y_start;
+    int x_end;
+    int y_end;
+    t_npc	atk;
+	int	time;
+
+	int	pika_attaking;
+}	t_attack2;
+
 ///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_data2
 {
@@ -162,6 +173,9 @@ typedef struct s_data2
 	void	*mlx;
 	void	*win;
 	char	**map;
+// 
+	unsigned int	(*color)(void);
+	unsigned int	(*color_r)(void);
 //  	in tiles
 	int		time;
 
@@ -180,10 +194,11 @@ typedef struct s_data2
 	int		exit[5];// exit[2]for is_all_collec [3,4] for ptr
 
 	int 	boy_or_girl;
-	int 	running;
-	int 	time_freeze;
 	int 	starter;
+	int 	running;
 	int 	stamina;
+	int 	tmp_bit;
+	int 	is_winning;
 
 	t_throw		throw;
 	t_attack	attack;
@@ -222,12 +237,18 @@ void	check_throw_path(t_data2 *data);
 int ft_loop_v2(t_data2 *data);
 //	  G2 - COLORS
 void	put_pixel_buffer(t_data2 *data, int x, int y, unsigned color);
-unsigned int random_white(void);
-unsigned int random_yellow(int min_rg, int max_rg);
-unsigned int random_yellow_v2(void);
-unsigned int random_blue(int min_b, int max_b, int min_rg, int max_rg);
-unsigned int random_green_bot(int min_g, int max_g, int min_rb, int max_rb);
-unsigned int ft_black(void);
+// 
+unsigned int	ft_yellow(void);
+unsigned int	ft_green(void);
+unsigned int	ft_red(void);
+unsigned int	ft_blue(void);
+unsigned int	ft_black(void);
+unsigned int	ft_white(void);
+unsigned int	ft_r_yellow(void);
+unsigned int	ft_r_green(void);
+unsigned int	ft_r_red(void);
+unsigned int	ft_r_blue(void);
+unsigned int	ft_r_white(void);
 //	  H - RECTANGLES
 void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], unsigned int (*color)(void));
 void	ft_put_square(t_data2 *data, int xy[2], int size, unsigned int color);
@@ -244,25 +265,26 @@ void check_attack(t_data2 *data);
 //	  Z
 int	exit_all_v2(t_data2 *data);
 void	ft_break(int n, char *string, t_data2 *data);
+void	print_data(t_data2 *data);
 ///////////////////////////////////////////////////////////////////////////////]
 // static void	ft_put_tile(t_data2 *data, int x, int y, t_img img);
 
 
 
-# define MSG_DEAD "\e[5m\033[38;5;147m\
-/t██╗░░░██╗░█████╗░██╗░░░██╗  ██████╗░██╗███████╗██████╗░\n\
-/t╚██╗░██╔╝██╔══██╗██║░░░██║  ██╔══██╗██║██╔════╝██╔══██╗\n\
-/t░╚████╔╝░██║░░██║██║░░░██║  ██║░░██║██║█████╗░░██║░░██║\n\
-/t░░╚██╔╝░░██║░░██║██║░░░██║  ██║░░██║██║██╔══╝░░██║░░██║\n\
-/t░░░██║░░░╚█████╔╝╚██████╔╝  ██████╔╝██║███████╗██████╔╝\n\
-/t░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░╚═╝╚══════╝╚═════╝░\e[0m\n"
+# define MSG_DEAD "\e[5m\033[38;5;196m\n\
+\t██╗░░░██╗░█████╗░██╗░░░██╗  ██████╗░██╗███████╗██████╗░\n\
+\t╚██╗░██╔╝██╔══██╗██║░░░██║  ██╔══██╗██║██╔════╝██╔══██╗\n\
+\t░╚████╔╝░██║░░██║██║░░░██║  ██║░░██║██║█████╗░░██║░░██║\n\
+\t░░╚██╔╝░░██║░░██║██║░░░██║  ██║░░██║██║██╔══╝░░██║░░██║\n\
+\t░░░██║░░░╚█████╔╝╚██████╔╝  ██████╔╝██║███████╗██████╔╝\n\
+\t░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░╚═╝╚══════╝╚═════╝░\n\n"
 
-# define MSG_WIN "\e[5m\033[38;5;77m\
+# define MSG_WIN "\e[5m\033[38;5;77m\n\
 \t██╗░░░██╗░█████╗░██╗░░░██╗  ░██╗░░░░░░░██╗██╗███╗░░██╗  ██╗\n\
 \t╚██╗░██╔╝██╔══██╗██║░░░██║  ░██║░░██╗░░██║██║████╗░██║  ██║\n\
 \t░╚████╔╝░██║░░██║██║░░░██║  ░╚██╗████╗██╔╝██║██╔██╗██║  ██║\n\
 \t░░╚██╔╝░░██║░░██║██║░░░██║  ░░████╔═████║░██║██║╚████║  ╚═╝\n\
 \t░░░██║░░░╚█████╔╝╚██████╔╝  ░░╚██╔╝░╚██╔╝░██║██║░╚███║  ██╗\n\
-\t░░░╚═╝░░░░╚════╝░░╚═════╝░  ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝  ╚═╝\e[0m\n"
+\t░░░╚═╝░░░░╚════╝░░╚═════╝░  ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝  ╚═╝\n\n"
 
 #endif
