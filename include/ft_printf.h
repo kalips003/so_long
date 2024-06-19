@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:38:31 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/11 18:27:47 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 18:08:43 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_flag
 	int			tmp_a;
 	long long	num_b;
 	char		*rtrn;
-	int 		fd;
+	int			fd;
 }				t_flags;
 //	#
 typedef int		(*t_func)(va_list, t_flags *);
@@ -51,7 +51,7 @@ typedef char	*(*t_str)(va_list, t_flags *);
 int		put(const char *str, ...);
 // int		f_1(const char *str, int *i, va_list args);
 int		print_fd(int fd, const char *str, ...);
-void	ft_print_cat(int num,  char *string2, int cls);
+void	ft_print_cat(int num, char *string2, int cls);
 ////////////////////////////////////////////////////////////
 //	#	STRUCT
 // static 1

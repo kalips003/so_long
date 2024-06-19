@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:19:41 by kmendes-          #+#    #+#             */
-/*   Updated: 2024/05/15 21:30:31 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:07:04 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ COMBINAISONS: BOLD_BLACK "\033[30;1m"
     [E - Move cursor to the beginning of the next line.
     [F - Move cursor to the beginning of the previous line.
     [nG - Move cursor to specified column in the current row.
-    [n;mH - Move cursor to the specified position (row and column). [H moves to home
+    [n;mH - Move cursor to the position (row and column). [H moves to home
     [J - Clear part of the screen.
         [0J clears from the cursor position to the end of the screen.
         [1J clears from the beginning of the screen to the cursor position.
@@ -293,7 +293,8 @@ COMBINAISONS: BOLD_BLACK "\033[30;1m"
                 [24m: Reset underlined text.
                 [25m: Reset blinking text.
 
-[0] black [1] red [2] green [3] yellow [4] blue [5] magenta [6] cyan [7] white) [8] default
+[0] black [1] red [2] green [3] yellow [4] blue [5] magenta [6] cyan 
+[7] white) [8] default
 
 "\033[38;5;{foreground_color_code};48;5;{background_color_code}m
     [3(0-8)m: Foreground color [0;3(0-8)m (0; is  the  reset 0)
@@ -306,38 +307,45 @@ COMBINAISONS: BOLD_BLACK "\033[30;1m"
     [38;5;<n>m: 256-color foreground (0-255).
     [48;5;<n>m:
 
-
+///////////////////////////////////////////////////////////////////////////////]
     [6n > \e[<row>;<column>R
-        is often used to request the cursor position information. When the terminal receives this sequence,
-        it typically responds with another sequence containing the current cursor position
+        used to request the cursor position information. When the terminal 
+			receives this sequence, it typically responds with another 
+			sequence containing the current cursor position
     \e[s: Save current cursor position.
         \e[u: Restore cursor position saved with \e[s
     [?25l Hides the cursor.
         [?25h Shows the cursor again.
     [?1049h": Save cursor and screen state (alternative buffer).
         [?1049l": Restore cursor and screen state (main buffer).
-    [?2004h": Enable bracketed paste mode (allows the terminal to distinguish pasted text from typed text).
+    [?2004h": Enable bracketed paste mode (allows the terminal to distinguish 
+			pasted text from typed text).
         [?2004l": Disable bracketed paste mode.
 
 */
 
 #endif //COLORS_H
 
-// result=`ls`
-// echo -e $result
-// echo -e "\033[8m"
-
-    // // Use system to execute the Bash command
-    // int result = system(bashCommand = "ls -l");
-
+///////////////////////////////////////////////////////////////////////////////]
 /*
-The color range of a 256 color terminal consists of 4 parts, often 5, in which case you actually get 258 colors:
-Color numbers 0 to 7 are the default terminal colors, the actual RGB value of which is not standardized and can often be configured.
-Color numbers 8 to 15 are the "bright" colors. Most of the time these are a lighter shade of the color with index - 8. They are also not standardized and can often be configured. Depending on terminal and shell, they are often used instead of or in conjunction with bold font faces.
-Color numbers 16 to 231 are RGB colors. These 216 colors are defined by 6 values on each of the three RGB axes. That is, instead of values 0 - 255, each color only ranges from 0 - 5.
+The color range of a 256 color terminal consists of 4 parts, often 5, in which
+	 case you actually get 258 colors:
+Color numbers 0 to 7 are the default terminal colors, the actual RGB value of 
+	which is not standardized and can often be configured.
+Color numbers 8 to 15 are the "bright" colors. Most of the time these are a 
+	lighter shade of the color with index - 8. They are also not standardized 
+	and can often be configured. Depending on terminal and shell, they are 
+		often used instead of or in conjunction with bold font faces.
+Color numbers 16 to 231 are RGB colors. These 216 colors are defined by 6 
+	values on each of the three RGB axes. That is, instead of values 0 - 
+	255, each color only ranges from 0 - 5.
 The color number is then calculated like this:
 number = 16 + 36 * r + 6 * g + b
 with r, g and b in the range 0 - 5.
-The color numbers 232 to 255 are grayscale with 24 shades of gray from dark to light.
-The default colors for foreground and background. In many terminals they can be configured independently from the 256 indexed colors, giving an additional two configurable colors . You get them when not setting any other color or disabling other colors (i.e. print '\e[m').
+The color numbers 232 to 255 are grayscale with 24 shades of gray from 
+	dark to light.
+The default colors for foreground and background. In many terminals they can 
+	be configured independently from the 256 indexed colors, giving an 
+	additional two configurable colors . You get them when not setting any 
+	other color or disabling other colors (i.e. print '\e[m').
 */

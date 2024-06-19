@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/19 17:54:09 by kalipso           #+#    #+#             */
+/*   Updated: 2024/06/19 17:56:59 by kalipso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/libft.h"
 #include "../include/so_long_bonus.h"
 
@@ -21,28 +33,22 @@
 
 
 
-<?> .PHONY: test - This declares that test is a phony target, meaning it's not associated with a file. </?>
+<?> .PHONY: test - This declares that test is a phony target, 
+	meaning it's not associated with a file. </?>
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 // MACRO
 // #define funct(ap, type)    (*(type *)((ap += sizeof(type)) - sizeof(type)))
-# define PI 3.14159265358979323846
+#define PI 3.14159265358979323846
 
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
-	srand(time(NULL));
-	int starter;
-	
+	return (0);
+}
+///////////////////////////////////////////////////////////////////////////////]
 
-
-	int i = -1;
-	while (++i < 50)
-	{
-		starter = (int)(rand() % 4);
-		put("starter = %d\n", starter);
-
-	}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// int	fd = open("map/map3.ber", O_RDONLY);
 	// if (fd == -1)
 	// 	return (put("error fd\n"));
@@ -74,22 +80,7 @@ int	main(int ac, char **av, char **env)
 	// put(BLINK"->BREAK POINT:\n");
 	// free_s(gnl(0));
 	// put(CLS"=hello  again=\n");
-	return (0);
-}
-///////////////////////////////////////////////////////////////////////////////]
-void    f_()
-{
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-does somethign
-
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-}
-///////////////////////////////////////////////////////////////////////////////]
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
-
 //  			GITHUB
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 git pull
@@ -109,16 +100,13 @@ git push origin feature-branch:main
 	git stash
 // Switch Branches: After stashing your changes, you can switch branches.
 	git checkout <branch-name>
-// Apply Stashed Changes: When you're ready, you can apply your stashed changes to the new branch.
+// Apply Stashed Changes: you can apply your stashed changes to the new branch.
 	git stash apply
-// Pop Stashed Changes: Alternativzely, you can apply and remove the stashed changes in one step.
+// Pop Stashed Changes: you can apply and remove the stashed changes in one step
 	git stash pop
 // List Stashes: To see a list of stashed changes, you can use:
 	git stash list
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
-
 //  			BIWISE
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 while (((condition1) & bit) || ((condition2) & ~bit))

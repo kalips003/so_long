@@ -30,7 +30,6 @@ char	*fjoin(int str_num, int bit_32, ...)
 	return (rtrn);
 }
 
-
 //////////////////////////////////////////////////////////// (%S)
 //	%<size>S return ptr to copied memory
 char	*pt_memcpy(char *str)
@@ -47,8 +46,7 @@ char	*pt_memcpy(char *str)
 		(4) 3,-1,-5,1 ;
 		(0) ]
 */
-int		**pt_numtab(char *num_tab)
+int	**pt_numtab(char *num_tab)
 {
 	return ((int **)num_tab);
 }
-

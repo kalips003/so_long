@@ -70,9 +70,8 @@ t_str	g_tab[] = {NULL,
 	NULL};
 
 ////////////////////////////////////////////////////////////
-static char *le(char *s, char *app, int *inc)
+static char	*le(char *s, char *app, int *inc)
 {
-	
 	int		i;
 
 	i = 0;

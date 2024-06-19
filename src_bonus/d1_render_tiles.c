@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/18 02:06:53 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/19 04:25:59 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	ft_put_tile(t_data2 *data, int x, int y, t_img img)
 		s.j = -1;
 		while (++s.j < img.sz_y)
 		{
-			s.pixel_color = *(int *)(img.addr + s.j * img.ll + s.i * \
+			s.pix_c = *(int *)(img.addr + s.j * img.ll + s.i * \
 				img.bpp / 8);
-			s.buffer_index = (y + s.j) * data->buffer.ll + (x + s.i) * \
+			s.buf_i = (y + s.j) * data->buffer.ll + (x + s.i) * \
 				(data->buffer.bpp / 8);
-			*((unsigned int *)(data->buffer.addr + s.buffer_index)) \
-				= s.pixel_color;
+			*((unsigned int *)(data->buffer.addr + s.buf_i)) \
+				= s.pix_c;
 		}
 	}
 }
@@ -66,7 +66,7 @@ void	put_small_background_to_buffer(t_data2 *data)
 
 	h_555(data, data->player);
 	i = -1;
-	while (++i < data->num_pika)
+	while (++i < data->n_pika)
 		if (data->pika[i].x >= 0)
 			h_555(data, data->pika[i]);
 	if (data->throw.ball.time)
@@ -82,17 +82,17 @@ static	void	h_444(t_data2 *data, int x, int y)
 		return ;
 	}
 	if (data->map[y][x] == '1')
-		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_wall);
+		ft_put_tile(data, x * SZ, y * SZ, data->i_wall);
 	else if (data->map[y][x] == '0' || data->map[y][x] == 'P' || \
 		data->map[y][x] == 'z' || data->map[y][x] == 'Z')
-		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ground[0]);
+		ft_put_tile(data, x * SZ, y * SZ, data->i_ground[0]);
 	else if (data->map[y][x] == '*')
-		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ground[1]);
+		ft_put_tile(data, x * SZ, y * SZ, data->i_ground[1]);
 	else if (data->map[y][x] == 'C' || data->map[y][x] == 'c')
-		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, \
+		ft_put_tile(data, x * SZ, y * SZ, \
 			data->i_ball[(data->map[y][x] == 'c')]);
 	else if (data->map[y][x] == 'E')
-		ft_put_tile(data, x * SPRITE_SIZE, y * SPRITE_SIZE, \
+		ft_put_tile(data, x * SZ, y * SZ, \
 			data->i_exit[0 + data->exit[2]]);
 }
 
@@ -102,8 +102,8 @@ static	void	h_555(t_data2 *data, t_npc	npc)
 	int	x;
 	int	y;
 
-	x = (int)round((double)npc.x / SPRITE_SIZE);
-	y = (int)round((double)npc.y / SPRITE_SIZE);
+	x = (int)round((double)npc.x / SZ);
+	y = (int)round((double)npc.y / SZ);
 	h_444(data, x, y);
 	h_444(data, x + 1, y);
 	h_444(data, x - 1, y);

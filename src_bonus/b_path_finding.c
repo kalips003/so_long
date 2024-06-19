@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_path_finding.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/11 16:55:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 04:23:41 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	valid_path_v2(t_data2 *data)
 			return (put(ERRM"error malloc (3)\n"), free_tab(map_path), 1);
 	}
 	map_path[y] = NULL;
-	map_path[data->player.y / SPRITE_SIZE][data->player.x / SPRITE_SIZE] = '*';
+	map_path[data->player.y / SZ][data->player.x / SZ] = '*';
 	while (find_next_to_explore(data, map_path))
 	{
 		if (check_cardinal(data, map_path))
@@ -54,8 +54,8 @@ int	valid_path_v2(t_data2 *data)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static int	check_cardinal(t_data2 *data, char **map)
 {
-	if (data->exit[3] == data->exit[0] / SPRITE_SIZE && \
-		data->exit[4] == data->exit[1] / SPRITE_SIZE)
+	if (data->exit[3] == data->exit[0] / SZ && \
+		data->exit[4] == data->exit[1] / SZ)
 		return (1);
 	map[data->exit[4]][data->exit[3]] = '1';
 	if (map[data->exit[4] + 1][data->exit[3]] != '1')

@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/18 02:16:41 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/18 21:42:06 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	count_check_v2(t_data2 *data)
 				return (put(ERR"unknown tile: (%c) [%d, %d]\n%.3t\n", \
 							data->map[y][x], x, y, data->map), 1);
 			if (data->map[y][x] == 'C')
-				data->num_ball++;
+				data->n_ball++;
 			else if (data->map[y][x] == 'E')
 				copy_posi(data->exit, x, y);
 			else if (data->map[y][x] == 'P')
@@ -83,8 +83,8 @@ int	count_check_v2(t_data2 *data)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static void	copy_posi(int *ptr, int x, int y)
 {
-	ptr[0] = x * SPRITE_SIZE;
-	ptr[1] = y * SPRITE_SIZE;
+	ptr[0] = x * SZ;
+	ptr[1] = y * SZ;
 	ptr[2]++;
 }
 
@@ -94,16 +94,16 @@ static void	copy_posi(int *ptr, int x, int y)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static void	ft_copy_posi_pika(t_data2 *data, int x, int y, char c)
 {
-	data->pika = (t_npc *)expand(data->pika, data->num_pika * sizeof(t_npc), \
+	data->pika = (t_npc *)expand(data->pika, data->n_pika * sizeof(t_npc), \
 								sizeof(t_npc));
 	if (!data->pika)
 		(put(ERRM"error expension\n"), exit_all_v2(data));
-	data->pika[data->num_pika].x = x * SPRITE_SIZE;
-	data->pika[data->num_pika].y = y * SPRITE_SIZE;
-	data->pika[data->num_pika].f = 3;
+	data->pika[data->n_pika].x = x * SZ;
+	data->pika[data->n_pika].y = y * SZ;
+	data->pika[data->n_pika].f = 3;
 	if (c == 'Z')
-		data->pika[data->num_pika].time = -3;
-	data->num_pika++;
+		data->pika[data->n_pika].time = -3;
+	data->n_pika++;
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -119,7 +119,7 @@ static int	small_check(t_data2 *data)
 		return (put(ERR"none or too many player\n%.3t\n", data->map), 1);
 	if (data->exit[2] != 1)
 		return (put(ERR"none or too many exit\n%.3t\n", data->map), 1);
-	if (data->num_ball < 1)
+	if (data->n_ball < 1)
 		return (put(ERR"no collectible\n%.3t\n", data->map), 1);
 	y = 0;
 	while (++y < data->map_y - 1)

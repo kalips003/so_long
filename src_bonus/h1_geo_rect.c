@@ -6,26 +6,28 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:28 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/16 18:36:15 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/18 21:36:27 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], unsigned int (*color)(void));
+void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], \
+unsigned int (*color)(void));
 void	ft_put_square(t_data2 *data, int xy[2], int size, unsigned int color);
-void	draw_gradient_square(t_data2 *img, int x, int y, int len_side, int color);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // 																		 SQUARES
 // draw between top-left(xy) & bot-right(dxy)
-void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], unsigned int (*color)(void))
+void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], \
+unsigned int (*color)(void))
 {
 	int	i;
 	int	j;
 	int	buf_i;
 
-	if (xy[0] < 0 || xy[1] < 0 || dxy[0] > data->buffer.sz_x || dxy[1] > data->buffer.sz_y)
+	if (xy[0] < 0 || xy[1] < 0 || dxy[0] > data->buffer.sz_x || \
+		dxy[1] > data->buffer.sz_y)
 	{
 		put("rect too big\n");
 		return ;
@@ -50,7 +52,8 @@ void	ft_put_square(t_data2 *data, int xy[2], int size, unsigned int color)
 	int	j;
 	int	buf_i;
 
-	if (xy[0] < 0 || xy[1] < 0 || xy[0] + size >= data->buffer.sz_x || xy[1] + size >= data->buffer.sz_y)
+	if (xy[0] < 0 || xy[1] < 0 || xy[0] + size >= data->buffer.sz_x || \
+		xy[1] + size >= data->buffer.sz_y)
 		return ;
 	i = -1;
 	while (++i < size)
@@ -58,23 +61,9 @@ void	ft_put_square(t_data2 *data, int xy[2], int size, unsigned int color)
 		j = -1;
 		while (++j < size)
 		{
-			buf_i = (xy[1] + j) * data->buffer.ll + (xy[0] + i) * (data->buffer.bpp / 8);
+			buf_i = (xy[1] + j) * data->buffer.ll + (xy[0] + i) * \
+				(data->buffer.bpp / 8);
 			*((unsigned int *)(data->buffer.addr + buf_i)) = color;
 		}
-	}
-}
-
-///////////////////////////////////////////////////////////////////////////////]
-void	draw_gradient_square(t_data2 *img, int x, int y, int len_side, int color)
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < len_side)
-	{
-		j = -1;
-		while (++j < len_side)
-			put_pixel_buffer(img, x + i, y + j, (unsigned)color + i + j);
 	}
 }
