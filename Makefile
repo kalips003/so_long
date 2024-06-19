@@ -28,7 +28,7 @@ MAP5 = map5.ber
 
 
 a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
-	@$(call random_shmol_cat, "\'tis good map", 'hav fun にゃ? (make m for testeur mandatory)', $(CLS), );
+	@$(call random_shmol_cat, "\'tis good map", 'hav fun ね? (make m for testeur mandatory)', $(CLS), );
 	@echo "\tuse -WASD- or →↓←↑ to move around"
 	@echo "\tuse -SPACE- to throw ball"
 	@echo "\tpress -CTRL-l- to toogle run"
