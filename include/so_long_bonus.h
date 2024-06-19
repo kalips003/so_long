@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/20 00:52:57 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 01:22:46 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@
 # define TIME_PIKA 2
 # define TIME_BALL 1
 # define TIME_ATK 1
-# define THROW_RANGE 3
+# define THROW_RANGE 4
+# define THROW_SPEED 4
 # define OFF_B 22
 # define PIKA_MOVE_CHANCE 128
 # define ATTACK_CHANCE 100

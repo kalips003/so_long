@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/19 04:27:03 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 01:22:42 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ void	move_ball(t_data2 *d)
 			d->tmp_bit = 1;
 		return ;
 	}
-	d->throw.ball.x += 2 * d->throw.ball.dx;
-	d->throw.ball.y += 2 * d->throw.ball.dy;
+	d->throw.ball.x += THROW_SPEED * d->throw.ball.dx;
+	d->throw.ball.y += THROW_SPEED * d->throw.ball.dy;
 	if (!(d->throw.ball.time % 5))
 		d->throw.ball.f = (d->throw.ball.f + 1) % 12;
-	if (d->throw.ball.time == 2)
+	if (d->throw.ball.time == THROW_SPEED)
 		d->map[(int)round((double)d->throw.ball.y / SZ)][\
 			(int)round((double)d->throw.ball.x / SZ)] = 'C';
-	d->throw.ball.time -= 2;
+	d->throw.ball.time -= THROW_SPEED;
 	if (!d->throw.ball.time)
 		d->tmp_bit = 1;
 }
