@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:48:08 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/19 19:59:29 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 00:59:14 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	is_map_ok_v2(t_data2 *data, char *path);
 void	what_starter(t_data2 *data);
 void	boy_or_girl(t_data2 *data);
 double	distance_squared(int x1, int y1, int x2, int y2);
+void	ft_1(t_data2 *data);
 
 ///////////////////////////////////////////////////////////////////////////////]
 void	what_starter(t_data2 *data)
@@ -86,4 +87,21 @@ void	is_map_ok_v2(t_data2 *data, char *path)
 double	distance_squared(int x1, int y1, int x2, int y2)
 {
 	return ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+}
+
+// Helper check attack ball walls
+void	ft_1(t_data2 *data)
+{
+	int	x;
+	int	y;
+
+	x = (int)round((double)data->attack.circle.x / SZ);
+	y = (int)round((double)data->attack.circle.y / SZ);
+	if (data->map[y][x] == '1')
+	{
+		data->map[y][x] = '*';
+		data->tmp_bit = 1;
+		data->attack.time = 0;
+		data->pika[data->attack.enemy].time = 0;
+	}
 }
