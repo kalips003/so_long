@@ -79,7 +79,7 @@ static void	render_attack(t_data2 *data)
 		draw_circle(data, atk->circle);
 		draw_circle(data, atk->circlend);
 	}
-	else
+	else if (data->time % 2)
 		draw_line_v4(data, &atk->circle.x, &atk->circlend.x, data->color_r);
 	atk->time += 1 - 2 * (atk->time > 0);
 }
