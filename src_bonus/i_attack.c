@@ -46,8 +46,8 @@ void	check_attack(t_data2 *data)
 	}
 	else
 	{
-		if (abs(data->attack.circle.x - data->player.x) < HIT_BOX && \
-			abs(data->attack.circle.y - data->player.y) < HIT_BOX)
+		if (abs(data->attack.circle.x - HALF - data->player.x) < HIT_BOX && \
+			abs(data->attack.circle.y - HALF - data->player.y) < HIT_BOX)
 			data->player.time = -1;
 		render_attack_v2(data);
 	}

@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/19 18:27:23 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/19 19:56:18 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define SZ 64
 # define HALF 32
 # define BALL_SIZE 16
-# define HIT_BOX 32
+# define HIT_BOX 34
 
 # define BLACK_BOT 80
 # define BOT_STAMINA -10
