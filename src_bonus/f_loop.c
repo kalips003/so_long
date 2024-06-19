@@ -79,7 +79,7 @@ static void	print_end(t_data2 *data)
 			data->steps, data->n_collec, data->n_ball);
 	else
 		put(CLS MSG_WIN"\tYou finished with %d moves, picked up %d pokeballs \
-			and caught %d/%d mons!\n", \
+and caught %d/%d mons!\n", \
 					data->steps, data->n_ball, data->n_gotta, data->n_pika);
 	exit_all_v2(data);
 }
