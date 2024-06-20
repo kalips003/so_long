@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:45 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/19 04:27:03 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 02:26:40 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ static void	f_save_time_player(t_data2 *data, int dx, int dy, int frame)
 		data->player.f = frame;
 		return ;
 	}
+	data->player.time = 64;
 	if (check_path_npc(data, data->player, -1))
-	{
 		data->steps++;
-		data->player.time = 64;
+	else
+	{
+		data->player.dx = 0;
+		data->player.dy = 0;
 	}
 }
 
