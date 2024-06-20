@@ -62,6 +62,7 @@ void	check_attack(t_data2 *data)
 static void	render_attack(t_data2 *data)
 {
 	t_attack	*atk;
+	int			i;
 
 	atk = &data->attack;
 	if (atk->time == -1)
@@ -75,11 +76,12 @@ static void	render_attack(t_data2 *data)
 		data->pika[atk->enemy].time = 0;
 	if (atk->time < 0)
 	{
-		atk->circlend.rad = 16;
+		atk->circlend.rad = 20;
 		atk->circle.rad = -data->attack.time / 2;
 		draw_circle_v2(data, atk->circle, 0);
-		// draw_circle(data, atk->circle);
-		draw_circle(data, atk->circlend);
+		i = -1;
+		while (++i < 3 && atk->circlend.rad++)
+			draw_circle(data, atk->circlend);
 	}
 	else if (data->time % 2)
 		draw_line_v4(data, &atk->circle.x, &atk->circlend.x, data->color_r);
@@ -137,7 +139,7 @@ static void	find_pika_for_attak_v2(t_data2 *d)
 	d->attack.circle.color = d->color_r;
 	d->attack.circlend.x = d->player.x + HALF - 1;
 	d->attack.circlend.y = d->player.y + HALF - 1;
-	d->attack.circlend.color = d->color_r;
+	d->attack.circlend.color = d->color;
 	d->pika[i].time = -1;
 	angle = atan2(d->player.y - d->pika[i].y, d->player.x - d->pika[i].x);
 	if (angle < 0)
