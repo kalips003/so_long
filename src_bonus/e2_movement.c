@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/20 01:22:42 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 03:56:25 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,37 @@ void	f_move_player_v2(t_data2 *data)
 	data->player.time -= speed;
 	data->player.x += speed * data->player.dx;
 	data->player.y += speed * data->player.dy;
-	if (data->player.time == 52)
+	if (data->player.time == 60)
 		data->player.f += 1;
-	else if (data->player.time == 36)
+	else if (data->player.time == 48)
 		data->player.f += -1;
-	else if (data->player.time == 20)
+	else if (data->player.time == 32)
 		data->player.f += 2;
-	else if (data->player.time == 8)
+	else if (data->player.time == 16)
 		data->player.f += -2;
 }
 
+// void	f_move_player_v2(t_data2 *data)
+// {
+// 	int	speed;
+
+// 	if (!data->player.time)
+// 		return ;
+// 	speed = PLAYER_SPEED;
+// 	if (data->running)
+// 		speed = PLAYER_SPEED * 2;
+// 	data->player.time -= speed;
+// 	data->player.x += speed * data->player.dx;
+// 	data->player.y += speed * data->player.dy;
+// 	if (data->player.time == 52)
+// 		data->player.f += 1;
+// 	else if (data->player.time == 36)
+// 		data->player.f += -1;
+// 	else if (data->player.time == 20)
+// 		data->player.f += 2;
+// 	else if (data->player.time == 8)
+// 		data->player.f += -2;
+// }
 ///////////////////////////////////////////////////////////////////////////////]
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         move all enemy. if time == 0, random what happen next
