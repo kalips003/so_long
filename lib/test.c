@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:54:09 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/19 18:35:45 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/24 21:57:23 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ makefile w/o cat
 
 
 
-<?> .PHONY: test - This declares that test is a phony target, 
+<?> .PHONY: test - This declares that test is a phony target,
 	meaning it's not associated with a file. </?>
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -45,6 +45,7 @@ makefile w/o cat
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
+	put("a;lsdkfj;aslfj");
 	return (0);
 }
 ///////////////////////////////////////////////////////////////////////////////]

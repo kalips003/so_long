@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/02 18:06:13 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/24 21:21:03 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	is_map_ok(t_data *data, char *path)
 	if (fill_map(data, fd_map) || count_check(data))
 		exit_all(data);
 	if (valid_path(data))
-		(put_map("bad pathing\n", data->map), exit_all(data));
+		(put_map(ERR "bad pathing\n", data->map), exit_all(data));
 }
 
 /***************************************************************
