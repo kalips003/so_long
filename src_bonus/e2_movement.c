@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e2_movement.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/20 03:56:25 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:01:07 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	move_pika_v2(t_data2 *data, int i);
 		if a caracter has a time value, ft_move will update its position
         and frame according to the GLOBAL_TIME
         use current frame to calculate direction
-*******************************************************************************/
+******************************************************************************/
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         move player in a [0,1,0,2,0] fashion
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

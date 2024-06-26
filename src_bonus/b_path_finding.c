@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/24 21:21:13 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:00:10 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	find_next_to_explore(t_data2 *data, char **map_path);
 		create copy of map for path finding, free it in all cases
 			if no path, return 1
 			ditto map free in all cases
-*******************************************************************************/
+******************************************************************************/
 ///////////////////////////////////////////////////////////////////////////////]
 int	valid_path_v2(t_data2 *data)
 {
@@ -51,7 +51,7 @@ int	valid_path_v2(t_data2 *data)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	check if current '*' is exit (return 1)
 	mark 4 directions with '*' (return 0)
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 static int	check_cardinal(t_data2 *data, char **map)
 {
 	if (data->exit[3] == data->exit[0] / SZ && \
@@ -72,7 +72,7 @@ static int	check_cardinal(t_data2 *data, char **map)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	parse map to find next to explore ('*')
 	if no more '*', return 0
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 static int	find_next_to_explore(t_data2 *data, char **map_path)
 {
 	int	y;

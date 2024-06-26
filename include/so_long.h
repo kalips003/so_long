@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/19 18:11:47 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:16:24 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ typedef struct s_data
 
 	int		wid;
 	int		hei;
-	//  of xpm
+
 	int		map_x;
 	int		map_y;
-	// of map
+
 	int		num_ball;
 	int		num_collected;
 	int		num_pika;
@@ -91,21 +91,15 @@ typedef struct s_data
 		[A] MAPPING
 ********************************/
 int		fill_map(t_data *data, int fd_map);
-	// static void copy_posi(t_data *data, int *ptr, int x, int y)
-	// static void ft_posi_pika(t_data *data, int x, int y)
-	// static int small_check(t_data *data)
 int		count_check(t_data *data);
 /********************************
 		[B] PATHING
 ********************************/
 void	is_map_ok(t_data *data, char *path);
-	// static int    check_cardinal2(t_data *data, char **map)
-	// static int find_next_to_explore2(t_data *data, char **map_path)
 int		valid_path(t_data *data);
 /********************************
 		[B] PATHING 2
 ********************************/
-	// void static	f_exit(t_data *data)
 int		check_path_player(t_data *data, int dx, int dy);
 int		check_path_pika(t_data *data, int i, int random);
 /********************************
@@ -114,12 +108,10 @@ int		check_path_pika(t_data *data, int i, int random);
 int		render(t_data *data);
 void	put_background(t_data *data);
 void	put_foreground(t_data *data);
-// static void ini_anim(t_data *data)
 void	ini_texture(t_data *data);
 /********************************
 		[D] MOVING PARTS
 ********************************/
-	// static void f_save_time_player(t_data *data, int dx, int dy, int frame)
 int		key_press(int keysym, t_data *data);
 void	f_move_player(t_data *data);
 void	f_move_pika(t_data *data);
@@ -127,7 +119,6 @@ void	anim_pika(t_data *data, int i);
 /********************************
 		[Z] OUTILS
 ********************************/
-// static void	exit_img(t_data *data)
 int		exit_all(t_data *data);
 int		exit_all_2(t_data *data, char *string);
 void	put_map(char *txt, char **map);

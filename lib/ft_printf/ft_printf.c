@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:06:22 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/19 18:00:06 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:58:35 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,17 +120,20 @@ int	print_fd(int fd, const char *str, ...)
 
 /*******************************************************************************
  * 		PRINT CAT RANDOM COLOR
-*******************************************************************************/
-void	ft_print_cat(int num, char *string2, int cls)
+ * bit[1, .] = cls
+ * bit[., 1] = stops
+******************************************************************************/
+int	ft_print_cat(int num, char *string2, int bit)
 {
 	int	color1;
 	int	color2;
 	int	color3;
 
+	srand(time(NULL));
 	color1 = (int)(rand() % (255 + 1));
 	color2 = (int)(rand() % (255 + 1));
 	color3 = (int)(rand() % (255 + 1));
-	if (cls)
+	if ((bit >> 1) & 1)
 		put(CLS);
 	put("\033[38;5;%dm\
 	\tにゃ~\033[38;5;%dm\t⠀╱|、\n\
@@ -138,7 +141,11 @@ void	ft_print_cat(int num, char *string2, int cls)
 	\t\t⠀|、˜\\\t\t\t\033[38;5;%dm~ %s\033[38;5;%dm\n\
 	\t\t⠀じしˍ)ノ\n", \
 	color2, color1, color2, num, color1, color2, string2, color1);
-	put(BLINK "\033[38;5;%dm\n\t\t>>>  PRISS ENTER TO CONTINUE  <<<\n"RESET, \
-		color3);
-	free_333(gnl(0));
+	if ((bit >> 0) & 1)
+	{
+		put(BLINK "\033[38;5;%dm\n\t\t>>>  PRISS ENTER TO CONTINUE  <<<\n" \
+			RESET, color3);
+		free_333(gnl(0));
+	}
+	return (color3);
 }

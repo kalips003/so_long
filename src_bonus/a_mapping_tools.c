@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_mapping_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/18 21:42:06 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:59:58 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	small_check(t_data2 *data);
 	fill map with gnl, check if rectangle
 	fill map->map_x, map->map_y
 	return 1 on error, with map not free
-*******************************************************************************/
+******************************************************************************/
 int	fill_map_v2(t_data2 *data, int fd_map)
 {
 	data->map = expand_tab(NULL, gnl(fd_map));
@@ -49,7 +49,7 @@ int	fill_map_v2(t_data2 *data, int fd_map)
 		verify if the values are correct
 		check outer walls
 	return 1 on error, with map not free
-*******************************************************************************/
+******************************************************************************/
 int	count_check_v2(t_data2 *data)
 {
 	int	x;
@@ -80,7 +80,7 @@ int	count_check_v2(t_data2 *data)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	helper to copy posi players and exits
 		ptr[2] is temporary used to count how many, reset at 0 later
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 static void	copy_posi(int *ptr, int x, int y)
 {
 	ptr[0] = x * SZ;
@@ -91,7 +91,7 @@ static void	copy_posi(int *ptr, int x, int y)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	expend the list: t_npc[pika + 1]
 	also fill it, initialize it
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 static void	ft_copy_posi_pika(t_data2 *data, int x, int y, char c)
 {
 	data->pika = (t_npc *)expand(data->pika, data->n_pika * sizeof(t_npc), \
@@ -109,7 +109,7 @@ static void	ft_copy_posi_pika(t_data2 *data, int x, int y, char c)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 		verify if the values are correct
 		check outer walls
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 static int	small_check(t_data2 *data)
 {
 	int	y;

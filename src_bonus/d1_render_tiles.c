@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   d1_render_tiles.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/19 04:25:59 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:00:51 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	h_555(t_data2 *data, t_npc	npc);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	efficient put sprite to buffer
 	doesnt ask questions
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 void	ft_put_tile(t_data2 *data, int x, int y, t_img img)
 {
 	t_sprite	s;
