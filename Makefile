@@ -104,7 +104,9 @@ m2: libft mlx $(NAME)
 	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
+	@(ulimit -s 14; ./$(word 3, $^) map/$(MAP2))
+	ulimit -s 8192
+
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	        SOURCES                    	         │
