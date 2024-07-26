@@ -30,39 +30,39 @@ IMG_SPRITE = img/player.xpm
 m: $(NAMEE)
 	@for map in $(BAD_MAPS); do \
 	$(call random_shmol_cat, teshting lots of bad miaps:, $$map shouldt run..., $(CLS), ); \
-	$(VALGRIND) ./$(word 1, $^) map/map_bad/$$map; \
+	$(VALGRIIND) ./$(word 1, $^) map/map_bad/$$map; \
 	echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
 	read -p "" key; \
 	done
 #
-	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
-	-$(VALGRIND) ./$(word 1, $^) map/map_multiplayer.be
+	@$(call random_shmol_cat, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
+	-$(VALGRIIND) ./$(word 1, $^) map/map_multiplayer.be
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
-	-$(VALGRIND) ./$(word 1, $^) map/mapzzzzz.ber
+	@$(call random_shmol_cat, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
+	-$(VALGRIIND) ./$(word 1, $^) map/mapzzzzz.ber
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 #
 	@$(call random_shmol_cat, teshing too much args, "$(MAP1) $(MAP1)", $(CLS), );
-	-$(VALGRIND) ./$(word 1, $^) map/$(MAP1) map/$(MAP1)
+	-$(VALGRIIND) ./$(word 1, $^) map/$(MAP1) map/$(MAP1)
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 #
-	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
+	@$(call random_shmol_cat, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
 	@echo "$(RED)"
 	@rm -f ./map/map_blank.ber
 	touch ./map/map_blank.ber
 	@echo "$(COLOR_5R_0G_5B)"
-	-$(VALGRIND) ./$(word 1, $^) map/map_blank.ber
+	-$(VALGRIIND) ./$(word 1, $^) map/map_blank.ber
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 #
-	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), teshing with a sprite file renamed!!!, , $(CLS), );
+	@$(call random_shmol_cat, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), teshing with a sprite file renamed!!!, , $(CLS), );
 	@echo "$(RED)"
 	mv ./$(IMG_SPRITE) ./player_007.xpm
 	@echo "$(COLOR_5R_4G_0B)"
-	-$(VALGRIND) ./$(word 1, $^) map/$(MAP1)
+	-$(VALGRIIND) ./$(word 1, $^) map/$(MAP1)
 	@echo "$(RED)"
 	mv ./player_007.xpm ./$(IMG_SPRITE)
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
@@ -71,7 +71,7 @@ m: $(NAMEE)
 	@$(call random_shmol_cat, "\'tis big biig biiig correct map", "try n break it.. にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	-$(VALGRIND) ./$(word 1, $^) map/$(MAPG)
+	-$(VALGRIIND) ./$(word 1, $^) map/$(MAPG)
 
 # ---------------------------------------------------------------------- >
 # 	big map
