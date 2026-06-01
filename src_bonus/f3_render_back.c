@@ -92,7 +92,7 @@ static void put_balls_foreground(t_data2 *data)
         f_put_sprite_to_buffer(data, x, y, data->i_big_ball[1]);
     }
 }
-
+draw_frame(t_data2 *data, t_img img, int xyfe[4], int (* color)(void));
 ///////////////////////////////////////////////////////////////////////////////]
 // 			UPDATE THE BACKGROUND
 void	background(t_data2 *data)

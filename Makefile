@@ -49,16 +49,16 @@ m: libft mlx $(NAME)
 #
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
 	-$(VALGRIND) ./$(NAME) map/map_multiplayer.be
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
 	read -p "" key;
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
 	-$(VALGRIND) ./$(NAME) map/mapzzzzz.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
 	read -p "" key;
 #
 	@$(call random_shmol_cat, teshing too much args, "$(MAP1) abc", $(CLS), );
 	-$(VALGRIND) ./$(NAME) map/$(MAP1) map/$(MAP2)
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
 	read -p "" key;
 # ----------------------------------------------------------------> HEREHERE
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
@@ -66,7 +66,7 @@ m: libft mlx $(NAME)
 	echo > ./map/map_blank.ber
 	@echo "$(COLOR_5R_0G_5B)"
 	-$(VALGRIND) ./$(NAME) map/map_blank.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
 	read -p "" key;
 #
 	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), teshing with a sprite file renamed!!!, , $(CLS), );
@@ -76,15 +76,17 @@ m: libft mlx $(NAME)
 	-$(VALGRIND) ./$(NAME) map/$(MAP3)
 	@echo "$(RED)"
 	mv ./img/player/player_007.xpm ./img/player/player_0.xpm
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
 	read -p "" key;
 #
 	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
+	read -p "" key;
 	$(VALGRIND) ./$(NAME) map/$(MAP3)
 
 m2: libft mlx $(NAME)
 	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	@echo "\t\033[5m~ Press Enter to continue...\033[0m";
 	read -p "" key;
 	$(VALGRIND) ./$(NAME) map/$(MAP3)
 
@@ -247,11 +249,13 @@ BLUE1 = \033[38;5;45m
 # $(RED), $(GOLD), $(BLUE1)
 
 test_color666:
-	@$(call random_cat, $(CLS), $(RESET), $(call pad_word, 12, txt1), $(call pad_word, 14, txt2));
-	@$(call print_cat, $(CLEAR), $(RED), $(RED1), $(RED_L), $(call pad_word, 12, The⠀Cake), $(call pad_word, 0, Is⠀A⠀Lie ..));
+	@$(call random_cat, $(call pad_word, 12, The⠀Cake), $(call pad_word, 14, Is⠀A⠀Lie⠀...), $(CLS), $(RESET));
+	@$(call random_cat, $(call pad_word, 13, The⠀Cake), $(call pad_word, 15, Is⠀A⠀Lie⠀...), , $(RESET));
+
 
 # $(call pad_word, 12, The⠀Cake)
 pad_word = $(BLINK)$(shell printf "%$(1)s" "$(2)")$(RESET)
+# improve with: STRING1=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1));
 
 # --------------------------------------------------------------------------------- >
 # @$(call print_cat, $(CLEAR), $(body), $(eye), $(txt), $(call pad_word, 12, "The⠀Cake"), $(call pad_word, 12, "Is⠀A⠀Lie..."));

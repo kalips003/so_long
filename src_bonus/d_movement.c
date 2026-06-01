@@ -53,7 +53,7 @@ void    ft_move_enemy(t_data2 *data)
 			{
 				data->pika[i].dx = cos((double)random / 2 * PI);
 				data->pika[i].dy = sin((double)random / 2 * PI);
-				if (check_path_player_v3(data, &data->pika[i].x, i) > 0)
+				if (check_path_player_v3(data, data->pika[i], i) > 0)
 					data->pika[i].time = 64;
 			}
 		}

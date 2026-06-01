@@ -1,54 +1,56 @@
 #include "so_long.h"
 
-static void destroy_img_v3(t_data2 *d)
-{
-	int	i;
-
-	if (d->i_ground[0].img)
-		mlx_destroy_image(d->mlx, d->i_ground[0].img);
-	if (d->i_ground[1].img)
-		mlx_destroy_image(d->mlx, d->i_ground[1].img);
-	if (d->i_wall.img)
-		mlx_destroy_image(d->mlx, d->i_wall.img);
-	if (d->i_exit[0].img)
-		mlx_destroy_image(d->mlx, d->i_exit[0].img);
-	if (d->i_exit[1].img)
-		mlx_destroy_image(d->mlx, d->i_exit[1].img);
-	if (d->i_ball[0].img)
-		mlx_destroy_image(d->mlx, d->i_ball[0].img);
-	if (d->i_ball[1].img)
-		mlx_destroy_image(d->mlx, d->i_ball[1].img);
-	if (d->buffer.img)
-		mlx_destroy_image(d->mlx, d->buffer.img);
-	if (d->i_player.img)
-		mlx_destroy_image(d->mlx, d->i_player.img);
-	if (d->i_big_ball[0].img)
-		mlx_destroy_image(d->mlx, d->i_big_ball[0].img);
-	if (d->i_big_ball[1].img)
-		mlx_destroy_image(d->mlx, d->i_big_ball[1].img);
-	if (d->i_throw.img)
-		mlx_destroy_image(d->mlx, d->i_throw.img);
-	i = -1;
-	while (++i < 8)
-		if (d->i_pika[i].img)
-			mlx_destroy_image(d->mlx, d->i_pika[i].img);
-}
-
-///////////////////////////////////////////////////////////////////////////////]
-// static void destroy_img_v4(t_data2 *d)
+// static void destroy_img_v3(t_data2 *d)
 // {
 // 	int	i;
-// 	t_img	*curseur;
 
-// 	curseur = &d->buffer;
+// 	if (d->i_ground[0].img)
+// 		mlx_destroy_image(d->mlx, d->i_ground[0].img);
+// 	if (d->i_ground[1].img)
+// 		mlx_destroy_image(d->mlx, d->i_ground[1].img);
+// 	if (d->i_wall.img)
+// 		mlx_destroy_image(d->mlx, d->i_wall.img);
+// 	if (d->i_exit[0].img)
+// 		mlx_destroy_image(d->mlx, d->i_exit[0].img);
+// 	if (d->i_exit[1].img)
+// 		mlx_destroy_image(d->mlx, d->i_exit[1].img);
+// 	if (d->i_ball[0].img)
+// 		mlx_destroy_image(d->mlx, d->i_ball[0].img);
+// 	if (d->i_ball[1].img)
+// 		mlx_destroy_image(d->mlx, d->i_ball[1].img);
+// 	if (d->buffer.img)
+// 		mlx_destroy_image(d->mlx, d->buffer.img);
+// 	if (d->i_player.img)
+// 		mlx_destroy_image(d->mlx, d->i_player.img);
+// 	if (d->i_big_ball[0].img)
+// 		mlx_destroy_image(d->mlx, d->i_big_ball[0].img);
+// 	if (d->i_big_ball[1].img)
+// 		mlx_destroy_image(d->mlx, d->i_big_ball[1].img);
+// 	if (d->i_throw.img)
+// 		mlx_destroy_image(d->mlx, d->i_throw.img);
+// 	if (d->i_numbers.img)
+// 		mlx_destroy_image(d->mlx, d->i_numbers.img);
 // 	i = -1;
-// 	while (++i < 20)
-// 	{
-// 		if (curseur->img)
-// 			mlx_destroy_image(d->mlx, curseur->img);
-// 		curseur++;
-// 	}
+// 	while (++i < 8)
+// 		if (d->i_pika[i].img)
+// 			mlx_destroy_image(d->mlx, d->i_pika[i].img);
 // }
+
+///////////////////////////////////////////////////////////////////////////////]
+static void destroy_img_v4(t_data2 *d)
+{
+	int	i;
+	t_img	*curseur;
+
+	curseur = &d->buffer;
+	i = -1;
+	while (++i < 21)
+	{
+		if (curseur->img)
+			mlx_destroy_image(d->mlx, curseur->img);
+		curseur++;
+	}
+}
 
 int	exit_all_v2(t_data2 *data)
 {

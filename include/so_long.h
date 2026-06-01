@@ -1,11 +1,11 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
+// # include <X11/X.h>
+// # include <X11/keysym.h>
 # include <math.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
+// # include <sys/wait.h>
 
 # include "libft.h"
 
@@ -156,6 +156,11 @@ void	put_map(char *txt, char **map);
 # define CHANNELING_TIME -80
 # define MAX_ENDURANCE 10000
 
+
+# define START_X_SCORE = 5
+# define START_Y_SCORE = -5
+# define DECIMAL_SCORE = -5
+
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
@@ -185,17 +190,41 @@ typedef struct	s_npc {
 	int     dy;
 }			t_npc;
 
+
+typedef struct s_sprite {
+	int				i;
+	int				j;
+	int				f_x;
+	int				f_y;
+	int				pixel_index;
+	unsigned int	pixel_color;
+	int				buffer_index;
+}	t_sprite;
+
+typedef struct {
+    int sz;
+
+    int frame_start_x;
+    int frame_start_y;
+	int src_x;
+	int src_y;
+
+	int pixel_index;
+	int pixel_color;
+
+	int	dest_x;
+	int	dest_y;
+
+	int buffer_index;
+
+    int i;
+    int j;
+} t_frame;
+
 typedef struct s_event1
 {
 	t_npc	ball;
-	// int x;
-	// int	y;
-	// int dx;
-	// int	dy;
-	// int	frame;
-	// int	time;
-	// int	n0123;
-	int	pika_caught;
+	int		pika_caught;
 }	t_event1;
 
 typedef struct s_event2
@@ -219,6 +248,7 @@ typedef struct s_data2
 	t_img	i_ball[2];
 	t_img	i_big_ball[2];
 	t_img	i_throw;
+	t_img	i_numbers;
 	t_img	i_exit[2];
 //
 	void	*mlx;
