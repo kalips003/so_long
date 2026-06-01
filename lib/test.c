@@ -39,12 +39,11 @@ int	main(int ac, char **av, char **env)
 	if (fd == -1)
 		return (put("error fd\n"));
 	char *line = NULL;
-	char **file = NULL;
 	while ((line = gnl(fd)) != NULL)
-		file = expand_tab(file, line);
-    put("\n%#.8S\n== still here ^^\n", "ajksdf lkjadsflkjhasdlkfsj alksdjflajd flkaj fdlkja sdf l jka fdl");
-    free_tab(file);
-	free_s(line);
+	{
+    	put("%S", line);
+		free_s(line);
+	}
 	close(fd);
     return 0;
 }
@@ -57,15 +56,37 @@ does somethign
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 }
 ///////////////////////////////////////////////////////////////////////////////]
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 
+//  			GITHUB
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+git pull
+git log > navigate snapshots in time
+git log --pretty=fuller
+git log --pretty=oneline --abbrev-commit --date=short
+git log --since="2022-01-01" --until="2022-12-31"
+git checkout <commit-hash>
+	Use the hash from the log output.
+	save a good commit hash is Makefile Makerestore
+To reset the repository to a specific commit:
+	git reset --hard <commit-hash>
+git push origin feature-branch:main
 
 
-
-
-
-
+// Stash Changes: Use git stash to stash your changes.
+	git stash
+// Switch Branches: After stashing your changes, you can switch branches.
+	git checkout <branch-name>
+// Apply Stashed Changes: When you're ready, you can apply your stashed changes to the new branch.
+	git stash apply
+// Pop Stashed Changes: Alternatively, you can apply and remove the stashed changes in one step.
+	git stash pop
+// List Stashes: To see a list of stashed changes, you can use:
+	git stash list
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 

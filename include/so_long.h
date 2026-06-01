@@ -13,6 +13,13 @@
 # define ERR "\033[0;31mError - \e[0m"
 # define PI 3.14159265358979323846
 
+///////////////////////////////////////////////////////////////////////////////]
+//
+//			▒█▀▄▀█ ░█▀▀█ ▒█▄░▒█ ▒█▀▀▄ ░█▀▀█ ▀▀█▀▀ ▒█▀▀▀█ ▒█▀▀█ ▒█░░▒█ 
+//			▒█▒█▒█ ▒█▄▄█ ▒█▒█▒█ ▒█░▒█ ▒█▄▄█ ░▒█░░ ▒█░░▒█ ▒█▄▄▀ ▒█▄▄▄█ 
+//			▒█░░▒█ ▒█░▒█ ▒█░░▀█ ▒█▄▄▀ ▒█░▒█ ░▒█░░ ▒█▄▄▄█ ▒█░▒█ ░░▒█░░
+//
+///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_coor
 {
 	int	x;
@@ -28,27 +35,6 @@ typedef struct s_valid_path
 	int		y;
 	int 	i;
 }	t_valid_path;
-
-typedef struct	s_img {
-	void	*img;
-	char	*addr;
-
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		sz_x;
-	int		sz_y;
-}			t_img;
-
-
-typedef struct	s_circle {
-	int     center_x;
-	int     center_y;
-	int     radius;
-
-	int 	(*color)(void);
-}			t_circle;
-
 
 ///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_data
@@ -87,25 +73,6 @@ typedef struct s_data
 
 	int 	is_dying;
 }	t_data;
-
-typedef struct s_event1
-{
-	int x;
-	int	y;
-	int	frame;
-	int	time;
-	int	n0123;
-	int	pika_caught;
-}	t_event1;
-
-typedef struct s_event2
-{
-    t_circle circle;
-    t_circle circlend;
-	int	time;
-
-	int	pika_attaking;
-}	t_attack;
 
 ///////////////////////////////////////////////////////////////////////////////]
 /********************************
@@ -151,11 +118,12 @@ void    anim_pika(t_data *data, int i);
 // static void	exit_img(t_data *data)
 int    exit_all(t_data *data);
 int    exit_all_2(t_data *data, char *string);
+void	put_map(char *txt, char **map);
 ///////////////////////////////////////////////////////////////////////////////]
 //
-// 				▒█▀▀█ ▒█▀▀▀█ ▒█▄░▒█ ▒█░▒█ ▒█▀▀▀█
-// 				▒█▀▀▄ ▒█░░▒█ ▒█▒█▒█ ▒█░▒█ ░▀▀▀▄▄
-// 				▒█▄▄█ ▒█▄▄▄█ ▒█░░▀█ ░▀▄▄▀ ▒█▄▄▄█
+//						▒█▀▀█ ▒█▀▀▀█ ▒█▄░▒█ ▒█░▒█ ▒█▀▀▀█
+//						▒█▀▀▄ ▒█░░▒█ ▒█▒█▒█ ▒█░▒█ ░▀▀▀▄▄
+//						▒█▄▄█ ▒█▄▄▄█ ▒█░░▀█ ░▀▄▄▀ ▒█▄▄▄█
 //
 ///////////////////////////////////////////////////////////////////////////////]
 # define ANIM_1 50
@@ -187,6 +155,46 @@ int    exit_all_2(t_data *data, char *string);
 # define ATTAK_TIME 100
 # define CHANNELING_TIME -80
 # define MAX_ENDURANCE 10000
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+
+	int		bpp;
+	int		ll;
+	int		endian;
+	int		sz_x;
+	int		sz_y;
+}			t_img;
+
+
+typedef struct	s_circle {
+	int     center_x;
+	int     center_y;
+	int     radius;
+
+	int 	(*color)(void);
+}			t_circle;
+
+typedef struct s_event1
+{
+	int x;
+	int	y;
+	int	frame;
+	int	time;
+	int	n0123;
+	int	pika_caught;
+}	t_event1;
+
+typedef struct s_event2
+{
+    t_circle circle;
+    t_circle circlend;
+	int	time;
+
+	int	pika_attaking;
+}	t_attack;
+
 ///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_data2
 {

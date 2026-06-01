@@ -11,69 +11,74 @@ all: $(NAME)
 # │                  	 	        TESTING                    	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-# $(call random_cat, $(CLEAR), text 1, text 2, $(CLS));
+# big map, 3 pika
+MAP1 = "map1.ber"
+# small square, no pika
+MAP2 = "map2.ber"
+# medium square, lots of pika
+MAP3 = "map3.ber"
+# big map, 3 pika
+MAP4 = "good_map.ber"
 
 a: libft mlx $(NAME_BONUS)
-	clear
-	@$(call random_shmol_cat, $(CLS), teshting !, $@, $(RESET));
-	./$(NAME_BONUS) map/map2.ber
+	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
+	-./$(NAME_BONUS) map/$(MAP1)
+	@echo $(RESET);
 
-b: libft mlx $(NAME_BONUS)
-	clear
-	@$(call print_cat_no_reset, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing $@!~");
-	./$(NAME_BONUS) map/map2.ber
+v: libft mlx $(NAME_BONUS)
+	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP1)
+	@echo $(RESET);
 
-v: libft mlx $(NAME)
-	clear
-	valgrind --leak-check=full --show-leak-kinds=all ./so_long map/map3.ber
+# ---------------------------------------------------------------------- >
+BAD_MAPS = map_no_collec.ber map_no_player.ber \
+			map_no_exit.ber map_many_exit.ber \
+			map_many_player.ber map_bad_wall.ber \
+			map_bad_enclosed_e.ber map_bad_enclosed_c.ber \
+			map_bad_tile.ber
 
-# test all map
+# map=$$($(eval echo $$arg));
 m: libft mlx $(NAME)
-	@clear
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with too many players!~");
-	@echo "$(COLOR_5R_1G_0B)"
-	-$(VALGRIND) ./so_long map/map_multiplayer.ber
+	@for map in $(BAD_MAPS); do \
+		@$(call random_shmol_cat, teshting lots of bad miaps:, $$map shouldt run..., $(CLS), ); \
+		-$(VALGRIND) ./$(NAME) map/map_bad/$$map; \
+		@echo -e "\033[5m~ Press Enter to continue...\033[0m"; @read -p "" key; \
+	done
 #
-	@echo -e "\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-	@clear
-# @$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with holes in the wall!~");
-# @$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with no collectible!~");
-	@$(call print_cat_no_reset, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with player trapped!~");
-	-$(VALGRIND) ./so_long map/map_multiplayer.ber
-	@echo -e "\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-	@clear
+	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
+	-$(VALGRIND) ./$(NAME) map/map_multiplayer.be
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"; @read -p "" key;
+	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
+	-$(VALGRIND) ./$(NAME) map/mapzzzzz.ber
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"; @read -p "" key;
 #
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with bad map name!~");
-	@echo "$(COLOR_5R_4G_0B)"
-	-$(VALGRIND)  ./so_long map/map_multiplayer.be
-	@echo "$(COLOR_1R_4G_4B)"
-	-$(VALGRIND)  ./so_long map/mapzzzzz.ber
+	@$(call random_shmol_cat, teshing too much args, "$(MAP1) abc", $(CLS), );
+	-$(VALGRIND) ./$(NAME) map/$(MAP1) map/$(MAP2)
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"; @read -p "" key;
 #
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with too much arg!~");
-	@echo "$(COLOR_5R_4G_0B)"
-	-$(VALGRIND)  ./so_long map/map_multiplayer.ber map_correct.ber
+	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
+	@echo "$(RED)"
+	echo > ./map/map_blank.ber
+	@echo "$(COLOR_5R_0G_5B)"
+	-$(VALGRIND) ./$(NAME) map/map_blank.ber
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"; @read -p "" key;
 #
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with a file renamed!!!~");
+	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), teshing with a sprite file renamed!!!, , $(CLS), );
 	@echo "$(RED)"
 	mv ./img/ball_throw.xpm ./img/ball_throw666.xpm
 	@echo "$(COLOR_5R_4G_0B)"
-	-$(VALGRIND)  ./so_long map/map_correct.ber
+	-$(VALGRIND) ./$(NAME) map/$(MAP3)
 	@echo "$(RED)"
 	mv ./img/ball_throw666.xpm ./img/ball_throw.xpm
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"; @read -p "" key;
 #
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with empty file~");
-	@echo "$(RED)"
-	echo > ./map/map_blank.ber
-	@echo "$(COLOR_5R_4G_5B)"
-	-$(VALGRIND)  ./so_long map/map_blank.ber
+	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
+	$(VALGRIND) ./$(NAME) map/$(MAP3)
 
-
-
-w: libft mlx $(NAME)
-	clear
-	valgrind --leak-check=full --show-leak-kinds=all ./so_long map/map_correct.ber
+m2: libft mlx $(NAME)
+	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"; @read -p "" key;
+	$(VALGRIND) ./$(NAME) map/$(MAP3)
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	        SOURCES                    	         │
@@ -166,13 +171,17 @@ src_bonus/obj/%.o: src_bonus/%.c
 
 test:	libft
 	@cc ./lib/test.c ./lib/libft.a -o ./lib/a.out
-	$(call print_cat, $(CLEAR), $(COLOR_1R_0G_5B), $(COLOR_5R_1G_0B), $(COLOR_0R_2G_5B), $(call pad_word, 10, "Making"), $(call pad_word, 12, "Science"));
+	@$(call random_cat, $(call pad_word, 10, "Making"), $(call pad_word, 12, "Science"), $(CLS), $(RESET));
+	@lib/a.out
+
+test2:	mlx libft $(OBJ_B) include/so_long.h
+	@cc ./lib/test.c ./lib/libft.a $(OBJ_B) -o ./lib/a.out
+	@$(call random_cat, $(call pad_word, 10, "Making"), $(call pad_word, 12, "Science"), $(CLS), $(RESET));
 	@lib/a.out
 
 vtest:	libft
 	@cc -g3 ./lib/test.c ./lib/libft.a -o ./lib/a.out
-	$(call print_cat, $(CLEAR), $(RED), $(GOLD), $(BLUE1), $(call pad_word, 10, "TESTING"), $(call pad_word, 12, "SCIENCE"));
-	@echo "$(COLOR_5R_1G_0B)"
+	@$(call random_cat, $(call pad_word, 10, "Making"), $(call pad_word, 12, "Science"), $(CLS), $(RESET));
 	@$(VALGRIND) lib/a.out
 
 clean:
@@ -194,17 +203,18 @@ re_bonus: fclean
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - VALGRIND -
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s --track-fds=yes
-# VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --track-fds=yes
+# VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --track-fds=yes
 #
 # lldb: clean all
 # 	@lldb ./$(NAME) $(ARGS)
 #
 # GITHUB!
-#	git add .
-# 	@echo -e "\033[5m~ Press Enter to continue...\033[0m"
-# 	@read -p "" $${msg}
-#	git commit -m "$(date) + $${msg}"
-#	git push
+git:
+	@$(call random_shmol_cat_blink, 作業を保存してるかな.., いいね ~ , $(CLS), );
+	@current_date=$$(date); \
+	git add .; \
+	git commit -m "$$current_date"; \
+	git push
 #
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	       PRINT                     	         │
@@ -218,6 +228,9 @@ GOLD = \033[38;5;178m
 GREEN1 = \033[38;5;40m
 # COLOR_0R_4G_5B
 BLUE1 = \033[38;5;45m
+
+# $(COLOR_1R_0G_5B), $(COLOR_5R_1G_0B), $(COLOR_0R_2G_5B)
+# $(RED), $(GOLD), $(BLUE1)
 
 test_color666:
 	@$(call random_cat, $(CLS), $(RESET), $(call pad_word, 12, txt1), $(call pad_word, 14, txt2));
@@ -250,13 +263,13 @@ define print_cat
 endef
 
 # --------------------------------------------------------------------------------- >
-# @$(call print_cat, $(CLS), $(RESET), $(call pad_word, 12, txt1), $(call pad_word, 12, txt2));
+# @$(call random_cat, $(call pad_word, 12, txt1), $(call pad_word, 12, txt2), $(CLS), $(RESET));
 # print_cat (resest?)(color_cat)(color_eyes)(color_text)($(padded_txt_top))($(padded_txt_bot))
 define random_cat
 	COLOR=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR2=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR3=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
-    echo "$(1)$${COLOR}\
+    echo "$(3)$${COLOR}\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠒⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⠀⠘⡄⠀⠀⠀⠀⠀⠀⣀⠀⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠁⠉⠉⠉⠒⠊⠉⠀⡇⠀\n\
@@ -268,37 +281,65 @@ define random_cat
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡆⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠤⠒⠒⠃⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀\n\
 	\t\t\t\t\t\t\t	⠀⠔⠑⠄⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇\n\
-	\t\t\t\t\t\t\t	⠸⡀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⡇$${COLOR3}$(3)$${COLOR}⠀⠀⠀⠀⠀⡇\n\
-	\t\t\t\t\t\t\t	⠀⠱⡀⠀⠳⡀⠀⠀⠀⠀⠀⠀⢃$${COLOR3}$(4)$${COLOR}⠀⠀⡸⠀\n\
+	\t\t\t\t\t\t\t	⠸⡀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⡇$${COLOR3}$(1)$${COLOR}⠀⠀⠀⠀⠀⡇\n\
+	\t\t\t\t\t\t\t	⠀⠱⡀⠀⠳⡀⠀⠀⠀⠀⠀⠀⢃$${COLOR3}$(2)$${COLOR}⠀⠀⡸⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠑⢄⠀⠈⠒⢄⡀⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠁⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠑⠦⣀⠀⠈⠉⠐⠒⠒⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⢢⠀\n\
-	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠉⠐⠒⠠⠤⠤⠤⠤⠔⠂⠠⠤⠤⠤⠄⠐⠒⠂⠉⠉⠉⠉⠉⠁\n$(2)"
+	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠉⠐⠒⠠⠤⠤⠤⠤⠔⠂⠠⠤⠤⠤⠄⠐⠒⠂⠉⠉⠉⠉⠉⠁\n$(4)"
 endef
 
 # --------------------------------------------------------------------------------- >
-# @$(call print_cat_test, $(COLOR_5R_3G_1B), $(COLOR_0R_2G_3B), $@, "~ teshing $@! ~");
+# @$(call shmol_cat_color, $(color_cat), $(color_txt), text1, txt2, $(CLS), $(RESET));
 define shmol_cat_color
-	echo "$(2)\
-	\t$(3)$(1)\t⠀╱|、\n\
-	\t\t(˚ˎ。7⠀⠀⠀$(2)$(4)$(1)\n\
-	\t\t⠀|、˜\\\\\n\
-	\t\t⠀じしˍ)ノ\n$(RESET)"
+	echo "$(5)$(2)\
+	\tにゃ~$(1)\t⠀╱|、\n\
+	\t\t(˚ˎ。7⠀⠀⠀$(2)~ $(3) ~$(1)\n\
+	\t\t⠀|、˜\\\\\t\t$(2)$(4)$(1)\n\
+	\t\t⠀じしˍ)ノ\n$(6)"
 endef
-
 # --------------------------------------------------------------------------------- >
-# @$(call random_shmol_cat, $(CLS), text 1, text 2, $(RESET));
+# @$(call random_shmol_cat, text 1, text 2, $(CLS), $(RESET));
 # $(1)= $(CLEAR); $(2)= text1; $(3)= text2; $(4)= $(RESET)
 define random_shmol_cat
 	COLOR=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR2=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
-	echo "$(1)$${COLOR2}\
+	echo "$(3)$${COLOR2}\
 	\tにゃ~$${COLOR}\t⠀╱|、\n\
-	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(2) ~$${COLOR}$${COLOR}\n\
-	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(3)$${COLOR}$${COLOR}\n\
+	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
+	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\
 	\t\t⠀じしˍ)ノ\n$(4)"
 endef
 
+# // <!> - - - - - - - - - - - </!>
 # --------------------------------------------------------------------------------- >
+rscs:
+	@$(call random_shmol_cat_surligne, text 1, text 2, $(CLS), $(RESET));
+
+define random_shmol_cat_surligne
+	COLOR=$$(printf "\033[0m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
+	COLOR2=$$(printf "\033[48;5;%dm" $$(shuf -i 0-255 -n 1)); \
+	echo "$(3)$${COLOR2}\
+	\tにゃ~$${COLOR}\t⠀╱|、\n\
+	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
+	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\
+	\t\t⠀じしˍ)ノ\n$(4)"
+endef
+
+rscb:
+	@$(call random_shmol_cat_blink, text 1, text 2, $(CLS), $(RESET));
+
+define random_shmol_cat_blink
+	COLOR=$$(printf "\033[0m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
+	COLOR2=$$(printf "\e[5m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
+	echo "$(3)$${COLOR2}\
+	\tにゃ~$${COLOR}\t⠀╱|、\n\
+	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
+	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\
+	\t\t⠀じしˍ)ノ\n$(4)"
+endef
+# // <!> - - - - - - - - - - - </!>
+# --------------------------------------------------------------------------------- >
+# @$(call shmol_cat_error, $(RED), $(RED_L));
 # $(1) = $(color_cat), $(2) = $(color_text)	NO CLS
 define shmol_cat_error
 	echo "$(2)\

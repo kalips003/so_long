@@ -291,6 +291,7 @@ COMBINAISONS: BOLD_BLACK "\033[30;1m"
 
 [0] black [1] red [2] green [3] yellow [4] blue [5] magenta [6] cyan [7] white) [8] default
 
+"\033[38;5;{foreground_color_code};48;5;{background_color_code}m
     [3(0-8)m: Foreground color [0;3(0-8)m (0; is  the  reset 0)
     [4(0-8)m: Background color [0;4(0-8)m
 

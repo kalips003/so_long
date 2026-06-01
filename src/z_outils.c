@@ -61,3 +61,16 @@ int	exit_all_2(t_data *data, char *string)
 	exit_all(data);
 	return (0);
 }
+
+void	put_map(char *txt, char **map)
+{
+	
+	if (!map)
+		return ;
+	put("%s", txt);
+	while (*map)
+	{
+		put("\t%S\n", *map);
+		map++;
+	}
+}

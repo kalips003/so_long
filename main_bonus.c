@@ -17,6 +17,25 @@ bulbizare create grass behind him, grass is 0 or '*'
 
 use empty sprites to create elec sprites rendered when player time < 0
 
+
+
+///////////////////////////////////////////////////////////////////////////////]
+#define DESIRED_FPS 60
+#define FRAME_DURATION_MICROSECONDS (1000000 / DESIRED_FPS)
+
+void mainLoop() {
+    while (1) {
+
+        startTime = getCurrentTime();
+            // Process input, update game state, render graphics, etc.
+        frameTime = getCurrentTime() - startTime;
+
+        if (frameTime < FRAME_DURATION_MICROSECONDS) {
+            printf("Time difference: %ld microseconds\n", FRAME_DURATION_MICROSECONDS - frameTime);
+            usleep(FRAME_DURATION_MICROSECONDS - frameTime);
+        }
+    }
+}
 ///////////////////////////////////////////////////////////////////////////////]
 // Method 2: Use a compound literal (since C99)
 // draw_line(data, (int[]){some_variable + 123, 59}, int b[2], int color);
