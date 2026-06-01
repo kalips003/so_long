@@ -89,7 +89,7 @@ m: libft mlx $(NAME)
 	-$(VALGRIND) ./$(NAME) map/$(MAP3)
 
 m2: libft mlx $(NAME)
-	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "\'tis good map, Mandatory", "try n break it, にゃ?", $(CLS), );
+	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "\'tis good map Mandatory", "try n break it にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 	$(VALGRIND) ./$(NAME) map/$(MAP3)
