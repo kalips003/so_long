@@ -97,7 +97,7 @@ static void	f_put_pika_to_buffer_v4(t_data2 *data)
 			continue ;
 		if (data->pika[i].time == -1)
 			draw_frame(data, data->i_pika, (int [4]){data->pika[i].x, \
-				data->pika[i].y, data->pika[i].f, 2}, ft_r_white);
+				data->pika[i].y, data->pika[i].f, 2}, data->color_r);
 		else
 			draw_frame(data, data->i_pika, (int [4]){data->pika[i].x, \
 				data->pika[i].y, data->pika[i].f, 2}, NULL);
