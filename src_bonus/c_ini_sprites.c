@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c_ini_sprites.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/19 04:24:42 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:00:34 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	ini_img(t_data2 *data);
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
-		initialize all sprites, 
+		initialize all sprites,
 			the starter, and player default position reset
 		if any pb, exit all by itself
-*******************************************************************************/
+******************************************************************************/
 ///////////////////////////////////////////////////////////////////////////////]
 void	ini_sprites(t_data2 *data)
 {
@@ -50,7 +50,7 @@ void	ini_sprites(t_data2 *data)
 		PLAYER_GENDER
 		STARTER
 		BURNED_GRASS_TILE
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 static void	ini_anim_v3(t_data2 *data)
 {
 	char	*path_p;
@@ -77,7 +77,7 @@ static void	ini_anim_v3(t_data2 *data)
 	fill in all data from img_path
 		bit = 0 exit all
 		bit = 1 return 0
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 static int	helper_texture(t_data2 *data, char *p, t_img *img, int sw)
 {
 	if (p)

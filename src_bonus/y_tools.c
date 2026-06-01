@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   y_tools.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:48:08 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/20 11:51:30 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:29:58 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	what_starter(t_data2 *data)
 	}
 }
 
-/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 void	boy_or_girl(t_data2 *data)
 {
 	char	*answer;
@@ -66,7 +66,7 @@ void	boy_or_girl(t_data2 *data)
 		MEMSET DATA
 	create map, free it in all cases
 	do all the tests, exit in case of any error
-*******************************************************************************/
+******************************************************************************/
 void	is_map_ok_v2(t_data2 *data, char *path)
 {
 	int	fd_map;

@@ -10,41 +10,41 @@ all: $(NAME)
 # │                  	 	        TESTING                    	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-# big map, 3 pika
+# 	big map, 4 pika 4 collec
 MAPG = good_map.ber
-# big map, 3 pika
+# 	big map, 3 pika
 MAP1 = map1.ber
-# big square, no pika
+# 	medium square, no pika
 MAP2 = map2.ber
-# medium square, lots of pika
+# 	medium square, lots of pika
 MAP3 = map3.ber
-# small square, 1 pika
+# 	small square, 1 pika
 MAP4 = map4.ber
-# only balls
+# 	only balls
 MAP5 = map5.ber
 
-
+# BIG MAP WITH PIKA, BONUS + CONTROLS
 a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
 	@$(call random_shmol_cat, "\'tis good map", 'hav fun ね? (make m for testeur mandatory)', $(CLS), );
 	@echo "\tuse -WASD- or →↓←↑ to move around"
 	@echo "\tuse -SPACE- to throw ball"
-	@echo "\tpress -CTRL-l- to toogle run"
+	@echo "\tpress -CTRL-l- (while stationnary) to toogle run"
 	@echo "\tpress -E- to print memory"
 	@echo "\n\t\033[5m~ Press Enter to start, and good luck... ~\033[0m"
 	@read -p "" key
-	./$(NAME_BONUS) map/$(MAPG)
+	./$(word 3, $^) map/$(MAPG)
 
 b: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP2)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
 
 c: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP5)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP5)
 
 v: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP1)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP1)
 	@echo $(RESET);
 
 # ---------------------------------------------------------------------- >
@@ -58,22 +58,22 @@ BAD_MAPS = map_bad_not_rect1.ber map_bad_not_rect2.ber map_no_collec.ber map_no_
 m: libft mlx $(NAME)
 	@for map in $(BAD_MAPS); do \
 	$(call random_shmol_cat, teshting lots of bad miaps:, $$map shouldt run..., $(CLS), ); \
-	$(VALGRIND) ./$(NAME) map/map_bad/$$map; \
+	$(VALGRIND) ./$(word 3, $^) map/map_bad/$$map; \
 	echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
 	read -p "" key; \
 	done
 #
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
-	-$(VALGRIND) ./$(NAME) map/map_multiplayer.be
+	-$(VALGRIND) ./$(word 3, $^) map/map_multiplayer.be
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key;
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
-	-$(VALGRIND) ./$(NAME) map/mapzzzzz.ber
+	-$(VALGRIND) ./$(word 3, $^) map/mapzzzzz.ber
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 #
 	@$(call random_shmol_cat, teshing too much args, "$(MAP1) abc", $(CLS), );
-	-$(VALGRIND) ./$(NAME) map/$(MAP1) map/$(MAP2)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP1) map/$(MAP2)
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 #
@@ -81,7 +81,7 @@ m: libft mlx $(NAME)
 	@echo "$(RED)"
 	touch ./map/map_blank.ber
 	@echo "$(COLOR_5R_0G_5B)"
-	-$(VALGRIND) ./$(NAME) map/map_blank.ber
+	-$(VALGRIND) ./$(word 3, $^) map/map_blank.ber
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 #
@@ -89,7 +89,7 @@ m: libft mlx $(NAME)
 	@echo "$(RED)"
 	mv ./img/player/player_0.xpm ./img/player/player_007.xpm
 	@echo "$(COLOR_5R_4G_0B)"
-	-$(VALGRIND) ./$(NAME) map/$(MAP3)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
 	@echo "$(RED)"
 	mv ./img/player/player_007.xpm ./img/player/player_0.xpm
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
@@ -98,13 +98,13 @@ m: libft mlx $(NAME)
 	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	-$(VALGRIND) ./$(NAME) map/$(MAP2)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
 
 m2: libft mlx $(NAME)
 	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	-$(VALGRIND) ./$(NAME) map/$(MAP1)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	        SOURCES                    	         │

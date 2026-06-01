@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/20 11:47:53 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:22:53 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,34 +146,35 @@ typedef struct s_event2
 }	t_attack;
 
 ///////////////////////////////////////////////////////////////////////////////]
+// exit[2]for is_all_collec [3,4] for ptr
 typedef struct s_data2
 {
 	t_img			buffer;
-//
-	t_img			i_player;//	0
+
+	t_img			i_player;
 	t_img			i_pika;
 	t_img			i_ground[2];
 	t_img			i_wall;
-	t_img			i_ball[2];//	5-6
+	t_img			i_ball[2];
 	t_img			i_big_ball[2];
 	t_img			i_throw;
-	t_img			i_exit[2];//	10-11
+	t_img			i_exit[2];
 	t_img			i_numbers[10];
-//
+
 	void			*mlx;
 	void			*win;
 	char			**map;
-// 
+
 	unsigned int	(*color)(void);
 	unsigned int	(*color_r)(void);
-//
+
 	int				time;
 
 	t_throw			throw;
 	t_attack		attack;
 	t_npc			player;
 	t_npc			*pika;
-// exit[2]for is_all_collec [3,4] for ptr
+
 	int				exit[5];
 
 	int				steps;
@@ -276,7 +277,7 @@ void			print_data(t_data2 *data);
 \t░╚████╔╝░██║░░██║██║░░░██║  ██║░░██║██║█████╗░░██║░░██║\n\
 \t░░╚██╔╝░░██║░░██║██║░░░██║  ██║░░██║██║██╔══╝░░██║░░██║\n\
 \t░░░██║░░░╚█████╔╝╚██████╔╝  ██████╔╝██║███████╗██████╔╝\n\
-\t░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░╚═╝╚══════╝╚═════╝░\n\n"
+\t░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░╚═╝╚══════╝╚═════╝░\e[25m\n\n"
 
 # define MSG_WIN "\e[5m\033[38;5;77m\n\
 \t██╗░░░██╗░█████╗░██╗░░░██╗  ░██╗░░░░░░░██╗██╗███╗░░██╗  ██╗\n\
@@ -284,6 +285,6 @@ void			print_data(t_data2 *data);
 \t░╚████╔╝░██║░░██║██║░░░██║  ░╚██╗████╗██╔╝██║██╔██╗██║  ██║\n\
 \t░░╚██╔╝░░██║░░██║██║░░░██║  ░░████╔═████║░██║██║╚████║  ╚═╝\n\
 \t░░░██║░░░╚█████╔╝╚██████╔╝  ░░╚██╔╝░╚██╔╝░██║██║░╚███║  ██╗\n\
-\t░░░╚═╝░░░░╚════╝░░╚═════╝░  ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝  ╚═╝\n\n"
+\t░░░╚═╝░░░░╚════╝░░╚═════╝░  ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝  ╚═╝\e[25m\n\n"
 
 #endif

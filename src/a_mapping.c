@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/09 18:51:35 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:02:19 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	small_check(t_data *data)
 
 	if (data->player[2] != 1)
 		return (put_map(ERR"none or too many player\n", data->map), 1);
-
 	if (data->exit[2] != 1)
 		return (put_map(ERR"none or too many exit\n", data->map), 1);
 	if (data->num_ball < 1)
