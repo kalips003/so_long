@@ -29,7 +29,7 @@ static int  helper_78(t_data2 *data)
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    find closest pika available, 
+    find closest pika available,
     if it exist, fill attack struct
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static void find_pika_for_attak(t_data2 *data)
@@ -47,7 +47,7 @@ static void find_pika_for_attak(t_data2 *data)
     data->attack.circlend.center_x = data->player[0] + DEMI_SPRITE;
     data->attack.circlend.center_y = data->player[1] + DEMI_SPRITE;
     data->attack.circlend.color = random_yellow_v2;
-    data->pika[i][3] = -1; 
+    data->pika[i][3] = -1;
     angle = atan2(data->player[1] - data->pika[i][1], data->player[0] - data->pika[i][0]);
     if (angle < 0)
         angle += 2 * PI;
@@ -65,7 +65,7 @@ static int is_player_touched(int atk_start_xy[2], int atk_end_xy[2], int player_
     double proch_x;
     double proch_y;
     double dist_squared;
-    
+
     t = ((player_xy[0] - atk_start_xy[0]) * (atk_end_xy[0] - atk_start_xy[0]) +
         (player_xy[1] - atk_start_xy[1]) * (atk_end_xy[1] - atk_start_xy[1])) /
         ((atk_end_xy[0] - atk_start_xy[0]) * (atk_end_xy[0] - atk_start_xy[0]) +
@@ -85,7 +85,7 @@ if there is an attack ongoing, check if player touched
 void    check_random_attak(t_data2 *data)
 {
     if (data->attack.time > 0)
-        if (is_player_touched(&data->attack.circle.center_x, &data->attack.circlend.center_x, &data->player))
+        if (is_player_touched(&data->attack.circle.center_x, &data->attack.circlend.center_x, data->player))
             data->player[3] = -1;
     if (data->attack.time || !data->num_pika || (rand() % (ATTACK_CHANCE + 1)))
         return ;

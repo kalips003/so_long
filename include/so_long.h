@@ -1,11 +1,11 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
-// # include <X11/X.h>
-// # include <X11/keysym.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include <math.h>
 # include <sys/stat.h>
-// # include <sys/wait.h>
+# include <sys/wait.h>
 
 # include "libft.h"
 
@@ -28,6 +28,28 @@ typedef struct s_valid_path
 	int		y;
 	int 	i;
 }	t_valid_path;
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		sz_x;
+	int		sz_y;
+}			t_img;
+
+
+typedef struct	s_circle {
+	int     center_x;
+	int     center_y;
+	int     radius;
+
+	int 	(*color)(void);
+}			t_circle;
+
+
 ///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_data
 {
@@ -65,6 +87,26 @@ typedef struct s_data
 
 	int 	is_dying;
 }	t_data;
+
+typedef struct s_event1
+{
+	int x;
+	int	y;
+	int	frame;
+	int	time;
+	int	n0123;
+	int	pika_caught;
+}	t_event1;
+
+typedef struct s_event2
+{
+    t_circle circle;
+    t_circle circlend;
+	int	time;
+
+	int	pika_attaking;
+}	t_attack;
+
 ///////////////////////////////////////////////////////////////////////////////]
 /********************************
 		[A] MAPPING
@@ -110,27 +152,16 @@ void    anim_pika(t_data *data, int i);
 int    exit_all(t_data *data);
 int    exit_all_2(t_data *data, char *string);
 ///////////////////////////////////////////////////////////////////////////////]
-// 
-// 				▒█▀▀█ ▒█▀▀▀█ ▒█▄░▒█ ▒█░▒█ ▒█▀▀▀█ 
-// 				▒█▀▀▄ ▒█░░▒█ ▒█▒█▒█ ▒█░▒█ ░▀▀▀▄▄ 
+//
+// 				▒█▀▀█ ▒█▀▀▀█ ▒█▄░▒█ ▒█░▒█ ▒█▀▀▀█
+// 				▒█▀▀▄ ▒█░░▒█ ▒█▒█▒█ ▒█░▒█ ░▀▀▀▄▄
 // 				▒█▄▄█ ▒█▄▄▄█ ▒█░░▀█ ░▀▄▄▀ ▒█▄▄▄█
-// 
+//
 ///////////////////////////////////////////////////////////////////////////////]
 # define ANIM_1 50
 # define ANIM_T 200
 # define TIME_F 4096
 # define MAX_CHANCE 5000
-
-typedef struct	s_img {
-	void	*img;
-	char	*addr;
-
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		sz_x;
-	int		sz_y;
-}			t_img;
 
 # define SPRITE_SIZE 64
 # define DEMI_SPRITE 32
@@ -144,29 +175,23 @@ typedef struct	s_img {
 # define BALL_START_Y 8
 
 # define SLOWING 8
-# define TIME_PLAYER 8
-# define TIME_PIKA 8
-# define TIME_BALL 8
-# define TIME_ATK 8
+# define TIME_PLAYER 2
+# define TIME_PIKA 1
+# define TIME_BALL 1
+# define TIME_ATK 1
 # define THROW_RANGE 5
 # define OFFSET_BALL_THR 24
 # define PIKA_MOVE_CHANCE 5000
-# define ATTACK_CHANCE 5000
+# define ATTACK_CHANCE 1
 # define PIKA_TURN_CHANCE 8
 # define ATTAK_TIME 100
 # define CHANNELING_TIME -80
 # define MAX_ENDURANCE 10000
-
-
 ///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_data2
 {
-	void	*mlx;
-	void	*win;
-	char	**map;
-
 	t_img	buffer;
-// 
+//
 	t_img	i_player;
 	t_img	i_pika[8];
 	t_img	i_ground[2];
@@ -175,7 +200,11 @@ typedef struct s_data2
 	t_img	i_big_ball[2];
 	t_img	i_ball_throw;
 	t_img	i_exit[2];
-// 
+//
+	void	*mlx;
+	void	*win;
+	char	**map;
+//
 	//  of xpm
 	int		map_x;
 	int		map_y;
@@ -207,34 +236,6 @@ typedef struct s_data2
 	// throw_ball_event
 }	t_data2;
 ///////////////////////////////////////////////////////////////////////////////]
-typedef struct s_event1
-{
-	int x;
-	int	y;
-	int	frame;
-	int	time;
-	int	n0123;
-	int	pika_caught;
-}	t_event1;
-
-typedef struct s_event2
-{
-    t_circle circle;
-    t_circle circlend;
-	int	time;
-
-	int	pika_attaking;
-}	t_attack;
-
-typedef struct	s_circle {
-	int     center_x;
-	int     center_y;
-	int     radius;
-
-	int 	(*color)(void);
-}			t_circle;
-
-
 
 ///////////////////////////////////////////////////////////////////////////////]
 //	  A
@@ -263,7 +264,7 @@ void    move_ball(t_data2 *data);
 int		key_press_v2(int keysym, t_data2 *data);
 int		key_release(int keysym, t_data2 *data);
 //	  E
-int 	check_path_player_v2(t_data2 *data, int n0123, int *npc[4], int current_pika);
+int 	check_path_player_v2(t_data2 *data, int n0123, int npc[4], int current_pika);
 void    check_what_your_walking_on(t_data2 *data);
 void 	check_ball_throw_path(t_data2 *data);
 //	  F
@@ -274,7 +275,7 @@ void 	put_foreground_to_buffer(t_data2 *data);
 //	  F2
 void	put_black_background(t_data2 *data);
 void	put_balls_foreground(t_data2 *data);
-void	f_put_sprite_to_buffer(t_data2 *data, int xy[2], t_img img);
+void	f_put_sprite_to_buffer(t_data2 *data, int x, int y, t_img img);
 void	f_put_sprite_to_buffer_v2(t_data2 *data, int xy[3], t_img img, int (* color)(void));
 void	f_put_player_to_buffer_v2(t_data2 *data, int rotation, int (* color)(void));
 void	f_put_event_ball_to_buffer_v2(t_data2 *data);
@@ -308,6 +309,8 @@ void    render_attack(t_data2 *data);
 	// static void destroy_img_v4(t_data2 *d)
 int		exit_all_v2(t_data2 *data);
 void    f_is_dying(t_data2 *data);
+void 	f_print_memory_v2(t_data2 *data);
+void 	f_print_memory(t_data2 *data);
 ///////////////////////////////////////////////////////////////////////////////]
 
 

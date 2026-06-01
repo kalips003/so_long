@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:06:26 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/03 17:24:23 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/06 14:27:28 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/stat.h>
-// # include <sys/wait.h>
+# include <sys/wait.h>
 # include <time.h>
 
 # include "ft_printf.h"

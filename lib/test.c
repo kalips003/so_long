@@ -47,32 +47,8 @@ int	main(int ac, char **av, char **env)
 	free_s(line);
 	close(fd);
     return 0;
-}/*
+}
 ///////////////////////////////////////////////////////////////////////////////]
------ >
-NULL----->
-==754==
-==754== FILE DESCRIPTORS: 3 open (3 std) at exit.
-==754==
-==754== HEAP SUMMARY:
-==754==     in use at exit: 112 bytes in 8 blocks
-==754==   total heap usage: 16 allocs, 8 frees, 432 bytes allocated
-==754==
-==754== 48 bytes in 4 blocks are indirectly lost in loss record 1 of 2
-==754==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==754==    by 0x10976D: f_rtrn_1 (gnl.c:78)
-==754==    by 0x109939: gnl (gnl.c:128)
-==754==    by 0x10928A: main (test.c:42)
-==754==
-==754== 112 (64 direct, 48 indirect) bytes in 4 blocks are definitely lost in loss record 2 of 2
-==754==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==754==    by 0x1093D1: expand_tab (expend_free.c:40)
-==754==    by 0x109280: main (test.c:43)
-==754==
-==754== LEAK SUMMARY:
-==754==    definitely lost: 64 bytes in 4 blocks
-==754==    indirectly lost: 48 bytes in 4 blocks
-///////////////////////////////////////////////////////////////////////////////]*/
 void    f_()
 {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

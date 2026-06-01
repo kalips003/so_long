@@ -74,14 +74,14 @@ int ft_black(void)
 static void helper_v555(int *err, int a[2], int dxy[2], int sxy[2])
 {
     int e2;
-    
+
     e2 = 2 * (*err);
     if (e2 > -dxy[1])
     {
         *err -= dxy[1];
         a[0] += sxy[0];
     }
-    if (e2 < dxy[0]) 
+    if (e2 < dxy[0])
     {
         *err += dxy[0];
         a[1] += sxy[1];
@@ -120,9 +120,9 @@ void draw_line_v3(t_data2 *data, int a[2], int b[2], int (*color)(void))
     sxy[0] = 1 - 2 * !(a[0] < b[0]);
     sxy[1] = 1 - 2 * !(a[1] < b[1]);
     err = dxy[0] - dxy[1];
-    while (1) 
+    while (1)
     {
-        put_pixel_buffer(data, a[0] + HIT_BOX, a[1] + HIT_BOX, color);
+        put_pixel_buffer(data, a[0] + HIT_BOX, a[1] + HIT_BOX, color());
         if (a[0] == b[0] && a[1] == b[1])
             break;
         helper_v555(&err, a, dxy, sxy);

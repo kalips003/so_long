@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/03 18:50:20 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/06 19:34:36 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	copy_posi(int *ptr, int x, int y)
 	ptr[0] = x * SPRITE_SIZE;
 	ptr[1] = y * SPRITE_SIZE;
 	ptr[2]++;
-	ptr[3] = -1;
+	ptr[3] = 0;
 }
 
 static void	ft_posi_pika(t_data2 *data, int x, int y)
@@ -56,7 +56,7 @@ static void	ft_posi_pika(t_data2 *data, int x, int y)
 	data->pika[data->num_pika][0] = x * SPRITE_SIZE;
 	data->pika[data->num_pika][1] = y * SPRITE_SIZE;
 	data->pika[data->num_pika][2] = 3;
-	data->pika[data->num_pika][3] = -1;
+	data->pika[data->num_pika][3] = 0;
 	data->num_pika++;
 }
 

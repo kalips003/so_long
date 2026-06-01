@@ -61,8 +61,8 @@ void	*free_tab(char **tab)
 		return (NULL);
 	i = -1;
 	while (tab[++i])
-		free(tab[i]);
-	free(tab);
+		free_s(tab[i]);
+	free_s(tab);
 	return (NULL);
 }
 
