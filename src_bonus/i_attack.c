@@ -76,8 +76,9 @@ static void	render_attack(t_data2 *data)
 	if (atk->time < 0)
 	{
 		atk->circlend.rad = 16;
-		atk->circle.rad = -data->attack.time / 6;
-		draw_circle(data, atk->circle);
+		atk->circle.rad = -data->attack.time / 2;
+		draw_circle_v2(data, atk->circle, 0);
+		// draw_circle(data, atk->circle);
 		draw_circle(data, atk->circlend);
 	}
 	else if (data->time % 2)
