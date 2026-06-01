@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:48:08 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/19 17:52:25 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/19 19:36:30 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	boy_or_girl(t_data2 *data)
 {
 	char	*answer;
 
-	put(COLOR_3R_2G_1B"Are you a boy or a girl?\n>\t: "RESET);
+	put(COLOR_3R_2G_1B"Are you a 'boy' or a 'girl'?\n>\t: "RESET);
 	answer = gnl(0);
 	if (find_str(answer, "boy") >= 0)
 		data->boy_or_girl = 0;

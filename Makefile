@@ -26,9 +26,16 @@ MAP4 = map4.ber
 # only balls
 MAP5 = map5.ber
 
+
 a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
-	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAPG)
+	@$(call random_shmol_cat, "\'tis good map", 'hav fun にゃ? (make m for testeur mandatory)', $(CLS), );
+	@echo "\tuse -WASD- or →↓←↑ to move around"
+	@echo "\tuse -SPACCE- to throw ball"
+	@echo "\tpress -CTRL-l- to toogle run"
+	@echo "\tpress -E- to print memory"
+	@echo "\n\t\033[5m~ Press Enter to start, and good luck...\033[0m"
+	@read -p "" key
+	./$(NAME_BONUS) map/$(MAPG)
 
 b: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
@@ -97,14 +104,10 @@ m: libft mlx $(NAME)
 	-$(VALGRIND) ./$(NAME) map/$(MAP3)
 
 m2: libft mlx $(NAME)
-	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "\'tis good map Mandatory", "try n break it にゃ?", $(CLS), );
-	@echo "use wasd or →↓←↑ to move around"
-	@echo "use space to throw ball"
-	@echo "use ctrl to run"
-	@echo "use e to freeze time"
+	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	$(VALGRIND) ./$(NAME) map/$(MAP3)
+	-$(VALGRIND) ./$(NAME) map/$(MAP3)
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	        SOURCES                    	         │
