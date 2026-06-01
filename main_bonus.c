@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:03 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/18 01:15:30 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/18 13:30:09 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void what_starter(t_data2 *data)
 {
 	srand(time(NULL));
 	data->starter = (int)(rand() % 4);
+	// data->starter = 3;
 	if (data->starter == 0)
 	{
 		data->color = ft_yellow;

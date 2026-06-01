@@ -81,7 +81,6 @@ void	check_what_your_walking_on(t_data2 *data)
 			data->player.time = -1;
 	if (data->map[y][x] == '*' && data->starter == 2)
 		data->player.time = -1;
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////]

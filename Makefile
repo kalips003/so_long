@@ -2,8 +2,8 @@ NAME = so_long
 NAME_BONUS = so_long_bonus
 
 CC = cc
-# FLAGS = -Wextra -Wall -Werror -g -fPIE
-FLAGS = -Wextra -Wall -g -fPIE
+FLAGS = -Wextra -Wall -Werror -g -fPIE
+# FLAGS = -Wextra -Wall -g -fPIE
 # CFLAGS = -Wall -Werror -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
 # FLAGS = -g -fPIE
 
@@ -28,7 +28,7 @@ MAP5 = map5.ber
 
 a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP1)
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP3)
 
 b: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
