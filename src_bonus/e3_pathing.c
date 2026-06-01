@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_pathing.c                                        :+:      :+:    :+:   */
+/*   e3_pathing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/03 18:50:20 by agallon          ###   ########.fr       */
+/*   Created: 2024/06/11 16:54:40 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/11 16:54:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	check_throw_path(t_data2 *data);
 ****************************************************************/
 int	check_path_npc(t_data2 *data, t_npc npc, int current_pika)
 {
-	int x;
-	int y;
-	int i;
+	int	x;
+	int	y;
+	int	i;
 
 	x = npc.x / SPRITE_SIZE + npc.dx;
 	y = npc.y / SPRITE_SIZE + npc.dy;
@@ -50,9 +50,9 @@ int	check_path_npc(t_data2 *data, t_npc npc, int current_pika)
 ****************************************************************/
 void	check_what_your_walking_on(t_data2 *data)
 {
-	int x;
-	int y;
-	int i;
+	int	x;
+	int	y;
+	int	i;
 
 	x = (int)round(data->player.x / SPRITE_SIZE);
 	y = (int)round(data->player.y / SPRITE_SIZE);
@@ -68,8 +68,8 @@ void	check_what_your_walking_on(t_data2 *data)
 		data->map[y][x] = '0';
 	else if (data->exit[0] == data->player.x && data->exit[1] == data->player.y && data->exit[2])
 	{
-		put(MSG_WIN"You finished with %d moves, picked up %d pokeballs and caught %d/%d mons!\n",
-		data->walk_count, data->num_ball, data->num_pika_caught, data->num_pika);
+		put(MSG_WIN"You finished with %d moves, picked up %d pokeballs and caught %d/%d mons!\n", \
+			data->walk_count, data->num_ball, data->num_pika_caught, data->num_pika);
 		exit_all_v2(data);
 	}
 	i = -1;
@@ -86,9 +86,9 @@ void	check_what_your_walking_on(t_data2 *data)
 ****************************************************************/
 void	check_throw_path(t_data2 *data)
 {
-	int x;
-	int y;
-	int i;
+	int	x;
+	int	y;
+	int	i;
 
 	x = (int)round(data->throw.ball.x / SPRITE_SIZE);
 	y = (int)round(data->throw.ball.y / SPRITE_SIZE);

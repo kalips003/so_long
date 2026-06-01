@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   z_outils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/11 16:53:11 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/11 19:20:13 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
 int	exit_all_v2(t_data2 *data);
+void	ft_break(int n, char *string, t_data2 *data);
 static void destroy_img_v4(t_data2 *d);
-void f_print_memory(t_data2 *data);
-void f_print_memory_v2(t_data2 *data);
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
@@ -30,6 +41,33 @@ int	exit_all_v2(t_data2 *data)
 	return (0);
 }
 
+///////////////////////////////////////////////////////////////////////////////]
+/*******************************************************************************
+	BREAK : small cat break point
+
+	char *string1;
+	string1 = str(" ---> %d", data);
+	char *string2;
+	string2 = str(" ---> %d", data);
+	ft_break("1", string2, data);
+	free_s(string1);
+	free_s(string2);
+*******************************************************************************/
+// ft_break("TEST ( 1 )", "DATA struct");
+void	ft_break(int n, char *string, t_data2 *data)
+{
+// 	PRINT DATA STRUCT & PIKA & MAP
+	put(CLS"\tDATA\n[%#+*S", offsetof(t_data2, time), data);
+	put(BLINK RED"[%.8d]"R_BLINK, data->time);
+	put("%#+*S", 2 * sizeof(int), &data->map_x);
+	put(BLINK BLUE"[%.8d]"R_BLINK, data->walk_count);
+	put("%#+*S]", sizeof(t_data2) - offsetof(t_data2, num_ball), &data->num_ball);
+	put("\n\tPIKA\n[%#+*.24S]\n", sizeof(t_npc) * data->num_pika, data->pika);
+	put("\tMAP\n%.1t\n", data->map);
+
+	ft_print_cat(n, string, 0);
+}
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	helper destroy all img in a loop
@@ -48,43 +86,6 @@ static void destroy_img_v4(t_data2 *d)
 		curseur++;
 	}
 }
-
-///////////////////////////////////////////////////////////////////////////////]
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	print blinking walk count
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void f_print_memory(t_data2 *data)// <!> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </?>
-{
-	put(CLS"[%#+*S", offsetof(t_data2, time), data);
-	put(BLINK RED"[%.8d]"R_BLINK, data->time);
-	put("%#+*S", 2 * sizeof(int), &data->map_x);
-	put(BLINK BLUE"[%.8d]"R_BLINK, data->walk_count);
-	put("%#+*S]", sizeof(t_data2) - offsetof(t_data2, num_ball), &data->num_ball);
-	put("\nPIKA--->:\n%#*.4S<---\n", sizeof(t_npc) * data->num_pika, &data->pika[0]);
-	put("MAP=\n%.1t\n", data->map);
-}
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	print for testing
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-// void f_print_memory_v2(t_data2 *data)
-// {
-// 	put("\nsz_x = %d, sz_y = %d\n", data->buffer.sz_x, data->buffer.sz_y);
-// 	put("\nmap = \n%+#*S\n", 10, data->buffer.addr);
-// }
-void	ft_break(int n, char *string, t_data2 *data);
-void	ft_break(int n, char *string, t_data2 *data)
-{
-	f_print_memory(data);
-	put(BLINK COLOR_3R_0G_1B"\nBREAK ( %d ) ---------------------->\n"RESET, n);
-	put(COLOR_4R_4G_1B"> %s\n", string);
-	// put("> %s\n"RESET, string);
-	put(BLINK COLOR_1R_4G_2B"\n\t\t>>> PRESS ENTER TO CONTINUE <<<\n"RESET);
-	free_s(gnl(0));
-}
-
-
-
 ///////////////////////////////////////////////////////////////////////////////]
 // 														OLD VERSION WITHOUT LOOP
 // static void destroy_img_v3(t_data2 *d)

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a_mapping.c                                        :+:      :+:    :+:   */
+/*   a_mapping_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/09 19:28:09 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/11 17:58:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	fill_map_v2(t_data2 *data, int fd_map);
-int	count_check_v2(t_data2 *data);
+int			fill_map_v2(t_data2 *data, int fd_map);
+int			count_check_v2(t_data2 *data);
 static void	copy_posi(int *ptr, int x, int y);
 static void	ft_copy_posi_pika(t_data2 *data, int x, int y);
 static int	small_check(t_data2 *data);
@@ -33,7 +33,8 @@ int	fill_map_v2(t_data2 *data, int fd_map)
 	while (data->map[data->map_y])
 	{
 		if (len_m(data->map[data->map_y], "\n") != data->map_x)
-			return (put(ERR"not a rectangle\n%.3t\n", data->map), close(fd_map), 1);
+			return (put(ERR"not a rectangle\n%.3t\n", data->map), \
+					close(fd_map), 1);
 		data->map_y++;
 		data->map = expand_tab(data->map, gnl(fd_map));
 	}
@@ -61,7 +62,8 @@ int	count_check_v2(t_data2 *data)
 		while (++x < data->map_x)
 		{
 			if (wii(data->map[y][x], "01CEPz\n") == -1)
-				return (put(ERR"unknown tile: (%c) [%d, %d]\n%.3t\n", data->map[y][x], x, y, data->map), 1);
+				return (put(ERR"unknown tile: (%c) [%d, %d]\n%.3t\n", \
+							data->map[y][x], x, y, data->map), 1);
 			if (data->map[y][x] == 'C')
 				data->num_ball++;
 			else if (data->map[y][x] == 'E')
@@ -92,9 +94,8 @@ static void	copy_posi(int *ptr, int x, int y)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static void	ft_copy_posi_pika(t_data2 *data, int x, int y)
 {
-	put("PIKA=\n[%p]\n", data->pika);
-	data->pika = (t_npc *)expand(data->pika, data->num_pika * sizeof(t_npc), sizeof(t_npc));
-	put("PIKA=\n[%p]\n", data->pika);
+	data->pika = (t_npc *)expand(data->pika, data->num_pika * sizeof(t_npc), \
+								sizeof(t_npc));
 	if (!data->pika)
 		(put(ERRM"error expension\n"), exit_all_v2(data));
 	data->pika[data->num_pika].x = x * SPRITE_SIZE;

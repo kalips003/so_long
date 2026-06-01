@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/11 18:33:53 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "../mlx_linux/mlx.h"
@@ -231,7 +243,6 @@ void draw_line_v4(t_data2 *data, int *a, int *b, unsigned int (*color)(void));
 void check_attack(t_data2 *data);
 //	  Z
 int	exit_all_v2(t_data2 *data);
-void f_print_memory(t_data2 *data);
 void	ft_break(int n, char *string, t_data2 *data);
 ///////////////////////////////////////////////////////////////////////////////]
 // static void	ft_put_tile(t_data2 *data, int x, int y, t_img img);

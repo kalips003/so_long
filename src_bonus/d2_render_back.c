@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   d2_render_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/11 16:54:50 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/11 16:54:50 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-void	ft_background(t_data2 *data, int sw);
-static void draw_frame_scaled(t_data2 *data, t_img img, int xyfe[3], unsigned int (* color)(void));
+void		ft_background(t_data2 *data, int sw);
+static void	draw_frame_scaled(t_data2 *data, t_img img, int xyfe[3], \
+							unsigned int (*color)(void));
 static void	ft_stamina(t_data2 *data);
-static void put_balls_background(t_data2 *data);
-static void ft_draw_score(t_data2 *data);
+static void	put_balls_background(t_data2 *data);
+static void	ft_draw_score(t_data2 *data);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // 														  UPDATE THE BACKGROUND
@@ -16,8 +29,8 @@ void	ft_background(t_data2 *data, int sw)
 		put_background_to_buffer(data);
 	else
 		put_small_background_to_buffer(data);
-	//      clean the bottom
-	ft_put_rectangle(data, (int[2]){0, data->buffer.sz_y - BLACK_BOT}, (int[2]){data->buffer.sz_x, data->buffer.sz_y}, ft_black);
+	ft_put_rectangle(data, (int [2]){0, data->buffer.sz_y - BLACK_BOT}, \
+		(int [2]){data->buffer.sz_x, data->buffer.sz_y}, ft_black);
 	ft_stamina(data);
 	put_balls_background(data);
 	ft_draw_score(data);
@@ -27,9 +40,10 @@ void	ft_background(t_data2 *data, int sw)
 // draw img at xyfe[0], xyfe[1]
 // if color != NULL, non transparent pixel will be color
 // xyfe[2] = scalling
-void draw_frame_scaled(t_data2 *data, t_img img, int xyfe[3], unsigned int (* color)(void))
+void	draw_frame_scaled(t_data2 *data, t_img img, int xyfe[3], \
+							unsigned int (*color)(void))
 {
-	t_frame f;
+	t_frame	f;
 
 	f.sz = img.sz_x;
 	if (xyfe[0] < 0 || xyfe[1] < 0 || xyfe[0] + img.sz_x * xyfe[2] > data->buffer.sz_x || xyfe[1] + img.sz_y * xyfe[2] > data->buffer.sz_y)
@@ -55,9 +69,9 @@ void draw_frame_scaled(t_data2 *data, t_img img, int xyfe[3], unsigned int (* co
 // update stamina, and render it
 static void	ft_stamina(t_data2 *data)
 {
-	int i;
-	int j;
-	int current_stamina;
+	int	i;
+	int	j;
+	int	current_stamina;
 
 	if (data->running)
 		data->stamina = max(data->stamina - 1, 0);
@@ -75,11 +89,11 @@ static void	ft_stamina(t_data2 *data)
 
 ///////////////////////////////////////////////////////////////////////////////]
 //      put retrieved balls and caught pika on bottom
-static void put_balls_background(t_data2 *data)
+static void	put_balls_background(t_data2 *data)
 {
-	int i;
-	int x;
-	int y;
+	int	i;
+	int	x;
+	int	y;
 
 	y = data->map_y * SPRITE_SIZE + BALL_START_Y;
 	i = -1;
@@ -96,13 +110,14 @@ static void put_balls_background(t_data2 *data)
 	}
 }
 
-void ft_draw_score(t_data2 *data)
+void	ft_draw_score(t_data2 *data)
 {
-	int score = data->walk_count;
-	int i;
-	int start_y_posi;
-	unsigned int (* color)(void);
+	int				score;
+	int				i;
+	int				start_y_posi;
+	unsigned int	(*color)(void);
 
+	score = data->walk_count;
 	color = NULL;
 	if (data->player.time < 0)
 		color = random_yellow_v2;

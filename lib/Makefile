@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: agallon <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/12 14:57:56 by agallon           #+#    #+#              #
-#    Updated: 2024/05/15 05:18:46 by agallon          ###   ########.fr        #
+#    Updated: 2024/06/11 18:22:05 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 # COMPIL
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -fPIE -I$(HEADER_FOLDER)
+CFLAGS = -Wall -Werror -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
 
 # PATHs
 HEADER_FOLDER = ../include

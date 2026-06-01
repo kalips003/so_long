@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   b_path_finding.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/09 19:28:09 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:55:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	valid_path_v2(t_data2 *data);
+int			valid_path_v2(t_data2 *data);
 static int	check_cardinal(t_data2 *data, char **map);
 static int	find_next_to_explore(t_data2 *data, char **map_path);
 
@@ -54,7 +54,8 @@ int	valid_path_v2(t_data2 *data)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static int	check_cardinal(t_data2 *data, char **map)
 {
-	if (data->exit[3] == data->exit[0] / SPRITE_SIZE && data->exit[4] == data->exit[1] / SPRITE_SIZE)
+	if (data->exit[3] == data->exit[0] / SPRITE_SIZE && \
+		data->exit[4] == data->exit[1] / SPRITE_SIZE)
 		return (1);
 	map[data->exit[4]][data->exit[3]] = '1';
 	if (map[data->exit[4] + 1][data->exit[3]] != '1')
@@ -93,6 +94,3 @@ static int	find_next_to_explore(t_data2 *data, char **map_path)
 	}
 	return (0);
 }
-
-
-

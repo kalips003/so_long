@@ -28,45 +28,14 @@
 // #define funct(ap, type)    (*(type *)((ap += sizeof(type)) - sizeof(type)))
 # define PI 3.14159265358979323846
 
-void is_map_ok_v2(t_data2 *data, char *path)
-{
-	int fd_map;
-
-	ft_memset(data, 0, sizeof(t_data2));
-// map path end in ".ber"
-	if (find_str(path, ".ber") != len(path) - 4)
-		(put(ERRM"map name should end with \'.ber\'\n"), exit(1));
-// create map struct
-	fd_map = open(path, O_RDONLY);
-	if (fd_map == -1)
-		(perror(ERRM"open"), exit(1));
-// fill map
-	if (fill_map_v2(data, fd_map) || count_check_v2(data))
-		exit_all_v2(data);
-// valid path?
-	if (valid_path_v2(data))
-		exit_all_v2(data);
-}
-
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
-	t_data2  data;
-
-	if (ac != 2)
-		return (put(ERRM"need one map_argument\n"), 1);
-	is_map_ok_v2(&data, av[1]);
-	ft_break(1, "before exit", &data);
-	exit_all_v2(&data);
-
-
-
-
-
-
-
-
-
+	void *mlx = mlx_init();
+	if (!mlx)
+		put(ERRM"--->MLX fait de la merde\n");
+	else 
+		put(ERRM"--->Marty it Worked !\n");
 	// int	fd = open("map/map3.ber", O_RDONLY);
 	// if (fd == -1)
 	// 	return (put("error fd\n"));

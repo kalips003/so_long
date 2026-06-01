@@ -3,6 +3,8 @@ NAME_BONUS = so_long_bonus
 
 CC = cc
 FLAGS = -Wextra -Wall -Werror -g -fPIE
+FLAGS = -Wextra -Wall -Werror -g -fPIE
+# CFLAGS = -Wall -Werror -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
 # FLAGS = -g -fPIE
 
 all: $(NAME)
@@ -162,6 +164,7 @@ src/obj/%.o: src/%.c
 # │                  	 	       BONUS	                   	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
+FLAGS_TEST = -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz
 SRC_B = $(wildcard src_bonus/*.c)
 OBJ_B = $(patsubst src_bonus/%.c, src_bonus/obj/%.o, $(SRC_B))
 
@@ -171,7 +174,7 @@ $(NAME_BONUS): bonus
 
 bonus: mlx libft $(OBJ_B) main_bonus.c include/so_long.h
 	@clear
-	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a -lX11 -lXext -o $(NAME_BONUS) -lm; then \
+	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a $(FLAGS_TEST) -lX11 -lXext -o $(NAME_BONUS) -lm; then \
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
@@ -183,7 +186,7 @@ src_bonus/obj/%.o: src_bonus/%.c
 	@if [ ! -e $(OBJ_FOLDER_B) ]; then\
 		mkdir -p $(OBJ_FOLDER_B);\
 	fi
-	@if ! $(CC) -c $(FLAGS) -I$(HEADER_FOLDER) $< -o $@; then \
+	@if ! $(CC) -c $(FLAGS) -I$(HEADER_FOLDER) -Imlx_linux -O3 -c $< -o $@; then \
 		$(call shmol_cat_error, $(RED), $(RED_L)); \
 		exit 1; \
 	fi
