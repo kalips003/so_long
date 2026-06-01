@@ -91,21 +91,6 @@ void draw_square_random_yellow(t_data2 *data, int x, int y, int len_side)
     }
 }
 
-void draw_stamina(t_data2 *data)
-{
-    int i;
-    int j;
-    int current_stamina;
-
-    current_stamina = (int)(((double)data->stamina / MAX_ENDURANCE) * data->buffer.sz_x);
-    i = data->buffer.sz_y + BOT_STAMINA - 1;
-    while (++i < data->buffer.sz_y)
-    {
-        j = -1;
-        while (++j < current_stamina)
-            put_pixel_buffer(data, j, i, random_green_bot(128, 255, 0, 25));
-    }
-}
 
 // void draw_gradient_square(t_data2 *img, int x, int y, int len_side, int color)
 // {

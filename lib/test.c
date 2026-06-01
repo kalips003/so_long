@@ -13,39 +13,49 @@
 ██║░░██║  ██║░░░░░██║░░██║██║██║░░██║███████╗
 ╚═╝░░╚═╝  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝╚══════╝
 
-> resize all sprites, + up direction (64 px)
 
 
-bulbizare create grass behind him, grass is 0 or '*'
 
 
-make github > ask input for comment
-git commit -m "$(date) + print memory "
-blink work with %S?
 
 
-lib > comment line of norm size\
-random cat color makefile
+
 
 <?> .PHONY: test - This declares that test is a phony target, meaning it's not associated with a file. </?>
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 // MACRO
 // #define funct(ap, type)    (*(type *)((ap += sizeof(type)) - sizeof(type)))
+# define PI 3.14159265358979323846
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
-    int fd = open("map/map3.ber", O_RDONLY);
+	int	fd = open("map/map3.ber", O_RDONLY);
 	if (fd == -1)
 		return (put("error fd\n"));
 	char *line = NULL;
 	while ((line = gnl(fd)) != NULL)
 	{
-    	put("%S", line);
+		put("%S"RESET, line);
 		free_s(line);
 	}
 	close(fd);
-    return 0;
+	put("we want:\n\
+		→ 0: cos=1, sin =0\n\
+		↓ 1: cos=0, sin =1\n\
+		← 2: cos=-1, sin =0\n\
+		↑ 3: cos=0, sin =-1\n");
+	double a;
+	double b;
+	int i = -1;
+	while (++i < 12)
+	{
+		a = cos((double)i / 2 * PI);
+		b = sin((double)i / 2 * PI);
+		printf("%d: cos=%f, sin =%f\n", i, a, b);
+	}
+	printf("--->%d", (int)round(0.49));
+    return (0);
 }
 ///////////////////////////////////////////////////////////////////////////////]
 void    f_()
@@ -82,7 +92,7 @@ git push origin feature-branch:main
 	git checkout <branch-name>
 // Apply Stashed Changes: When you're ready, you can apply your stashed changes to the new branch.
 	git stash apply
-// Pop Stashed Changes: Alternatively, you can apply and remove the stashed changes in one step.
+// Pop Stashed Changes: Alternativzely, you can apply and remove the stashed changes in one step.
 	git stash pop
 // List Stashes: To see a list of stashed changes, you can use:
 	git stash list
@@ -128,3 +138,14 @@ a ^= b;
 	Checking if an Integer is Even or Odd: (faster than % 2)
 if (num & 1)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+/*
+Common flags used with open():
+
+    O_RDONLY: Open for reading only.
+    O_WRONLY: Open for writing only.
+    O_RDWR: Open for reading and writing.
+    O_APPEND: Open in append mode (writes are added to the end of the file).
+    O_CREAT: Create the file if it does not exist.
+    O_TRUNC: Truncate the file to zero length if it already exists.
+*/

@@ -63,7 +63,7 @@ void ini_sprites(t_data2 *data)
 	helper_texture(data, "img/txt_collect2.xpm", &data->i_ball[1], 0);
 	helper_texture(data, "img/big_ball.xpm", &data->i_big_ball[0], 0);
 	helper_texture(data, "img/big_ball_pika.xpm", &data->i_big_ball[1], 0);
-	helper_texture(data, "img/ball_throw.xpm", &data->i_ball_throw, 0);
+	helper_texture(data, "img/throw.xpm", &data->i_throw, 0);
 	helper_texture(data, "img/txt_exit.xpm", &data->i_exit[1], 0);
 	helper_texture(data, "img/txt_exit2.xpm", &data->i_exit[0], 0);
 	data->buffer.sz_x = SPRITE_SIZE * data->map_x;
@@ -71,7 +71,8 @@ void ini_sprites(t_data2 *data)
 	data->win = mlx_new_window(data->mlx, data->buffer.sz_x, data->buffer.sz_y, "Welcome to PikaLand");
 	data->buffer.img = mlx_new_image(data->mlx, data->buffer.sz_x, data->buffer.sz_y);
 	if (!data->win || !data->buffer.img)
-		(put(RED"cant open file(2)\n"), exit_all_v2(data));
+		(put(RED"Problem initalisazing mlx (2)\n"), exit_all_v2(data));
 	data->buffer.addr = mlx_get_data_addr(data->buffer.img, &data->buffer.bpp, &data->buffer.ll, &data->buffer.endian);
-	data->player[2] = 4;
+	data->player.f = 4;
+	data->exit[2] = 0;
 }

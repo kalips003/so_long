@@ -1,4 +1,4 @@
-# include "so_long.h"
+# include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -13,7 +13,6 @@
 
 bulbizare create grass behind him, grass is 0 or '*'
 
-! PRINT MEMORY REAL TIME
 
 use empty sprites to create elec sprites rendered when player time < 0
 
@@ -71,10 +70,6 @@ int main(int ac, char **av)
     if (!data.mlx)
         exit_all_v2(&data);
     ini_sprites(&data);
-    //<?> - - -- - - - - </?>
-    // put("%2t", data.map);
-    // f_print_memory(&data);
-    put(COLOR_2R_3G_3B"--------------------------->player[3] = %d\n"RESET, data.player[3]);
 ////////////////////////////////////////
     mlx_loop_hook(data.mlx, &ft_loop, &data);
     mlx_hook(data.win, KeyPress, KeyPressMask, &key_press_v2, &data);

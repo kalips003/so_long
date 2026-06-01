@@ -26,8 +26,8 @@ static void destroy_img_v3(t_data2 *d)
 		mlx_destroy_image(d->mlx, d->i_big_ball[0].img);
 	if (d->i_big_ball[1].img)
 		mlx_destroy_image(d->mlx, d->i_big_ball[1].img);
-	if (d->i_ball_throw.img)
-		mlx_destroy_image(d->mlx, d->i_ball_throw.img);
+	if (d->i_throw.img)
+		mlx_destroy_image(d->mlx, d->i_throw.img);
 	i = -1;
 	while (++i < 8)
 		if (d->i_pika[i].img)
@@ -73,23 +73,25 @@ draw growing square around player, leave room for YOU DIED?
 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void    f_is_dying(t_data2 *data)
+int    f_is_dying(t_data2 *data)
 {
 	t_circle	circle;
 
-	if (data->player[2] == -(data->buffer.sz_x + data->buffer.sz_y))
+	if (data->player.time <= -(data->buffer.sz_x + data->buffer.sz_y))
 	{
-		put(CLEAR MSG_DEAD);
-		put(MSG_WIN"You died in %d moves, and got %d/%d pokeballs...\n", data->walk_count, data->num_collected, data->num_ball);
+		put(CLS MSG_DEAD"You died in %d moves, and got %d/%d pokeballs...\n", data->walk_count, data->num_collected, data->num_ball);
 		exit_all_v2(data);
 	}
-	circle.center_x = data->player[0] + DEMI_SPRITE;
-	circle.center_y = data->player[1] + DEMI_SPRITE;
-	circle.radius = -data->player[2];
+	circle.center_x = data->player.x + DEMI_SPRITE;
+	circle.center_y = data->player.y + DEMI_SPRITE;
+	circle.radius = -data->player.time;
 	circle.color = random_yellow_v2;
-	data->player[3]--;
+	data->player.time -= 4;
+	put_background_to_buffer(data);
 	draw_circle_v2(data, circle, helper_v360);
-	f_put_player_to_buffer_v2(data, data->time_frame % 2, ft_black);
+	f_put_player_to_buffer_v2(data, data->time % 2, ft_black);
+	mlx_put_image_to_window(data->mlx, data->win, data->buffer.img, 0, 0);
+	return (0);
 }
 
 void f_print_memory(t_data2 *data)
