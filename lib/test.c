@@ -45,14 +45,14 @@ int	main(int ac, char **av, char **env)
 		↓ 1: cos=0, sin =1\n\
 		← 2: cos=-1, sin =0\n\
 		↑ 3: cos=0, sin =-1\n");
-	double a;
-	double b;
+	int a;
+	int b;
 	int i = -1;
-	while (++i < 12)
+	while (++i < 4)
 	{
-		a = cos((double)i / 2 * PI);
-		b = sin((double)i / 2 * PI);
-		printf("%d: cos=%f, sin =%f\n", i, a, b);
+		a = (int)cos((double)i / 2 * PI);
+		b = (int)sin((double)i / 2 * PI);
+		printf("%d: cos= %.1d, sin = %.1d\n", i, a, b);
 	}
 	printf("--->%d", (int)round(0.49));
     return (0);
