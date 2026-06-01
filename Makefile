@@ -20,7 +20,7 @@ MAP2 = map2.ber
 # 	medium square, lots of pika
 MAP3 = map3.ber
 # 	small square, 1 pika
-MAP4 = map4.ber
+MAP4 = map_simplest.ber
 # 	only balls
 MAP5 = map5.ber
 
@@ -38,17 +38,9 @@ a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
 	@read -p "" key
 	./$(word 3, $^) map/$(MAPG)
 
-b: libft mlx $(NAME_BONUS)
-	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
-
-c: libft mlx $(NAME_BONUS)
-	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(word 3, $^) map/$(MAP5)
-
 v: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
-	-$(VALGRIND) ./$(word 3, $^) map/$(MAP1)
+	-$(VALGRIND) ./$(word 3, $^) map/$(MAP4)
 	@echo $(RESET);
 
 # ---------------------------------------------------------------------- >

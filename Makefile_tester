@@ -15,14 +15,15 @@
 # 	MAKE SURE THE NAME OF THE PROJECT IS: so_long
 # 	IF YOUR BONUS ISNT: so_long_bonus, change that below
 #
+#	CHANGE THE PATH BELOW WITH ONE TO A VALID .XPM FILE YOUR PROJECT USE
+IMG_SPRITE = path/to/img.xpm
 
-# 	AVAILABLE: (see desccription below)
+# 	AVAILABLE: (see description below)
 # 	make m
 
 NAMEE = so_long
 NAMEE_BONUS = so_long_bonus
 
-IMG_SPRITE = img/player.xpm
 # 	TESTING lots of BAD maps, and others break tests, with valgrind
 # 		
 # 		replace the first dependency $(NAMEE) with your $(NAME_BONUS) to test bonus
