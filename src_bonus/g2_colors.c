@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:31 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/19 16:38:37 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:51:30 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ unsigned int	ft_red(void)
 
 unsigned int	ft_blue(void)
 {
-	return (0x58B8F0);
+	return (0x3888B8);
 }
