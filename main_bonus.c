@@ -13,7 +13,7 @@
 
 bulbizare create grass behind him, grass is 0 or '*'
 
-
+! PRINT MEMORY REAL TIME
 
 use empty sprites to create elec sprites rendered when player time < 0
 
