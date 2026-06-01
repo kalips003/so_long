@@ -1,5 +1,5 @@
 #include "../include/libft.h"
-#include "../include/so_long.h"
+// #include "../include/so_long.h"
 
 /*******************************************************************************
 *******************************************************************************/
@@ -19,9 +19,9 @@
 bulbizare create grass behind him, grass is 0 or '*'
 
 
-
 make github > ask input for comment
 git commit -m "$(date) + print memory "
+blink work with %S?
 
 
 lib > comment line of norm size\
