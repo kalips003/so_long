@@ -1,0 +1,65 @@
+#include "so_long_bonus.h"
+
+void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], unsigned int (*color)(void));
+void	ft_put_square(t_data2 *data, int xy[2], int size, unsigned int color);
+void	draw_gradient_square(t_data2 *img, int x, int y, int len_side, int color);
+
+///////////////////////////////////////////////////////////////////////////////]
+// 																		 SQUARES
+// draw between top-left(xy) & bot-right(dxy)
+void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], unsigned int (*color)(void))
+{
+	int	i;
+	int	j;
+	int	buf_i;
+
+	if (xy[0] < 0 || xy[1] < 0 || xy[0] + dxy[0] >= data->buffer.sz_x || xy[1] + dxy[1] >= data->buffer.sz_y)
+		return ;
+	i = -1;
+	while (++i < dxy[0])
+	{
+		j = -1;
+		while (++j < dxy[1])
+		{
+			buf_i = (xy[1] + j) * data->buffer.ll + (xy[0] + i) * (data->buffer.bpp / 8);
+			*((unsigned int *)(data->buffer.addr + buf_i)) = color();
+		}
+	}
+}
+
+// to use with scaler:
+// if scale = 3, draw squares of size 3
+void	ft_put_square(t_data2 *data, int xy[2], int size, unsigned int color)
+{
+	int	i;
+	int	j;
+	int	buf_i;
+
+	if (xy[0] < 0 || xy[1] < 0 || xy[0] + size >= data->buffer.sz_x || xy[1] + size >= data->buffer.sz_y)
+		return ;
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+		{
+			buf_i = (xy[1] + j) * data->buffer.ll + (xy[0] + i) * (data->buffer.bpp / 8);
+			*((unsigned int *)(data->buffer.addr + buf_i)) = color;
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////]
+void	draw_gradient_square(t_data2 *img, int x, int y, int len_side, int color)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < len_side)
+	{
+		j = -1;
+		while (++j < len_side)
+			put_pixel_buffer(img, x + i, y + j, (unsigned)color + i + j);
+	}
+}

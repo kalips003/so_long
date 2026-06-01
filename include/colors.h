@@ -13,6 +13,10 @@
 #ifndef COLORS_H
 # define COLORS_H
 
+# define ERR "\033[0;31mError - \e[0m"
+# define ERRM "\033[0;32mError - \e[0m"
+# define ERR1 "\033[0;33mError - \e[0m"
+
 # define CLEAR "\e[2J\e[H"
 # define CLS "\e[2J\e[H"
 # define REVERSE "\e[7m"

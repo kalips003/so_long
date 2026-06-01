@@ -12,13 +12,18 @@
 
 #include "so_long_bonus.h"
 
+int		check_path_npc(t_data2 *data, t_npc npc, int current_pika);
+void	check_what_your_walking_on(t_data2 *data);
+void	check_throw_path(t_data2 *data);
+
 ///////////////////////////////////////////////////////////////////////////////]
 /***************************************************************
-	check path for player && pika n'i, with input [0,1,2,3]
-    player == 0;
-    pika <= 0;
+	check path for player && pika && ball n'i, with input [0,1,2,3]
+    tree = 0;
+	pika = -1;
+    all good = 1;
 ****************************************************************/
-int check_path_player_v3(t_data2 *data, t_npc npc, int current_pika)
+int	check_path_npc(t_data2 *data, t_npc npc, int current_pika)
 {
 	int x;
 	int y;
@@ -38,11 +43,12 @@ int check_path_player_v3(t_data2 *data, t_npc npc, int current_pika)
 	}
 	return (1);
 }
+
 ///////////////////////////////////////////////////////////////////////////////]
 /***************************************************************
 	in the loop, check round(x / SPRITE) ==
 ****************************************************************/
-void    check_what_your_walking_on(t_data2 *data)
+void	check_what_your_walking_on(t_data2 *data)
 {
 	int x;
 	int y;
@@ -78,13 +84,13 @@ void    check_what_your_walking_on(t_data2 *data)
 /***************************************************************
 	in the loop, check round(x / SPRITE) == pika, or wall
 ****************************************************************/
-void check_throw_path(t_data2 *data)
+void	check_throw_path(t_data2 *data)
 {
 	int x;
 	int y;
 	int i;
 
-	x = (int)round(data->throw.ball.x / SPRITE_SIZE);// <!> - - - - - (-OFFSET_BALL_THR) - - - - - - - </!>
+	x = (int)round(data->throw.ball.x / SPRITE_SIZE);
 	y = (int)round(data->throw.ball.y / SPRITE_SIZE);
 	if (data->map[y][x] == '1')
 	{
@@ -94,7 +100,7 @@ void check_throw_path(t_data2 *data)
 	i = -1;
 	while (++i < data->num_pika)
 	{
-		if ((int)round(data->pika[i].x / SPRITE_SIZE) == x && (int)round(data->pika[i].y / SPRITE_SIZE) == y)
+		if (data->pika[i].time >= 0 && abs(data->pika[i].x - data->throw.ball.x) < HIT_BOX && abs(data->pika[i].y - data->throw.ball.y) < HIT_BOX)
 		{
 			data->pika[i].time = -1;
 			data->throw.pika_caught = i;

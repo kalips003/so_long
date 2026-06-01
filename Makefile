@@ -30,6 +30,10 @@ b: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
 	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP4)
 
+c: libft mlx $(NAME_BONUS)
+	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
+	-./$(NAME_BONUS) map/$(MAP4)
+
 v: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
 	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP1)
@@ -90,6 +94,10 @@ m: libft mlx $(NAME)
 
 m2: libft mlx $(NAME)
 	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), "\'tis good map Mandatory", "try n break it にゃ?", $(CLS), );
+	@echo "use wasd or →↓←↑ to move around"
+	@echo "use space to throw ball"
+	@echo "use ctrl to run"
+	@echo "use e to freeze time"
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
 	$(VALGRIND) ./$(NAME) map/$(MAP3)
@@ -171,6 +179,7 @@ bonus: mlx libft $(OBJ_B) main_bonus.c include/so_long.h
 
 
 src_bonus/obj/%.o: src_bonus/%.c
+	@clear
 	@if [ ! -e $(OBJ_FOLDER_B) ]; then\
 		mkdir -p $(OBJ_FOLDER_B);\
 	fi
@@ -194,9 +203,10 @@ test:	libft
 	@lib/a.out
 
 test2:	mlx libft $(OBJ_B) include/so_long.h
-	@cc ./lib/test.c ./lib/libft.a $(OBJ_B) -o ./lib/a.out
-	@$(call random_cat, $(call pad_word, 12, "TE"), $(call pad_word, 14, "Science"), $(CLS), $(RESET));
-	@lib/a.out
+	@rm -f ./lib/a.out
+	@cc ./lib/test.c $(OBJ_B) -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a -lX11 -lXext -lm -o ./lib/a.out
+	@$(call random_cat, $(call pad_word, 12, "TESTING"), $(call pad_word, 14, "SCIENCE"), $(CLS), $(RESET));
+	-@$(VALGRIND) lib/a.out map/map4.ber
 
 vtest:	libft
 	@cc -g3 ./lib/test.c ./lib/libft.a -o ./lib/a.out -lm
@@ -220,21 +230,33 @@ re_bonus: fclean
 
 .SILENT: $(NAME) bonus
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - VALGRIND -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - -  - VALGRIND
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s --track-fds=yes
 # VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --track-fds=yes
 #
 # lldb: clean all
 # 	@lldb ./$(NAME) $(ARGS)
 #
-# GITHUB!
 # ↑さ↓ぎょう  を  ↓ほ↑ぞん
+# 																	GITHUB
 git: fclean
 	@$(call random_shmol_cat_blink, 作業を保存してるかな.., いいね、いいねえー , $(CLS), );
 	@current_date=$$(date); \
 	git add .; \
 	git commit -m "$$current_date"; \
 	git push
+
+NORM_FILE = src_bonus/
+
+norm: fclean
+	@$(call random_shmol_cat_blink, 掃除してるかな..、いいね、いいねえー, giv file to norm, $(CLS), );
+	-@read -p 'file...:' path; \
+	if [ -z "$$path" ]; then \
+		watch norminette $(NORM_FILE); \
+	else \
+		watch norminette $$path; \
+	fi
+
 #
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	       PRINT                     	         │
@@ -353,7 +375,7 @@ rscb:
 define random_shmol_cat_blink
 	COLOR=$$(printf "\033[0m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR2=$$(printf "\e[5m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
-	echo "$(3)$${COLOR2}\
+	echo "$(3)\n$${COLOR2}\
 	\tにゃ~$${COLOR}\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
 	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\

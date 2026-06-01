@@ -19,7 +19,7 @@ void	*expand(void *ptr, int size, int add)
 
 	rtrn = malloc(size + add);
 	if (!rtrn)
-		return (NULL);
+		return (put(ERRM), NULL);
 	i = -1;
 	while (++i < size && ptr)
 		((char *)rtrn)[i] = ((char *)ptr)[i];
