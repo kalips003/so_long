@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/19 19:56:18 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 00:52:57 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ void			is_map_ok_v2(t_data2 *data, char *path);
 void			what_starter(t_data2 *data);
 void			boy_or_girl(t_data2 *data);
 double			distance_squared(int x1, int y1, int x2, int y2);
+void			ft_1(t_data2 *data);
 //	  Z
 int				exit_all_v2(t_data2 *data);
 void			print_data(t_data2 *data);

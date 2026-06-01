@@ -49,6 +49,7 @@ void	check_attack(t_data2 *data)
 		if (abs(data->attack.circle.x - HALF - data->player.x) < HIT_BOX && \
 			abs(data->attack.circle.y - HALF - data->player.y) < HIT_BOX)
 			data->player.time = -1;
+		ft_1(data);
 		render_attack_v2(data);
 	}
 }
@@ -112,7 +113,8 @@ static void	render_attack_v2(t_data2 *data)
 		draw_frame(data, data->i_throw, (int [4]){atk->circle.x, \
 			atk->circle.y, 0, 1}, data->color_r);
 	}
-	atk->time += 1 - 2 * (atk->time > 0);
+	if (atk->time)
+		atk->time += 1 - 2 * (atk->time > 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
