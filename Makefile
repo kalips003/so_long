@@ -33,7 +33,7 @@ a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
 	@echo "\tuse -SPACE- to throw ball"
 	@echo "\tpress -CTRL-l- to toogle run"
 	@echo "\tpress -E- to print memory"
-	@echo "\n\t\033[5m~ Press Enter to start, and good luck...\033[0m"
+	@echo "\n\t\033[5m~ Press Enter to start, and good luck... ~\033[0m"
 	@read -p "" key
 	./$(NAME_BONUS) map/$(MAPG)
 
