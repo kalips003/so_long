@@ -28,7 +28,7 @@ MAP5 = map5.ber
 
 a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP3)
+	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAPG)
 
 b: libft mlx $(NAME_BONUS)
 	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
@@ -180,16 +180,7 @@ bonus: mlx libft $(OBJ_B) main_bonus.c include/so_long.h
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
-	$(call print_cat, , $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
-
-# bonus: mlx libft $(OBJ_B) main_bonus.c include/so_long.h
-# 	@clear
-# 	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a $(FLAGS_TEST) -lX11 -lXext -o $(NAME_BONUS) -lm; then \
-# 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
-# 		exit 1; \
-# 	fi
-# 	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
-
+	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
 
 src_bonus/obj/%.o: src_bonus/%.c include/so_long_bonus.h
 	@clear
