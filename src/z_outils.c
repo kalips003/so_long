@@ -1,12 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   z_outils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
+/*   Updated: 2024/06/02 18:17:03 by agallon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-int	exit_all(t_data *data)
+///////////////////////////////////////////////////////////////////////////////]
+// exit all without the error message
+static void	exit_img(t_data *data)
 {
-	int	i;
-
-	free_tab(data->map);
-	if (data->pika)
-		free(data->pika);
 	if (data->img_ground)
 		mlx_destroy_image(data->mlx, data->img_ground);
 	if (data->img_wall)
@@ -15,6 +24,16 @@ int	exit_all(t_data *data)
 		mlx_destroy_image(data->mlx, data->img_exit);
 	if (data->img_ball)
 		mlx_destroy_image(data->mlx, data->img_ball);
+}
+
+int	exit_all(t_data *data)
+{
+	int	i;
+
+	free_tab(data->map);
+	if (data->pika)
+		free_s(data->pika);
+	exit_img(data);
 	i = -1;
 	while (++i < 16)
 	{
@@ -31,5 +50,14 @@ int	exit_all(t_data *data)
 		free(data->mlx);
 	}
 	exit(0);
+	return (0);
+}
+
+// exit all with the error message
+int	exit_all_2(t_data *data, char *string)
+{
+	if (string)
+		put("%s", string);
+	exit_all(data);
 	return (0);
 }

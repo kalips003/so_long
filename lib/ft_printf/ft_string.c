@@ -68,32 +68,17 @@ t_str	g_tab[] = {NULL,
 	NULL};
 
 ////////////////////////////////////////////////////////////
-static int	wi(char c, char *dico)
+static char *le(char *s, char *app, int *inc)
 {
-	int		i;
-
-	if (!dico)
-		return (-2);
-	i = -1;
-	while (dico[++i])
-	{
-		if (c == dico[i])
-			return (i);
-	}
-	return (-1);
-}
-
-static int	le(char *s, char *dico, int *inc)
-{
+	
 	int		i;
 
 	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] && wi(s[i], dico) < 0)
+	while (app && app[i] && app[i] != '%')
 		i++;
-	*inc = *inc + i;
-	return (i);
+	s = join(s, app, 0b10, i);
+	*inc += i;
+	return (s);
 }
 
 ////////////////////////////////////////////////////////////
@@ -103,7 +88,7 @@ char	*f_2(char *str, int *i, va_list args)
 	t_flags	f;
 	char	*rtrn;
 
-	f_ini_struct(&f);
+	f_ini_struct(&f, 1);
 	f_fill_struct(&str[*i + 1], &f, args);
 	f_error_check(&f);
 	rtrn = NULL;
@@ -138,7 +123,11 @@ char	*str(char *str, ...)
 		if (str[i] == '%')
 			rtrn = join(rtrn, f_2(str, &i, args), 0b11, 0);
 		else
-			rtrn = join(rtrn, &str[i], 0b10, le(&str[i], "%", &i));
+			rtrn = le(rtrn, &str[i], &i);
+		// {
+		// 	rtrn = join(rtrn, &str[i], 0b10, 1);
+		// 	i++;
+		// }
 		if (!rtrn)
 			return (NULL);
 	}

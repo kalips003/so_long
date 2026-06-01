@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:38:31 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/13 18:29:17 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:26:30 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_flag
 	int			tmp_a;
 	long long	num_b;
 	char		*rtrn;
+	int 		fd;
 }				t_flags;
 //	#
 typedef int		(*t_func)(va_list, t_flags *);
@@ -47,12 +48,13 @@ typedef char	*(*t_str)(va_list, t_flags *);
 ////////////////////////////////////////////////////////////
 //	#	PRINTF
 int		put(const char *str, ...);
-int		f_1(const char *str, int *i, va_list args);
+// int		f_1(const char *str, int *i, va_list args);
+int	print_fd(int fd, const char *str, ...);
 ////////////////////////////////////////////////////////////
 //	#	STRUCT
 // static 1
 // static 2
-void	f_ini_struct(t_flags *flags);
+void	f_ini_struct(t_flags *flags, int fd);
 void	f_error_check(t_flags *flags);
 void	f_fill_struct(const char *str, t_flags *f, va_list args);
 ////////////////////////////////////////////////////////////
@@ -65,7 +67,7 @@ int		size_exp(t_flags *f);
 ////////////////////////////////////////////////////////////
 //	#	TOOLS PRINT
 int		wii_print(char c);
-int		ft_putnbr_base(long long nbr, char *base);
+int		ft_putnbr_base(int fd, long long nbr, char *base);
 int		ft_put_float(double nbr, t_flags *flags);
 // static int	ft_put_science_zero(t_flags *f)
 int		ft_put_science(double nbr, t_flags *f);
@@ -80,7 +82,7 @@ int		f_spacing(t_flags *flags, int size);
 int		size_format_num_un(unsigned long num, t_flags *f, int num_size);
 int		size_num_base_un(unsigned long num, int base);
 int		f_format_num_un(t_flags *f, unsigned long num, int size_num);
-int		ft_putnbr_base_un(unsigned long nbr, char *base);
+int		ft_putnbr_base_un(int fd, unsigned long nbr, char *base);
 ////////////////////////////////////////////////////////////
 //	#	PRINT FLAG
 int		ft_string(va_list args, t_flags *flags);

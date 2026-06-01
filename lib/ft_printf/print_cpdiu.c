@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tableau.c                                          :+:      :+:    :+:   */
+/*   print_cpdiu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <agallon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:06:53 by agallon           #+#    #+#             */
-/*   Updated: 2023/12/08 14:29:23 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:35:14 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_pointer(va_list args, t_flags *f)
 	if (p)
 	{
 		size += f_format_num_un(f, p, num_size);
-		size += ft_putnbr_base_un(p, "0123456789abcdef");
+		size += ft_putnbr_base_un(f->fd, p, "0123456789abcdef");
 	}
 	else
 		size += write(1, "(nil)", 5);
@@ -99,7 +99,7 @@ int	ft_int(va_list args, t_flags *f)
 	if (!f->minus)
 		size += f_spacing(f, num_size + size_format_num(num, f, num_size));
 	size += f_format_num(f, num, num_size);
-	size += ft_putnbr_base(num, "0123456789");
+	size += ft_putnbr_base(f->fd, num, "0123456789");
 	if (f->minus)
 		size += f_spacing(f, num_size + size_format_num(num, f, num_size));
 	return (size);
@@ -120,7 +120,7 @@ int	ft_unsigned(va_list args, t_flags *f)
 	if (!f->minus)
 		size += f_spacing(f, num_size + size_format_num(num, f, num_size));
 	size += f_format_num(f, num, num_size);
-	size += ft_putnbr_base(num, "0123456789");
+	size += ft_putnbr_base(f->fd, num, "0123456789");
 	if (f->minus)
 		size += f_spacing(f, num_size + size_format_num(num, f, num_size));
 	return (size);

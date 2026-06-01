@@ -33,10 +33,10 @@ void	clean_buff(char *buff, int sw)
 
 ///////////////////////////////////////////////////////
 // #	FREE ALL NODES FROM FIRST
-void	free_all(t_list **first_list)
+void	free_all(t_gnl **first_list)
 {
-	t_list	*current_list;
-	t_list	*temp_list;
+	t_gnl	*current_list;
+	t_gnl	*temp_list;
 
 	current_list = *first_list;
 	while (current_list != NULL)
@@ -50,7 +50,7 @@ void	free_all(t_list **first_list)
 
 ///////////////////////////////////////////////////////
 // #	RETURN SIZE OF NEXT \N		+1 if \n found
-int	is_there_n(t_list *node)
+int	is_there_n(t_gnl *node)
 {
 	int	i;
 
@@ -68,9 +68,9 @@ int	is_there_n(t_list *node)
 
 ////////////////////////////////////////[0000][0123][4\n56]
 // #	RETURN RESULT	1 > 2
-char	*f_rtrn_2(t_list *first_list, char *rtrn, int size)
+char	*f_rtrn_2(t_gnl *first_list, char *rtrn, int size)
 {
-	t_list	*current_list;
+	t_gnl	*current_list;
 	int		i;
 	int		j;
 

@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/31 17:46:24 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/02 18:06:13 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,31 @@
 	check if current '*' is exit (return 1)
 	check 4 directions (return 0)
 ****************************************************************/
-static int	check_cardinal(t_data *data, char **map)
+static void	check_cardinal2(t_data *data, t_valid_path *path)
 {
-	if (data->ptr[0] == data->exit[0] && data->ptr[1] == data->exit[1])
-		return (1);
-	map[data->ptr[1]][data->ptr[0]] = '1';
-	if (map[data->ptr[1] + 1][data->ptr[0]] != '1')
-		map[data->ptr[1] + 1][data->ptr[0]] = '*';
-	if (map[data->ptr[1]][data->ptr[0] + 1] != '1')
-		map[data->ptr[1]][data->ptr[0] + 1] = '*';
-	if (map[data->ptr[1] - 1][data->ptr[0]] != '1')
-		map[data->ptr[1] - 1][data->ptr[0]] = '*';
-	if (map[data->ptr[1]][data->ptr[0] - 1] != '1')
-		map[data->ptr[1]][data->ptr[0] - 1] = '*';
-	return (0);
+	int	x;
+	int	y;
+
+	if (path->x == data->exit[0] && path->y == data->exit[1])
+		path->how_many++;
+	path->map[path->y][path->x] = '1';
+	path->i = -1;
+	while (++path->i < 4)
+	{
+		y = path->y + cos(path->i * PI / 4);
+		x = path->x + sin(path->i * PI / 4);
+		if (path->map[y][x] == 'C')
+			path->how_many++;
+		if (path->map[y][x] != '1')
+			path->map[y][x] = '*';
+	}
 }
 
 /***************************************************************
 	parse map to find next to explore ('*')
 	if no more '*', return 0
 ****************************************************************/
-static int	find_next_to_explore(t_data *data, char **map_path)
+static int	find_next_to_explore2(t_data *data, t_valid_path *path)
 {
 	int	y;
 	int	x;
@@ -47,10 +51,10 @@ static int	find_next_to_explore(t_data *data, char **map_path)
 		x = 0;
 		while (++x < data->map_x - 1)
 		{
-			if (map_path[y][x] == '*')
+			if (path->map[y][x] == '*')
 			{
-				data->ptr[0] = x;
-				data->ptr[1] = y;
+				path->x = x;
+				path->y = y;
 				return (1);
 			}
 		}
@@ -64,78 +68,26 @@ static int	find_next_to_explore(t_data *data, char **map_path)
 ****************************************************************/
 int	valid_path(t_data *data)
 {
-	char	**map_path;
-	int		y;
+	t_valid_path	path;
 
-	map_path = (char **)malloc(sizeof(char *) * (data->map_y + 1));
-	if (!map_path)
+	path.map = (char **)malloc(sizeof(char *) * (data->map_y + 1));
+	if (!path.map)
 		return (put("error malloc 2\n"), 1);
-	y = -1;
-	while (++y < data->map_y)
+	path.i = -1;
+	while (++path.i < data->map_y)
 	{
-		map_path[y] = str("%1s", data->map[y]);
-		if (!map_path[y])
-			return (put("error malloc 3\n"), free_tab(map_path), exit_all(data),
+		path.map[path.i] = str("%1s", data->map[path.i]);
+		if (!path.map[path.i])
+			return (put("error malloc 3\n"), free_tab(path.map), exit_all(data),
 				1);
 	}
-	map_path[y] = NULL;
-	map_path[data->player[1]][data->player[0]] = '*';
-	while (find_next_to_explore(data, map_path))
-	{
-		if (check_cardinal(data, map_path))
-			return (free_tab(map_path), 0);
-	}
-	return (free_tab(map_path), 1);
-}
-
-
-/***************************************************************
-	check path for player
-****************************************************************/
-int check_path_player(t_data *data, int dx, int dy)
-{
-    int x;
-    int y;
-    int i;
-
-    x = data->player[0] + dx;
-    y = data->player[1] + dy;
-    if (data->map[y][x] == '1')
-        return (0);
-    if (data->map[y][x] == 'C')
-    {
-        data->map[y][x] = '0';
-        data->num_collected++;
-    }
-    else if (data->map[y][x] == 'E')
-    {
-        put("You finished with %d moves, and got %d/%d pokeballs!\n", data->walk_count, data->num_collected, data->num_ball);
-        exit_all(data);
-    }
-    i = -1;
-    while (++i < data->num_pika)
-        if (data->pika[i][0] == x && data->pika[i][1] == y)
-            (put("YOU DIED\n"), exit_all(data));
-    return (1);
-}
-
-/***************************************************************
-	check path for pika n'i, with input [0,1,2,3]
-****************************************************************/
-int check_path_pika(t_data *data, int i, int random)
-{
-    t_coor  path;
-    int     j;
-
-    path.x = data->pika[i][0] + (int)cos(random * PI / 2);
-    path.y = data->pika[i][1] + (int)sin(random * PI / 2);
-    if (data->map[path.y][path.x] == '1')
-        return (0);
-    j = -1;
-    while (++j < data->num_pika)
-        if (path.x == data->pika[j][0] && path.y == data->pika[j][1])
-            return (0);
-    if (path.x == data->player[0] && path.y == data->player[1])
-        (put("YOU DIED\n"), exit_all(data));
-    return (1);
+	path.map[path.i] = NULL;
+	path.map[data->player[1]][data->player[0]] = '*';
+	path.how_many = 0;
+	while (find_next_to_explore2(data, &path) && path.how_many < data->num_ball
+		+ 1)
+		check_cardinal2(data, &path);
+	if (path.how_many != data->num_ball + 1)
+		return (free_tab(path.map), 1);
+	return (free_tab(path.map), 0);
 }

@@ -28,9 +28,9 @@ int	ft_hexa(va_list args, t_flags *f)
 		size += f_spacing(f, num_size + size_format_num(hex, f, num_size));
 	size += f_format_num(f, hex, num_size);
 	if (f->flag == 'x')
-		size += ft_putnbr_base(hex, "0123456789abcdef");
+		size += ft_putnbr_base(f->fd, hex, "0123456789abcdef");
 	else
-		size += ft_putnbr_base(hex, "0123456789ABCDEF");
+		size += ft_putnbr_base(f->fd, hex, "0123456789ABCDEF");
 	if (f->minus)
 		size += f_spacing(f, num_size + size_format_num(hex, f, num_size));
 	return (size);
@@ -40,8 +40,8 @@ int	ft_hexa(va_list args, t_flags *f)
 int	ft_percent(va_list args, t_flags *f)
 {
 	if (args || f)
-		return (write(1, "%", 1));
-	return (write(1, "%", 1));
+		return (write(f->fd, "%", 1));
+	return (write(f->fd, "%", 1));
 }
 
 //////////////////////////////////////////////////////////// (%b)
@@ -59,7 +59,7 @@ int	ft_binary(va_list args, t_flags *f)
 	if (!f->minus)
 		size += f_spacing(f, num_size + size_format_num(bi, f, num_size));
 	size += f_format_num(f, bi, num_size);
-	size += ft_putnbr_base(bi, "01");
+	size += ft_putnbr_base(f->fd, bi, "01");
 	if (f->minus)
 		size += f_spacing(f, num_size + size_format_num(bi, f, num_size));
 	return (size);
@@ -83,7 +83,7 @@ int	ft_octal(va_list args, t_flags *f)
 	if (!f->minus)
 		size += f_spacing(f, num_size + size_format_num(oct, f, num_size));
 	size += f_format_num(f, oct, num_size);
-	size += ft_putnbr_base(oct, "01234567");
+	size += ft_putnbr_base(f->fd, oct, "01234567");
 	if (f->minus)
 		size += f_spacing(f, num_size + size_format_num(oct, f, num_size));
 	return (size);

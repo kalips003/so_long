@@ -37,7 +37,7 @@ int	wii_print(char c)
 
 ////////////////////////////////////////////////////////////
 //	#	WRITE NUM IN CORRESPONDING BASE, NO SIGN
-int	ft_putnbr_base(long long nbr, char *base)
+int	ft_putnbr_base(int fd, long long nbr, char *base)
 {
 	int			size;
 	int			rtrn;
@@ -49,8 +49,8 @@ int	ft_putnbr_base(long long nbr, char *base)
 	if (nbr < 0)
 		nbr = -nbr;
 	if (nbr >= size)
-		rtrn += ft_putnbr_base(nbr / size, base);
-	write(1, &base[nbr % size], 1);
+		rtrn += ft_putnbr_base(fd, nbr / size, base);
+	write(fd, &base[nbr % size], 1);
 	return (rtrn + 1);
 }
 
@@ -67,16 +67,16 @@ int	ft_put_float(double nbr, t_flags *f)
 		nbr = -nbr;
 	int_part = (long long)nbr;
 	fract_part = nbr - (long long)nbr;
-	size = ft_putnbr_base((long long)nbr, "0123456789");
+	size = ft_putnbr_base(f->fd, (long long)nbr, "0123456789");
 	if (!(f->point && f->preci == 0) || f->hash)
-		size += write(1, ".", 1);
+		size += write(f->fd, ".", 1);
 	i = 0;
 	while (i < f->preci)
 	{
 		int_part = (long long)(fract_part * 10) + '0';
 		fract_part = (fract_part * 10) - \
 				(unsigned long long)((fract_part * 10));
-		write(1, &int_part, 1);
+		write(f->fd, &int_part, 1);
 		i++;
 	}
 	return (size + i);
@@ -89,14 +89,14 @@ static int	ft_put_science_zero(t_flags *f)
 	int	size;
 	int	i;
 
-	size = write(1, "0", 1);
+	size = write(f->fd, "0", 1);
 	if (!(f->point && f->preci == 0) || f->hash)
-		size += write(1, ".", 1);
+		size += write(f->fd, ".", 1);
 	i = 0;
 	while (i++ < f->preci)
-		size += write(1, "0", 1);
-	size += write(1, &f->flag, 1);
-	size += write(1, "+00", 3);
+		size += write(f->fd, "0", 1);
+	size += write(f->fd, &f->flag, 1);
+	size += write(f->fd, "+00", 3);
 	return (size);
 }
 
@@ -115,6 +115,6 @@ int	ft_put_science(double nbr, t_flags *f)
 		nbr /= 10;
 	while (nbr < 1 && --puissance && nbr != 0)
 		nbr *= 10;
-	size += put("%0.*f%c%+.2d", f->preci, nbr, f->flag, puissance);
+	size += print_fd(f->fd, "%0.*f%c%+.2d", f->preci, nbr, f->flag, puissance);
 	return (size);
 }

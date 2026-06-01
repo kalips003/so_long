@@ -26,13 +26,13 @@ static int	f_prefix_hash(t_flags *f)
 	if (is_float(f))
 		return (0);
 	if ((f->hash && f->flag == 'x') || f->flag == 'p')
-		return (write(1, "0x", 2));
+		return (write(f->fd, "0x", 2));
 	if (f->hash && f->flag == 'X')
-		return (write(1, "0X", 2));
+		return (write(f->fd, "0X", 2));
 	if (f->hash && f->flag == 'b')
-		return (write(1, "0b", 2));
+		return (write(f->fd, "0b", 2));
 	if (f->hash && f->flag == 'o')
-		return (write(1, "0", 1));
+		return (write(f->fd, "0", 1));
 	return (0);
 }
 
@@ -43,20 +43,20 @@ int	f_format_num(t_flags *f, long long num, int size_num)
 
 	prefix = 0;
 	if (num < 0)
-		prefix += write(1, "-", 1);
+		prefix += write(f->fd, "-", 1);
 	if (num >= 0 && f->space)
-		prefix += write(1, " ", 1);
+		prefix += write(f->fd, " ", 1);
 	if (num >= 0 && f->plus)
-		prefix += write(1, "+", 1);
+		prefix += write(f->fd, "+", 1);
 	if (num)
 		prefix += f_prefix_hash(f);
 	i = 0;
 	if (f->point && !(is_float(f)))
 		while (i < f->preci - size_num)
-			i += write(1, "0", 1);
+			i += write(f->fd, "0", 1);
 	else if (f->zero)
 		while (i < f->width - size_num - prefix)
-			i += write(1, "0", 1);
+			i += write(f->fd, "0", 1);
 	return (i + prefix);
 }
 
@@ -98,6 +98,6 @@ int	f_spacing(t_flags *f, int size)
 		return (0);
 	if (!f->zero)
 		while (i < to_print)
-			i += write(1, " ", 1);
+			i += write(f->fd, " ", 1);
 	return (i);
 }

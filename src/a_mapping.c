@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:06 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/28 19:52:57 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/02 17:52:45 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	fill_map(t_data *data, int fd_map)
 {
 	data->map = expand_tab(NULL, gnl(fd_map));
 	if (!data->map || !data->map[0])
-		return (put("some error occured (1)\n"), free_tab(data->map), close(fd_map), 1);
+		return (put("some error occured (1)\n"), free_tab(data->map),
+			close(fd_map), 1);
 	data->map_x = len_m(data->map[0], "\n");
 	while (data->map[data->map_y])
 	{
 		if (len_m(data->map[data->map_y], "\n") != data->map_x)
-			return (put("not a rectangle\n"), free_tab(data->map),
+			return (put(ERR "not a rectangle\n"), free_tab(data->map),
 				close(fd_map), 1);
 		data->map_y++;
 		data->map = expand_tab(data->map, gnl(fd_map));
@@ -48,7 +49,8 @@ static void	copy_posi(int *ptr, int x, int y)
 
 static void	ft_posi_pika(t_data *data, int x, int y)
 {
-	data->pika = (int(*)[3])expand(data->pika, data->num_pika * sizeof(int[3]), sizeof(int[3]));
+	data->pika = (int (*)[3])
+		expand(data->pika, data->num_pika * sizeof(int [3]), sizeof(int [3]));
 	if (!data->pika)
 		(put("error expension\n"), exit_all(data));
 	data->pika[data->num_pika][0] = x;
@@ -63,23 +65,23 @@ static int	small_check(t_data *data)
 	int	x;
 
 	if (data->player[2] != 1)
-		return (put("none or too many player\n"), 1);
+		return (put(ERR "none or too many player\n"), 1);
 	if (data->exit[2] != 1)
-		return (put("none or too many exit\n"), 1);
+		return (put(ERR "none or too many exit\n"), 1);
 	if (data->num_ball < 1)
-		return (put("no collectible\n"), 1);
+		return (put(ERR "no collectible\n"), 1);
 	y = 0;
 	while (++y < data->map_y - 1)
 		if (data->map[y][0] != '1' || data->map[y][data->map_x - 1] != '1')
-			return (put("bad wall side\n"), 1);
+			return (put(ERR "bad wall side\n"), 1);
 	x = -1;
 	while (++x < data->map_x)
 		if (data->map[0][x] != '1' || data->map[data->map_y - 1][x] != '1')
-			return (put("bad wall top/bot\n"), 1);
+			return (put(ERR "bad wall top/bot\n"), 1);
 	return (0);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////]
 int	count_check(t_data *data)
 {
 	int	x;
@@ -92,7 +94,8 @@ int	count_check(t_data *data)
 		while (++x < data->map_x)
 		{
 			if (wii(data->map[y][x], "01CEPz\n") == -1)
-				return (put("unknown tile %c: [%d, %d]\n", data->map[y][x], x, y), 1);
+				return (put(ERR "unknown tile %c: [%d, %d]\n", data->map[y][x], \
+						x, y), 1);
 			if (data->map[y][x] == 'C')
 				data->num_ball++;
 			else if (data->map[y][x] == 'E')

@@ -14,9 +14,9 @@
 
 ///////////////////////////////////////////////////////
 // #	RETURN FULL SIZE + CREATE ALL LIST
-int	rtrn_size(t_list *first_list, int fd, char (*g_temp)[BUFFER_SIZE])
+int	rtrn_size(t_gnl *first_list, int fd, char (*g_temp)[BUFFER_SIZE])
 {
-	t_list	*current_list;
+	t_gnl	*current_list;
 	int		size;
 
 	current_list = first_list;
@@ -39,14 +39,14 @@ int	rtrn_size(t_list *first_list, int fd, char (*g_temp)[BUFFER_SIZE])
 
 ///////////////////////////////////////////////////////
 // #	RETURN CLEAN NODE, IF FIRST NODE, FILL WITH TEMP
-t_list	*ini_node(t_list *first_list, char (*g_temp)[BUFFER_SIZE], int fd)
+t_gnl	*ini_node(t_gnl *first_list, char (*g_temp)[BUFFER_SIZE], int fd)
 {
-	t_list	*next_list;
-	t_list	*current_list;
+	t_gnl	*next_list;
+	t_gnl	*current_list;
 	int		i;
 
 	current_list = first_list;
-	next_list = (t_list *)malloc(sizeof(t_list));
+	next_list = (t_gnl *)malloc(sizeof(t_gnl));
 	if (!next_list)
 		return (NULL);
 	clean_buff(next_list->buff, 0);
@@ -67,7 +67,7 @@ t_list	*ini_node(t_list *first_list, char (*g_temp)[BUFFER_SIZE], int fd)
 }
 
 ///////////////////////////////////////////////////////
-char	*f_rtrn_1(t_list *first_list, int fd, char (*g_temp)[BUFFER_SIZE])
+char	*f_rtrn_1(t_gnl *first_list, int fd, char (*g_temp)[BUFFER_SIZE])
 {
 	int		size;
 	char	*rtrn;
@@ -84,7 +84,7 @@ char	*f_rtrn_1(t_list *first_list, int fd, char (*g_temp)[BUFFER_SIZE])
 
 ///////////////////////////////////////////////////////
 // #	RESET TEMP = COPY THE REMAINDER TO TEMP
-void	f_copy_rest(t_list *last_list, char (*g_temp)[BUFFER_SIZE], int fd)
+void	f_copy_rest(t_gnl *last_list, char (*g_temp)[BUFFER_SIZE], int fd)
 {
 	int	i;
 	int	size;
@@ -115,8 +115,8 @@ void	f_copy_rest(t_list *last_list, char (*g_temp)[BUFFER_SIZE], int fd)
 ///////////////////////////////////////////////////////
 char	*gnl(int fd)
 {
-	t_list		*first_list;
-	t_list		*current_list;
+	t_gnl		*first_list;
+	t_gnl		*current_list;
 	char		*rtrn;
 	static char	g_temp[1024][BUFFER_SIZE];
 

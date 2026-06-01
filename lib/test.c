@@ -3,21 +3,39 @@
 #include "../include/libft.h"
 #include "../include/so_long.h"
 
+///////////////////////////////////////////////////////////////////////////////]
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+░█████╗░  ███████╗░█████╗░██╗██████╗░███████╗
+██╔══██╗  ██╔════╝██╔══██╗██║██╔══██╗██╔════╝
+███████║  █████╗░░███████║██║██████╔╝█████╗░░
+██╔══██║  ██╔══╝░░██╔══██║██║██╔══██╗██╔══╝░░
+██║░░██║  ██║░░░░░██║░░██║██║██║░░██║███████╗
+╚═╝░░╚═╝  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝╚══════╝
+
+> resize all sprites, + up direction (64 px)
+
+
+
+animation exit, closed if not all collec
+tweak anim time
+
+
+
+
+lib > comment line of norm size
+* * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 //, void (*del)(void *),
 // int my_function(int num, ...);
 // #define funct(ap, type)    (*(type *)((ap += sizeof(type)) - sizeof(type)))
 
 int	main(int ac, char **av, char **env)
 {
-	int randomNumber;
-	int i = -1;
+    char *string = str("heello\n");
 
-	while (++i < atoi_v(av[1]))
-	{
-		randomNumber = (rand() % (MAX_CHANCE + 1));
-		put("random number = %d\n", randomNumber);
-	}
-	return (0);
+    put("= %#S =\n", string);
+    free_s(string);
+    return 0;
 }
 
 // while (((condition1) & bit) || ((condition2) & ~bit))
