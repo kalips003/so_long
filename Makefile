@@ -358,7 +358,7 @@ endef
 # @$(call random_shmol_cat, text 1, text 2, $(CLS), $(RESET));
 # $(1)= $(CLEAR); $(2)= text1; $(3)= text2; $(4)= $(RESET)
 define random_shmol_cat
-	COLOR=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
+	COLOR=$$(printf "\033[38;5;%dm" $$(shuf -i 1-255 -n 1)); \
 	COLOR2=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	echo "$(3)$${COLOR2}\
 	\tにゃ~$${COLOR}\t⠀╱|、\n\
