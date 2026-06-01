@@ -195,12 +195,12 @@ test:	libft
 
 test2:	mlx libft $(OBJ_B) include/so_long.h
 	@cc ./lib/test.c ./lib/libft.a $(OBJ_B) -o ./lib/a.out
-	@$(call random_cat, $(call pad_word, 10, "Making"), $(call pad_word, 12, "Science"), $(CLS), $(RESET));
+	@$(call random_cat, $(call pad_word, 12, "TE"), $(call pad_word, 14, "Science"), $(CLS), $(RESET));
 	@lib/a.out
 
 vtest:	libft
-	@cc -g3 ./lib/test.c ./lib/libft.a -o ./lib/a.out
-	@$(call random_cat, $(call pad_word, 10, "Making"), $(call pad_word, 12, "Science"), $(CLS), $(RESET));
+	@cc -g3 ./lib/test.c ./lib/libft.a -o ./lib/a.out -lm
+	$(call print_cat, "", $(RED), $(GOLD), $(BLUE1), $(call pad_word, 10, "TESTING"), $(call pad_word, 12, "SCIENCE.."));
 	@$(VALGRIND) lib/a.out
 
 clean:
@@ -216,7 +216,7 @@ re: fclean all bonus
 
 re_bonus: fclean
 
-.PHONY: all clean fclean re bonus t2
+.PHONY: all clean fclean re bonus
 
 .SILENT: $(NAME) bonus
 
@@ -229,7 +229,7 @@ VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 
 #
 # GITHUB!
 # ↑さ↓ぎょう  を  ↓ほ↑ぞん
-git:
+git: fclean
 	@$(call random_shmol_cat_blink, 作業を保存してるかな.., いいね、いいねえー , $(CLS), );
 	@current_date=$$(date); \
 	git add .; \
