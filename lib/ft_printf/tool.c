@@ -14,7 +14,7 @@
 
 ////////////////////////////////////////////////////////////
 //	#	THE RETURN OF THE KING
-int	ft_strlen(char *str)
+int	ft_strlen666(char *str)
 {
 	int	i;
 

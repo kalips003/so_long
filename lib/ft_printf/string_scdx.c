@@ -87,7 +87,7 @@ char	*pt_hex(va_list args, t_flags *f)
 	base = "0123456789abcdef";
 	if (f->point)
 		base = (char *)va_arg(args, char *);
-	f->tmp_a = ft_strlen(base);
+	f->tmp_a = ft_strlen666(base);
 	num = (long long)va_arg(args, long long);
 	if (num < 0 && ++f->size && ++f->minus)
 		num = -num;

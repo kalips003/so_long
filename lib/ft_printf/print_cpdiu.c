@@ -21,7 +21,7 @@ int	ft_string(va_list args, t_flags *f)
 	int		space;
 
 	str = va_arg(args, char *);
-	size = ft_strlen(str);
+	size = ft_strlen666(str);
 	if (!str && !(f->point && f->preci < 6))
 		size = 6;
 	else if (str && (f->point && f->preci < size))
