@@ -71,7 +71,7 @@ int main(int ac, char **av)
         exit_all_v2(&data);
     ini_sprites(&data);
 ////////////////////////////////////////
-    mlx_loop_hook(data.mlx, &ft_loop, &data);
+    mlx_loop_hook(data.mlx, &ft_loop_v2, &data);
     mlx_hook(data.win, KeyPress, KeyPressMask, &key_press_v2, &data);
     mlx_hook(data.win, KeyRelease, KeyReleaseMask, &key_release, &data);
     mlx_hook(data.win, 17, 0, &exit_all_v2, &data);

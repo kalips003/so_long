@@ -6,11 +6,11 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 04:24:13 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/06 17:28:39 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/09 19:28:09 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
@@ -24,17 +24,17 @@ void is_map_ok_v2(t_data2 *data, char *path)
     ft_memset(data, 0, sizeof(t_data2));
 // map path end in ".ber"
     if (find_str(path, ".ber") != len(path) - 4)
-        (put("bad argument\n"), exit(1));
+        (put(ERR"bad argument\n"), exit(1));
 // create map struct
     fd_map = open(path, O_RDONLY);
     if (fd_map == -1)
-        (perror("open"), exit(1));
+        (perror(ERR"open"), exit(1));
 // fill map
     if (fill_map_v2(data, fd_map) || count_check_v2(data))
 		exit_all_v2(data);
 // valid path?
     if (valid_path_v2(data))
-        (put("bad pathing\n%.3t\n", data->map), exit_all_v2(data));
+        (put(ERR"bad pathing\n%.3t\n", data->map), exit_all_v2(data));
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
@@ -96,13 +96,13 @@ int	valid_path_v2(t_data2 *data)
 
 	map_path = (char **)malloc(sizeof(char *) * (data->map_y + 1));
 	if (!map_path)
-		return (put("error malloc (2)\n"), 1);
+		return (put(ERRM"error malloc (2)\n"), 1);
 	y = -1;
 	while (++y < data->map_y)
 	{
 		map_path[y] = str("%1s", data->map[y]);
 		if (!map_path[y])
-			return (put("error malloc (3)\n"), free_tab(map_path), exit_all_v2(data), 1);
+			return (put(ERRM"error malloc (3)\n"), free_tab(map_path), exit_all_v2(data), 1);
 	}
 	map_path[y] = NULL;
 	map_path[data->player.y / SPRITE_SIZE][data->player.x / SPRITE_SIZE] = '*';

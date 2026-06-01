@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 /***************************************************************
@@ -62,7 +62,7 @@ void    check_what_your_walking_on(t_data2 *data)
 		data->map[y][x] = '0';
 	else if (data->exit[0] == data->player.x && data->exit[1] == data->player.y && data->exit[2])
 	{
-		put(MSG_WIN"You finished with %d moves, picked up %d pokeballs and caught %d/%d mons!\n", 
+		put(MSG_WIN"You finished with %d moves, picked up %d pokeballs and caught %d/%d mons!\n",
 		data->walk_count, data->num_ball, data->num_pika_caught, data->num_pika);
 		exit_all_v2(data);
 	}

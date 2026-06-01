@@ -1,4 +1,4 @@
-# include "so_long.h"
+#include "so_long_bonus.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
 //      clean the bottom
@@ -42,7 +42,7 @@ void	put_background_to_buffer(t_data2 *data)
 			else if (data->map[y][x] == 'C' || data->map[y][x] == 'c')
 				f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_ball[(data->map[y][x] == 'c')]);
 			else if (data->map[y][x] == 'E')
-				f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_exit[0 + data->is_all_collected]);
+				f_put_sprite_to_buffer(data, x * SPRITE_SIZE, y * SPRITE_SIZE, data->i_exit[0 + data->exit[2]]);
 		}
 	}
 	put_black_background(data);
@@ -92,13 +92,13 @@ static void put_balls_foreground(t_data2 *data)
         f_put_sprite_to_buffer(data, x, y, data->i_big_ball[1]);
     }
 }
-draw_frame(t_data2 *data, t_img img, int xyfe[4], int (* color)(void));
+// draw_frame(t_data2 *data, t_img img, int xyfe[4], int (* color)(void));
 ///////////////////////////////////////////////////////////////////////////////]
 // 			UPDATE THE BACKGROUND
 void	background(t_data2 *data)
 {
 	put_background_to_buffer(data);
 	put_black_background(data);
-	put_stamina(data);
+	ft_stamina(data);
 	put_balls_foreground(data);
 }

@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 // static void destroy_img_v3(t_data2 *d)
 // {
@@ -57,7 +57,7 @@ int	exit_all_v2(t_data2 *data)
 	free_tab(data->map);
 	if (data->pika)
 		free(data->pika);
-	destroy_img_v3(data);
+	destroy_img_v4(data);
 	if (data->mlx)
 	{
 		if (data->win)
@@ -115,15 +115,15 @@ void f_print_memory_v2(t_data2 *data)
 }
 
 
-static void	put_map(char *txt, char **map)
-{
+// static void	put_map(char *txt, char **map)
+// {
 
-	if (!map)
-		return ;
-	put("%s", txt);
-	while (*map)
-	{
-		put("\t%S", *map);
-		map++;
-	}
-}
+// 	if (!map)
+// 		return ;
+// 	put("%s", txt);
+// 	while (*map)
+// 	{
+// 		put("\t%S", *map);
+// 		map++;
+// 	}
+// }
