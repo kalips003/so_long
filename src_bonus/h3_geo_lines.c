@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h3_geo_lines.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:22 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/11 16:54:23 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/18 00:49:27 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@ void draw_line_v2(t_data2 *data, int a[2], int b[2], unsigned int color)
 }
 
 //      Color passed as function
-void draw_line_v3(t_data2 *data, int a[2], int b[2], unsigned int (*color)(void))
+void draw_line_v3(t_data2 *data, int aa[2], int b[2], unsigned int (*color)(void))
 {
-	int dxy[2];
-	int sxy[2];
-	int err;
+	int	dxy[2];
+	int	sxy[2];
+	int	a[2];
+	int	err;
 
+	a[0] = aa[0];
+	a[1] = aa[1];
 	dxy[0] = abs(b[0] - a[0]);
 	dxy[1] = abs(b[1] - a[1]);
 	sxy[0] = 1 - 2 * !(a[0] < b[0]);
@@ -53,9 +56,9 @@ void draw_line_v3(t_data2 *data, int a[2], int b[2], unsigned int (*color)(void)
 	err = dxy[0] - dxy[1];
 	while (1)
 	{
-		put_pixel_buffer(data, a[0] + HIT_BOX, a[1] + HIT_BOX, color());
+		put_pixel_buffer(data, a[0], a[1], color());
 		if (a[0] == b[0] && a[1] == b[1])
-			break;
+			break ;
 		helper_v555(&err, a, dxy, sxy);
 	}
 }

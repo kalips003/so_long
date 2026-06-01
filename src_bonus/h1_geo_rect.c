@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h1_geo_rect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:28 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/11 16:54:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/16 18:36:15 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ void	ft_put_rectangle(t_data2 *data, int xy[2], int dxy[2], unsigned int (*color
 	int	j;
 	int	buf_i;
 
-	if (xy[0] < 0 || xy[1] < 0 || xy[0] + dxy[0] >= data->buffer.sz_x || xy[1] + dxy[1] >= data->buffer.sz_y)
+	if (xy[0] < 0 || xy[1] < 0 || dxy[0] > data->buffer.sz_x || dxy[1] > data->buffer.sz_y)
+	{
+		put("rect too big\n");
 		return ;
-	i = -1;
+	}
+	i = xy[0];
 	while (++i < dxy[0])
 	{
-		j = -1;
+		j = xy[1];
 		while (++j < dxy[1])
 		{
-			buf_i = (xy[1] + j) * data->buffer.ll + (xy[0] + i) * (data->buffer.bpp / 8);
+			buf_i = j * data->buffer.ll + i * (data->buffer.bpp / 8);
 			*((unsigned int *)(data->buffer.addr + buf_i)) = color();
 		}
 	}

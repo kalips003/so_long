@@ -24,6 +24,8 @@ void	ft_foreground(t_data2 *data)
 	f_put_player_to_buffer_v4(data);
 	f_put_pika_to_buffer_v4(data);
 	f_put_event_ball_to_buffer_v3(data);
+	// if (data->attack.time)
+	// 	render attak
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
@@ -69,7 +71,7 @@ static void	f_put_event_ball_to_buffer_v3(t_data2 *data)
 	if (data->throw.ball.time > 0)
 		draw_frame(data, data->i_throw, (int [4]){data->throw.ball.x + OFFSET_BALL_THR, data->throw.ball.y + OFFSET_BALL_THR, i, 1}, NULL);
 	else if (data->throw.ball.time < 0)
-		draw_frame(data, data->i_throw, (int [4]){data->throw.ball.x + OFFSET_BALL_THR, data->throw.ball.y + OFFSET_BALL_THR, i, 1}, random_white);
+		draw_frame(data, data->i_throw, (int [4]){data->throw.ball.x + OFFSET_BALL_THR, data->throw.ball.y + OFFSET_BALL_THR, i, 1}, ft_r_white);
 }
 
 static void	f_put_player_to_buffer_v4(t_data2 *data)
@@ -77,7 +79,7 @@ static void	f_put_player_to_buffer_v4(t_data2 *data)
 	if (data->player.time >= 0)
 		draw_frame(data, data->i_player, (int [4]){data->player.x, data->player.y, data->player.f, 4}, NULL);
 	else
-		draw_frame(data, data->i_player, (int [4]){data->player.x, data->player.y, data->player.f, 4}, random_yellow_v2);
+		draw_frame(data, data->i_player, (int [4]){data->player.x, data->player.y, data->player.f, 4}, data->color_r);
 }
 
 static void	f_put_pika_to_buffer_v4(t_data2 *data)
@@ -89,9 +91,9 @@ static void	f_put_pika_to_buffer_v4(t_data2 *data)
 	{
 		if (data->pika[i].x < 0)
 			continue ;
-		if (data->pika[i].time >= 0)
-			draw_frame(data, data->i_pika, (int [4]){data->pika[i].x, data->pika[i].y, data->pika[i].f, 2}, NULL);
+		if (data->pika[i].time == -1)
+			draw_frame(data, data->i_pika, (int [4]){data->pika[i].x, data->pika[i].y, data->pika[i].f, 2}, data->color_r);
 		else
-			draw_frame(data, data->i_pika, (int [4]){data->pika[i].x, data->pika[i].y, data->pika[i].f, 2}, random_yellow_v2);
+			draw_frame(data, data->i_pika, (int [4]){data->pika[i].x, data->pika[i].y, data->pika[i].f, 2}, NULL);
 	}
 }

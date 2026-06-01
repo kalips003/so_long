@@ -31,7 +31,18 @@
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
-	put("%S", "jekkjadsfhsldj saf");
+	srand(time(NULL));
+	int starter;
+	
+
+
+	int i = -1;
+	while (++i < 50)
+	{
+		starter = (int)(rand() % 4);
+		put("starter = %d\n", starter);
+
+	}
 	// int	fd = open("map/map3.ber", O_RDONLY);
 	// if (fd == -1)
 	// 	return (put("error fd\n"));
