@@ -2,10 +2,7 @@ NAME = so_long
 NAME_BONUS = so_long_bonus
 
 CC = cc
-FLAGS = -Wextra -Wall -Werror -g -fPIE
-# FLAGS = -Wextra -Wall -g -fPIE
-# CFLAGS = -Wall -Werror -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
-# FLAGS = -g -fPIE
+FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER)
 
 all: $(NAME)
 
@@ -51,7 +48,7 @@ v: libft mlx $(NAME_BONUS)
 	@echo $(RESET);
 
 # ---------------------------------------------------------------------- >
-BAD_MAPS = map_bad_not_rect1.ber map_no_collec.ber map_no_player.ber \
+BAD_MAPS = map_bad_not_rect1.ber map_bad_not_rect2.ber map_no_collec.ber map_no_player.ber \
 			map_no_exit.ber map_many_exit.ber \
 			map_many_player.ber map_bad_wall.ber \
 			map_bad_enclosed_e.ber map_bad_enclosed_c.ber \
@@ -101,13 +98,13 @@ m: libft mlx $(NAME)
 	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	-$(VALGRIND) ./$(NAME) map/$(MAP3)
+	-$(VALGRIND) ./$(NAME) map/$(MAP2)
 
 m2: libft mlx $(NAME)
 	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
 	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
 	@read -p "" key
-	-$(VALGRIND) ./$(NAME) map/$(MAP3)
+	-$(VALGRIND) ./$(NAME) map/$(MAP1)
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	        SOURCES                    	         │
@@ -149,7 +146,7 @@ mlx:
 
 $(NAME): mlx libft $(OBJ) main.c
 	@clear
-	@if ! $(CC) $(FLAGS) $(OBJ) main.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a -lX11 -lXext -o $(NAME) -lm; then \
+	@if ! $(CC) $(FLAGS) $(OBJ) main.c lib/libft.a ./mlx_linux/libmlx.a $(FLAGS_MLX) -lm -o $(NAME); then \
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
@@ -160,7 +157,7 @@ src/obj/%.o: src/%.c
 	@if [ ! -e $(OBJ_FOLDER) ]; then\
 		mkdir -p $(OBJ_FOLDER);\
 	fi
-	@if ! $(CC) -c $(FLAGS) -I$(HEADER_FOLDER) $< -o $@; then \
+	@if ! $(CC) -c $(FLAGS) $< -o $@; then \
 		$(call shmol_cat_error, $(RED), $(RED_L)); \
 		exit 1; \
 	fi
@@ -169,7 +166,7 @@ src/obj/%.o: src/%.c
 # │                  	 	       BONUS	                   	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-FLAGS_TEST = -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz
+FLAGS_MLX = -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lz
 SRC_B = $(wildcard src_bonus/*.c)
 OBJ_B = $(patsubst src_bonus/%.c, src_bonus/obj/%.o, $(SRC_B))
 
@@ -179,7 +176,7 @@ $(NAME_BONUS): bonus
 
 bonus: mlx libft $(OBJ_B) main_bonus.c include/so_long.h
 	@clear
-	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c -I$(HEADER_FOLDER) lib/libft.a ./mlx_linux/libmlx.a $(FLAGS_TEST) -lX11 -lXext -o $(NAME_BONUS) -lm; then \
+	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c lib/libft.a ./mlx_linux/libmlx.a $(FLAGS_MLX) -lm -o $(NAME_BONUS); then \
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
@@ -190,7 +187,7 @@ src_bonus/obj/%.o: src_bonus/%.c include/so_long_bonus.h
 	@if [ ! -e $(OBJ_FOLDER_B) ]; then\
 		mkdir -p $(OBJ_FOLDER_B);\
 	fi
-	@if ! $(CC) -c $(FLAGS) -I$(HEADER_FOLDER) -Imlx_linux -O3 -c $< -o $@; then \
+	@if ! $(CC) -c $(FLAGS) -Imlx_linux -O3 -c $< -o $@; then \
 		$(call shmol_cat_error, $(RED), $(RED_L)); \
 		exit 1; \
 	fi
