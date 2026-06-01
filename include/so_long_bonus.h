@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:55:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/20 02:04:29 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/20 02:09:05 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define ATTAK_TIME_2 64
 # define CHANNELING_TIME -100
 # define MAX_ENDURANCE 500
-# define TIME_TO_DIE -128
+# define TIME_TO_DIE -300
 # define PLAYER_SPEED 2
 
 # define START_X_SCORE 80
