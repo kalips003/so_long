@@ -6,7 +6,7 @@
 /*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:54:09 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/26 16:58:21 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:37:14 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **env)
 	printf("--->%d\n\n\n\n", (int)round(0.49));
 	string = str("asdf%dalosdif", 123);
 	put("=%s=\n", string);
-	ft_print_cat(i, string, 0b10);
+	ft_print_cat(i, string, 0b01);
 	free(string);
 	put("HELLO AGAIN=\n");
 	return (0);
