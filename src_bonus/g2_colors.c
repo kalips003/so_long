@@ -6,17 +6,21 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:31 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/17 19:56:57 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/19 16:38:37 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	put_pixel_buffer(t_data2 *data, int x, int y, unsigned color);
+void			put_pixel_buffer(t_data2 *data, int x, int y, unsigned int co);
+unsigned int	ft_yellow(void);
+unsigned int	ft_green(void);
+unsigned int	ft_red(void);
+unsigned int	ft_blue(void);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // 			put pixel to buffer, secure for out_of_bounds
-void	put_pixel_buffer(t_data2 *data, int x, int y, unsigned color)
+void	put_pixel_buffer(t_data2 *data, int x, int y, unsigned int color)
 {
 	char	*dst;
 	int		offset;
@@ -25,5 +29,26 @@ void	put_pixel_buffer(t_data2 *data, int x, int y, unsigned color)
 		return ;
 	offset = (y * data->buffer.ll + x * (data->buffer.bpp / 8));
 	dst = data->buffer.addr + offset;
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
+}
+
+///////////////////////////////////////////////////////////////////////////////]
+unsigned int	ft_yellow(void)
+{
+	return (0xF8D050);
+}
+
+unsigned int	ft_green(void)
+{
+	return (0x88E020);
+}
+
+unsigned int	ft_red(void)
+{
+	return (0xE02828);
+}
+
+unsigned int	ft_blue(void)
+{
+	return (0x58B8F0);
 }

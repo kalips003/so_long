@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:06:26 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/16 13:04:04 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:07:41 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 // # 	GET NEXT LINE									///
 # define BUFFER_SIZE 32
 
-typedef struct s_gnl {
+typedef struct s_gnl
+{
 	char			buff[BUFFER_SIZE];
 	struct s_gnl	*next;
 }	t_gnl;

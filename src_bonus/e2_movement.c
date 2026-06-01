@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:54:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/18 02:16:38 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/19 04:27:03 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,16 @@ static void	move_pika_v2(t_data2 *data, int i);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         move player in a [0,1,0,2,0] fashion
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-// void	f_move_player_v2(t_data2 *data)
-// {
-// 	if (!data->player.time)
-// 		return ;
-// 	if (!((data->time + 1) % (TIME_PLAYER - data->running)))
-// 		return ;
-// 	data->player.time -= 2;
-// 	data->player.x += 2 * data->player.dx;
-// 	data->player.y += 2 * data->player.dy;
-// 	if (data->player.time == 54)
-// 		data->player.f += 1;
-// 	else if (data->player.time == 40)
-// 		data->player.f += -1;
-// 	else if (data->player.time == 24)
-// 		data->player.f += 2;
-// 	else if (data->player.time == 10)
-// 		data->player.f += -2;
-// }
-
 void	f_move_player_v2(t_data2 *data)
 {
 	int	speed;
-	
+
 	if (!data->player.time)
 		return ;
 	speed = PLAYER_SPEED;
 	if (data->running)
 		speed = PLAYER_SPEED * 2;
 	data->player.time -= speed;
-	// put("(playertime: %d)\n", data->player.time);
 	data->player.x += speed * data->player.dx;
 	data->player.y += speed * data->player.dy;
 	if (data->player.time == 52)
@@ -67,33 +47,35 @@ void	f_move_player_v2(t_data2 *data)
 	else if (data->player.time == 8)
 		data->player.f += -2;
 }
+
+///////////////////////////////////////////////////////////////////////////////]
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         move all enemy. if time == 0, random what happen next
         its also the ft_save_time of the enemies
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void	ft_move_enemy(t_data2 *data)
+void	ft_move_enemy(t_data2 *d)
 {
 	int	i;
 	int	random;
 
 	i = -1;
-	while (++i < data->num_pika && i < 10)
+	while (++i < d->n_pika && i < 10)
 	{
-		if (data->pika[i].time == -1 || data->pika[i].time == -2 || data->pika[i].x < 0)
+		if (d->pika[i].time == -1 || d->pika[i].time == -2 || d->pika[i].x < 0)
 			continue ;
-		if (data->pika[i].time > 0)
-			move_pika_v2(data, i);
+		if (d->pika[i].time > 0)
+			move_pika_v2(d, i);
 		else
 		{
 			random = (rand() % (PIKA_MOVE_CHANCE + i));
 			if (random < PIKA_TURN_CHANCE)
-				data->pika[i].f = (random % 4) * 2;
-			if (random <= 3 && data->pika[i].time != -3)
+				d->pika[i].f = (random % 4) * 2;
+			if (random <= 3 && d->pika[i].time != -3)
 			{
-				data->pika[i].dx = (int)cos(random * PI / 2);
-				data->pika[i].dy = (int)sin(random * PI / 2);
-				if (check_path_npc(data, data->pika[i], i) > 0)
-					data->pika[i].time = 64;
+				d->pika[i].dx = (int)cos(random * PI / 2);
+				d->pika[i].dy = (int)sin(random * PI / 2);
+				if (check_path_npc(d, d->pika[i], i) > 0)
+					d->pika[i].time = 64;
 			}
 		}
 	}
@@ -106,31 +88,32 @@ void	ft_move_enemy(t_data2 *data)
         if ball touch a pika, its time is negative
             in this case, the catching ball animation is played
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void	move_ball(t_data2 *data)
+void	move_ball(t_data2 *d)
 {
-	// if (data->time % TIME_BALL)
-	// 	return ;
-	if (data->throw.ball.time < 0)
+	if (d->throw.ball.time < 0)
 	{
-		draw_circle(data, (t_circle){data->throw.ball.x + DEMI_SPRITE, data->throw.ball.y + DEMI_SPRITE, -data->throw.ball.time, ft_r_white});
-		if (data->throw.ball.time == -5)
-			data->pika[data->throw.pika_caught].x = -1;
-		if (data->throw.ball.time == -1)
-			data->map[(int)round((double)data->throw.ball.y / SPRITE_SIZE)][(int)round((double)data->throw.ball.x / SPRITE_SIZE)] = 'c';
-		data->throw.ball.time++;
-		if (!data->throw.ball.time)
-			data->tmp_bit = 1;
+		draw_circle(d, (t_circle){d->throw.ball.x + HALF, d->throw.ball.y \
+			+ HALF, -d->throw.ball.time, ft_r_white});
+		if (d->throw.ball.time == -5)
+			d->pika[d->throw.pika_caught].x = -1;
+		if (d->throw.ball.time == -1)
+			d->map[(int)round((double)d->throw.ball.y / SZ)][\
+				(int)round((double)d->throw.ball.x / SZ)] = 'c';
+		d->throw.ball.time++;
+		if (!d->throw.ball.time)
+			d->tmp_bit = 1;
 		return ;
 	}
-	data->throw.ball.x += 2 * data->throw.ball.dx;
-	data->throw.ball.y += 2 * data->throw.ball.dy;
-	if (!(data->throw.ball.time % 5))
-		data->throw.ball.f = (data->throw.ball.f + 1) % 12;
-	if (data->throw.ball.time == 2)
-		data->map[(int)round((double)data->throw.ball.y / SPRITE_SIZE)][(int)round((double)data->throw.ball.x / SPRITE_SIZE)] = 'C';
-	data->throw.ball.time -= 2;
-	if (!data->throw.ball.time)
-		data->tmp_bit = 1;
+	d->throw.ball.x += 2 * d->throw.ball.dx;
+	d->throw.ball.y += 2 * d->throw.ball.dy;
+	if (!(d->throw.ball.time % 5))
+		d->throw.ball.f = (d->throw.ball.f + 1) % 12;
+	if (d->throw.ball.time == 2)
+		d->map[(int)round((double)d->throw.ball.y / SZ)][\
+			(int)round((double)d->throw.ball.x / SZ)] = 'C';
+	d->throw.ball.time -= 2;
+	if (!d->throw.ball.time)
+		d->tmp_bit = 1;
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -138,8 +121,6 @@ void	move_ball(t_data2 *data)
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 static void	move_pika_v2(t_data2 *data, int i)
 {
-	// if (data->time % (TIME_PIKA + i))
-	//     return ;
 	data->pika[i].time--;
 	data->pika[i].x += data->pika[i].dx;
 	data->pika[i].y += data->pika[i].dy;

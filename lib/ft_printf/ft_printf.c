@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:06:22 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/11 18:32:07 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 18:00:06 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,18 @@ int	print_fd(int fd, const char *str, ...)
 	return (sum);
 }
 
-
 /*******************************************************************************
  * 		PRINT CAT RANDOM COLOR
 *******************************************************************************/
-void	ft_print_cat(int num,  char *string2, int cls)
+void	ft_print_cat(int num, char *string2, int cls)
 {
-	int color1;
-	int color2;
-	int color3;
+	int	color1;
+	int	color2;
+	int	color3;
 
-	color1 = (int)(rand() % (255  + 1));
-	color2 = (int)(rand() % (255  + 1));
-	color3 = (int)(rand() % (255  + 1));
-
+	color1 = (int)(rand() % (255 + 1));
+	color2 = (int)(rand() % (255 + 1));
+	color3 = (int)(rand() % (255 + 1));
 	if (cls)
 		put(CLS);
 	put("\033[38;5;%dm\
@@ -140,6 +138,7 @@ void	ft_print_cat(int num,  char *string2, int cls)
 	\t\t⠀|、˜\\\t\t\t\033[38;5;%dm~ %s\033[38;5;%dm\n\
 	\t\t⠀じしˍ)ノ\n", \
 	color2, color1, color2, num, color1, color2, string2, color1);
-	put(BLINK "\033[38;5;%dm\n\t\t>>>  PRISS ENTER TO CONTINUE  <<<\n"RESET, color3);
+	put(BLINK "\033[38;5;%dm\n\t\t>>>  PRISS ENTER TO CONTINUE  <<<\n"RESET, \
+		color3);
 	free_333(gnl(0));
 }
