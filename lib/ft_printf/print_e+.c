@@ -32,14 +32,37 @@ int	ft_scientific(va_list args, t_flags *f)
 }
 
 //////////////////////////////////////////////////////////// (%S)
-// [ % S ] > spacing
+// [ % S ] > spacing, show white space
 // [ %*S ] > print memory
-// [ %.*S ] > color sizeof (bit)
+// [ %.*S ] > \n sizeof (bit)
 // [ %#S ] > hexadecimal
 // [ %-#S ] > no 2 precision for hexa
 // [ %+S ] > colors +128
 int	ft_string_hexa(va_list args, t_flags *f)
 {
+	char	*str;
+	int		i;
+
+	i = -1;
+	str = va_arg(args, char *);
+	if (!str)
+		return (put(BLINK REVERSE "NULL" RESET) - 12);
+	while (str[++i] || i < f->width)
+	{
+		put("\033[38;5;0;48;5;%um", ((unsigned)str[i] + 128 * (f->plus)) % 256);
+		if (f->preci && i % f->preci == 0)
+			put("\n");
+		if (f->hash)
+			f->size += put("%.*x", 2 - f->minus, (unsigned char)str[i]);
+		else
+			f->size += put("%d", str[i]);
+		f->size += put("%.*s", ((str[i] == ' ' || str[i] == '\n') && !f->hash)
+				|| f->space, " ");
+	}
+	put(RESET);
+	return (f->size);
+}
+/*{
 	char	*str;
 	int		i;
 
@@ -61,10 +84,11 @@ int	ft_string_hexa(va_list args, t_flags *f)
 	}
 	put(RESET);
 	return (f->size);
-}
+}*/
 
 //////////////////////////////////////////////////////////// (%t)
-int	ft_tab(va_list args, t_flags *flags)
+// [ %.*S ] > put * \t in front of the tab
+int	ft_tab(va_list args, t_flags *f)
 {
 	char	**tab;
 	int		i;
@@ -74,6 +98,7 @@ int	ft_tab(va_list args, t_flags *flags)
 	if (!tab)
 		return (put(BLINK REVERSE "NULL" RESET) - 12);
 	while (tab[++i])
-		flags->size += put("%s\n", tab[i]);
-	return (flags->size);
+		// f->size += put("%s\n", tab[i]);
+		f->size += put("%.*c%s\n", f->preci, '\t', tab[i]);
+	return (f->size);
 }

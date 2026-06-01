@@ -27,16 +27,21 @@ m: libft mlx $(NAME)
 	@echo "$(COLOR_5R_1G_0B)"
 	-$(VALGRIND) ./so_long map/map_multiplayer.ber
 # 
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
 	@clear
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with holes in the wall!~");
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with no collectible!~");
-	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with player trapped!~");
-	@echo "$(COLOR_5R_1G_0B)"
+# @$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with holes in the wall!~");
+# @$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with no collectible!~");
+	@$(call print_cat_no_reset, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with player trapped!~");
 	-$(VALGRIND) ./so_long map/map_multiplayer.ber
+	@echo -e "\033[5m~ Press Enter to continue...\033[0m"
+	@read -p "" key
+	@clear
 # 
 	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with bad map name!~");
 	@echo "$(COLOR_5R_4G_0B)"
 	-$(VALGRIND)  ./so_long map/map_multiplayer.be
+	@echo "$(COLOR_1R_4G_4B)"
 	-$(VALGRIND)  ./so_long map/mapzzzzz.ber
 # 
 	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with too much arg!~");
@@ -44,14 +49,17 @@ m: libft mlx $(NAME)
 	-$(VALGRIND)  ./so_long map/map_multiplayer.ber map_correct.ber 
 # 
 	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with a file renamed!!!~");
-	@echo "$(COLOR_5R_4G_0B)"
+	@echo "$(RED)"
 	mv ./img/ball_throw.xpm ./img/ball_throw666.xpm
+	@echo "$(COLOR_5R_4G_0B)"
 	-$(VALGRIND)  ./so_long map/map_correct.ber 
+	@echo "$(RED)"
 	mv ./img/ball_throw666.xpm ./img/ball_throw.xpm
 # 
 	@$(call print_cat_test, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), "にゃ~", "~ teshing with empty file~");
-	@echo "$(COLOR_5R_4G_5B)"
+	@echo "$(RED)"
 	echo > ./map/map_blank.ber
+	@echo "$(COLOR_5R_4G_5B)"
 	-$(VALGRIND)  ./so_long map/map_blank.ber
 
 
@@ -156,7 +164,7 @@ vtest:	libft
 	@cc -g3 ./lib/test.c ./lib/libft.a -o ./lib/a.out
 	$(call print_cat, $(CLEAR), $(RED), $(GOLD), $(BLUE1), $(call pad_word, 10, "TESTING"), $(call pad_word, 12, "SCIENCE"));
 	@echo "$(COLOR_5R_1G_0B)"
-	@valgrind lib/a.out
+	@$(VALGRIND) lib/a.out
 
 clean:
 	@rm -rf $(OBJ_FOLDER)
@@ -240,6 +248,14 @@ define print_cat_test
 	\t\t(˚ˎ。7⠀⠀⠀$(2)$(4)$(1)\n\
 	\t\t⠀|、˜\\\\\n\
 	\t\t⠀じしˍ)ノ\n$(RESET)"
+endef
+
+define print_cat_no_reset
+	echo "$(2)\
+	\t$(3)$(1)\t⠀╱|、\n\
+	\t\t(˚ˎ。7⠀⠀⠀$(2)$(4)$(1)\n\
+	\t\t⠀|、˜\\\\\n\
+	\t\t⠀じしˍ)ノ\n"
 endef
 
 define print_cat_error

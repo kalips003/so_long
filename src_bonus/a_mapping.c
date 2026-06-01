@@ -27,7 +27,7 @@ int	fill_map_v2(t_data2 *data, int fd_map)
 	while (data->map[data->map_y])
 	{
 		if (len_m(data->map[data->map_y], "\n") != data->map_x)
-			return (put("not a rectangle\n"), free_tab(data->map),
+			return (put("not a rectangle\n%.3t\n", data->map), free_tab(data->map),
 				close(fd_map), 1);
 		data->map_y++;
 		data->map = expand_tab(data->map, gnl(fd_map));
@@ -66,19 +66,19 @@ static int	small_check(t_data2 *data)
 	int	x;
 
 	if (data->player[2] != 1)
-		return (put("none or too many player\n"), 1);
+		return (put("none or too many player\n%.3t\n", data->map), 1);
 	if (data->exit[2] != 1)
-		return (put("none or too many exit\n"), 1);
+		return (put("none or too many exit\n%.3t\n", data->map), 1);
 	if (data->num_ball < 1)
-		return (put("no collectible\n"), 1);
+		return (put("no collectible\n%.3t\n", data->map), 1);
 	y = 0;
 	while (++y < data->map_y - 1)
 		if (data->map[y][0] != '1' || data->map[y][data->map_x - 1] != '1')
-			return (put("bad wall side\n"), 1);
+			return (put("bad wall side\n%.3t\n", data->map), 1);
 	x = -1;
 	while (++x < data->map_x)
 		if (data->map[0][x] != '1' || data->map[data->map_y - 1][x] != '1')
-			return (put("bad wall top/bot\n"), 1);
+			return (put("bad wall top/bot\n%.3t\n", data->map), 1);
 	return (0);
 }
 
@@ -95,7 +95,7 @@ int	count_check_v2(t_data2 *data)
 		while (++x < data->map_x)
 		{
 			if (wii(data->map[y][x], "01CEPz\n") == -1)
-				return (put("unknown tile %c: [%d, %d]\n", data->map[y][x], x, y), 1);
+				return (put("unknown tile %c: [%d, %d]\n%.3t\n", data->map[y][x], x, y, data->map), 1);
 			if (data->map[y][x] == 'C')
 				data->num_ball++;
 			else if (data->map[y][x] == 'E')

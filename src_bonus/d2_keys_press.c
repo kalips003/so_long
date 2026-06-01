@@ -49,21 +49,23 @@ static void    f_save_time_ball(t_data2 *data)
 int	key_press_v2(int keysym, t_data2 *data)
 {
 	if (keysym == XK_Escape)
-		exit_all_v2(data);
+			exit_all_v2(data);
 	if (keysym == XK_ctrl)
-        data->running = 1;
-    if (data->player[3])
-        return (0);
+		data->running = 1;
+	if (keysym == XK_e)
+		data->time_freeze = 1;
+	if (data->player[3])
+		return (0);
 	if (keysym == XK_d || keysym == XK_Right)
-        f_save_time_player(data, 0, 0);
+		f_save_time_player(data, 0, 0);
 	else if (keysym == XK_s || keysym == XK_Down)
-        f_save_time_player(data, 1, 4);
+		f_save_time_player(data, 1, 4);
 	else if (keysym == XK_a || keysym == XK_Left)
-        f_save_time_player(data, 2, 8);
+		f_save_time_player(data, 2, 8);
 	else if (keysym == XK_w || keysym == XK_Up)
-        f_save_time_player(data, 3, 12);
+		f_save_time_player(data, 3, 12);
 	else if (keysym == XK_space && !data->ball_throw.time)
-        f_save_time_ball(data);
+		f_save_time_ball(data);
 	return (0);
 }
 
@@ -71,6 +73,8 @@ int	key_release(int keysym, t_data2 *data)
 {
 	if (keysym == XK_ctrl)
         data->running = 0;
+	if (keysym == XK_e)
+        data->time_freeze = 0;
 	if (keysym == XK_Escape)//  small anim for throwing
         data->running = 0;
 	return (0);
