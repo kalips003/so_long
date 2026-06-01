@@ -2,7 +2,8 @@ NAME = so_long
 NAME_BONUS = so_long_bonus
 
 CC = cc
-FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER)
+FLAGS = -Wall -Werror -g -fPIE -I$(HEADER_FOLDER)
+# FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER)
 
 all: $(NAME)
 
@@ -23,14 +24,17 @@ MAP4 = map4.ber
 # 	only balls
 MAP5 = map5.ber
 
+aaa:
+	git clone https://github.com/42Paris/minilibx-linux.git minilibx-linux
+	
 # BIG MAP WITH PIKA, BONUS + CONTROLS
 a: libft mlx $(NAME_BONUS) include/so_long_bonus.h
 	@$(call random_shmol_cat, "\'tis good map", 'hav fun ね? (make m for testeur mandatory)', $(CLS), );
-	@echo "\tuse -WASD- or →↓←↑ to move around"
-	@echo "\tuse -SPACE- to throw ball"
-	@echo "\tpress -CTRL-l- (while stationnary) to toogle run"
-	@echo "\tpress -E- to print memory"
-	@echo "\n\t\033[5m~ Press Enter to start, and good luck... ~\033[0m"
+	@echo -e "\tuse -WASD- or →↓←↑ to move around"
+	@echo -e "\tuse -SPACE- to throw ball"
+	@echo -e "\tpress -CTRL-l- (while stationnary) to toogle run"
+	@echo -e "\tpress -E- to print memory"
+	@echo -e "\n\t$(BLINK)~ Press Enter to start, and good luck... ~$(RESET)"
 	@read -p "" key
 	./$(word 3, $^) map/$(MAPG)
 
@@ -59,22 +63,22 @@ m: libft mlx $(NAME)
 	@for map in $(BAD_MAPS); do \
 	$(call random_shmol_cat, teshting lots of bad miaps:, $$map shouldt run..., $(CLS), ); \
 	$(VALGRIND) ./$(word 3, $^) map/map_bad/$$map; \
-	echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"; \
 	read -p "" key; \
 	done
 #
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
 	-$(VALGRIND) ./$(word 3, $^) map/map_multiplayer.be
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"
 	@read -p "" key;
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
 	-$(VALGRIND) ./$(word 3, $^) map/mapzzzzz.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"
 	@read -p "" key
 #
 	@$(call random_shmol_cat, teshing too much args, "$(MAP1) abc", $(CLS), );
 	-$(VALGRIND) ./$(word 3, $^) map/$(MAP1) map/$(MAP2)
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"
 	@read -p "" key
 #
 	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
@@ -82,7 +86,7 @@ m: libft mlx $(NAME)
 	touch ./map/map_blank.ber
 	@echo "$(COLOR_5R_0G_5B)"
 	-$(VALGRIND) ./$(word 3, $^) map/map_blank.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"
 	@read -p "" key
 #
 	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), teshing with a sprite file renamed!!!, , $(CLS), );
@@ -92,17 +96,17 @@ m: libft mlx $(NAME)
 	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
 	@echo "$(RED)"
 	mv ./img/player/player_007.xpm ./img/player/player_0.xpm
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"
 	@read -p "" key
 #
 	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"
 	@read -p "" key
 	-$(VALGRIND) ./$(word 3, $^) map/$(MAP2)
 
 m2: libft mlx $(NAME)
 	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
+	@echo -e "\t$(BLINK)~ Press Enter to continue...$(RESET)"
 	@read -p "" key
 	@(ulimit -s 14; ./$(word 3, $^) map/$(MAP2))
 	ulimit -s 8192
@@ -293,7 +297,7 @@ pad_word = $(BLINK)$(shell printf "%$(1)s" "$(2)")$(RESET)
 # @$(call print_cat, $(CLEAR), $(body), $(eye), $(txt), $(call pad_word, 12, "The⠀Cake"), $(call pad_word, 12, "Is⠀A⠀Lie..."));
 # print_cat (resest?)(color_cat)(color_eyes)(color_text)($(padded_txt_top))($(padded_txt_bot))
 define print_cat
-    @echo "$(1)$(2)\
+    echo -e "$(1)$(2)\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠒⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⠀⠘⡄⠀⠀⠀⠀⠀⠀⣀⠀⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠁⠉⠉⠉⠒⠊⠉⠀⡇⠀\n\
@@ -319,7 +323,7 @@ define random_cat
 	COLOR=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR2=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR3=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
-    echo "$(3)$${COLOR}\
+    echo -e "$(3)$${COLOR}\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠒⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠇⠀⠘⡄⠀⠀⠀⠀⠀⠀⣀⠀⠀\n\
 	\t\t\t\t\t\t\t	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠁⠉⠉⠉⠒⠊⠉⠀⡇⠀\n\
@@ -341,7 +345,7 @@ endef
 # --------------------------------------------------------------------------------- >
 # @$(call shmol_cat_color, $(color_cat), $(color_txt), text1, txt2, $(CLS), $(RESET));
 define shmol_cat_color
-	echo "$(5)$(2)\
+	echo -e "$(5)$(2)\
 	\tにゃ~$(1)\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀$(2)~ $(3) ~$(1)\n\
 	\t\t⠀|、˜\\\\\t\t$(2)$(4)$(1)\n\
@@ -353,7 +357,7 @@ endef
 define random_shmol_cat
 	COLOR=$$(printf "\033[38;5;%dm" $$(shuf -i 1-255 -n 1)); \
 	COLOR2=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
-	echo "$(3)$${COLOR2}\
+	echo -e "$(3)$${COLOR2}\
 	\tにゃ~$${COLOR}\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
 	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\
@@ -368,7 +372,7 @@ rscs:
 define random_shmol_cat_surligne
 	COLOR=$$(printf "\033[0m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR2=$$(printf "\033[48;5;%dm" $$(shuf -i 0-255 -n 1)); \
-	echo "$(3)$${COLOR2}\
+	echo -e "$(3)$${COLOR2}\
 	\tにゃ~$${COLOR}\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
 	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\
@@ -381,7 +385,7 @@ rscb:
 define random_shmol_cat_blink
 	COLOR=$$(printf "\033[0m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
 	COLOR2=$$(printf "\e[5m\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
-	echo "$(3)\n$${COLOR2}\
+	echo -e "$(3)\n$${COLOR2}\
 	\tにゃ~$${COLOR}\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
 	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\
@@ -392,7 +396,7 @@ endef
 # @$(call shmol_cat_error, $(RED), $(RED_L));
 # $(1) = $(color_cat), $(2) = $(color_text)	NO CLS
 define shmol_cat_error
-	echo "$(2)\
+	echo -e "$(2)\
 	\tにゃ~$(1)\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀$(2)~ somshin wen wong ~$(1)\n\
 	\t\t⠀|、˜\\\\\n\

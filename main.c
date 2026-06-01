@@ -24,9 +24,9 @@ int	main(int ac, char **av)
 	if (!data.mlx)
 		(put("--->MLX fait de la merde\n"), exit_all(&data));
 	ini_texture(&data);
-	mlx_loop_hook(data.mlx, &render, &data);
-	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &data);
-	mlx_hook(data.win, 17, 0, &exit_all, &data);
+	mlx_loop_hook(data.mlx, (int (*)())render, &data);
+	mlx_hook(data.win, KeyPress, KeyPressMask, (int (*)())key_press, &data);
+	mlx_hook(data.win, 17, 0, (int (*)())exit_all, &data);
 	mlx_loop(data.mlx);
 	exit_all(&data);
 }

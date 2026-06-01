@@ -40,10 +40,10 @@ int	main(int ac, char **av)
 	what_starter(&data);
 	ini_sprites(&data);
 	ft_background(&data, 1);
-	mlx_loop_hook(data.mlx, &ft_loop_v2, &data);
-	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &data);
-	mlx_hook(data.win, KeyRelease, KeyReleaseMask, &key_release, &data);
-	mlx_hook(data.win, 17, 0, &exit_all_v2, &data);
+	mlx_loop_hook(data.mlx, (int (*)())ft_loop_v2, &data);
+	mlx_hook(data.win, KeyPress, KeyPressMask, (int (*)())key_press, &data);
+	mlx_hook(data.win, KeyRelease, KeyReleaseMask, (int (*)())key_release, &data);
+	mlx_hook(data.win, 17, 0, (int (*)())exit_all_v2, &data);
 	mlx_loop(data.mlx);
 	exit_all_v2(&data);
 }
